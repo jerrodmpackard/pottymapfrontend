@@ -21,8 +21,9 @@ export interface IToken {
 //For login and Create account fetch
 
 export interface IUserInfo {
-    username: string
-    password: string
+    Username: string
+    Password: string
+    ID: number
 }
 
 //This for getting our user's info Id and username

@@ -5,6 +5,7 @@ import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import { useRouter } from "next/navigation";
 import { createAccount, getLoggedInUserData, login } from "@/utils/DataServices";
 import { IToken } from "@/Interfaces/Interfaces";
+import { IUserInfo } from "@/Interfaces/Interfaces";
 
 //By default next js components our server side (Server side components cannot have useStates in them)
 //'use client' turns the component into client component.
@@ -29,14 +30,16 @@ export default function Home() {
 
   const handleSubmit = async () => {
     //Putting our user data inside of an object so we can put it in our Post fetch
-    let userData = {
-      username: username,
-      password: password
+    let userData : IUserInfo = {
+      Username: username,
+      Password: password,
+      ID: 0
     }
 
     if(switchBool) {
       //Create account logic in here
-      createAccount(userData);
+      console.log(userData)
+      await createAccount(userData);
     }else{
       //Login logic in here
 
