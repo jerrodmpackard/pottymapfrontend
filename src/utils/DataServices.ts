@@ -82,38 +82,38 @@ export const getUserItemsByUserId = async (userId: number) => {
     return data;
 }
 
-export const addUser = async (Login: IUserItems) => {
+export const addUser = async (Users: IUserItems) => {
     const res = await fetch( url + '/User/AddUser', {
         method: "POST",
         headers:{
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(Login)
+        body:JSON.stringify(Users)
     });
 
     if(!res.ok){
         const message = "An Error has Occured " + res.status;
         throw new Error(message);
     }
-    //Returns a boolean value depending on whether or not we added a Login item succusfully
+    //Returns a boolean value depending on whether or not we added a Users item succusfully
     const data = await res.json();
     return data;
 }
 
-export const updateUser = async (Login: IUserItems) => {
+export const updateUser = async (Users: IUserItems) => {
     const res = await fetch( url + '/User/UpdateUser/{id}/{username}', {
         method: "PUT",
         headers:{
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(Login)
+        body:JSON.stringify(Users)
     });
 
     if(!res.ok){
         const message = "An Error has Occured " + res.status;
         throw new Error(message);
     }
-    //Returns a boolean value depending on whether or not we added a Login item succesfully
+    //Returns a boolean value depending on whether or not we added a Users item succesfully
     const data = await res.json();
     return data;
 }
