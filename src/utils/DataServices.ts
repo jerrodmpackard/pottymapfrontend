@@ -1,7 +1,7 @@
 import { IUserItems, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
 
 
-const url = "http://pottymap.database.windows.net"
+const url = "https://pottymapwebapi.azurewebsites.net/"
 
 let userData: IUserData
 

@@ -36,22 +36,21 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 export default function mapView() {
 
-    //Navbar Styling
-    const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
-            width: 'auto',
-        },
-    }));
+  //Navbar Styling
+  const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  }));
 
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-    React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -242,9 +241,9 @@ export default function mapView() {
   }, [map]);
 
 
-    return (
+  return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" className=''>
         <Toolbar>
           <IconButton
             size="large"
@@ -253,7 +252,7 @@ export default function mapView() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
             onClick={toggleDrawer(true)}
-            > 
+          >
             <MenuIcon />
           </IconButton>
           <Typography
@@ -316,10 +315,9 @@ export default function mapView() {
         {list}
       </Drawer>
 
-      <div>
-        <div ></div>
-        <div ref={mapContainerRef} style={{ width: '100%', height: '92vh' }}></div>
-      </div>
+      {/* <div className='-z-10'> */}
+      <div ref={mapContainerRef} style={{ width: '100%' }} className='mapHeight'></div>
+      {/* </div> */}
     </Box>
   )
 }

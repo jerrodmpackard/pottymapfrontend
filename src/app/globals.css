@@ -27,3 +27,11 @@ body {
     text-wrap: balance;
   }
 }
+
+.mapHeight {
+  height: calc(100vh - 64px);
+}
+
+.mapHeightMobile {
+  height: calc(100vh - 56px);
+}

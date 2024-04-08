@@ -51,7 +51,7 @@ export default function Home() {
       if(token.token != null){
         localStorage.setItem("Token", token.token)
         getLoggedInUserData(username);
-        router.push('/Dashboard');
+        router.push('/Pages/MapView');
       }else{
         alert("Login Failed");
       }
