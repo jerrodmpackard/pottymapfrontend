@@ -2,6 +2,7 @@ import { Box, Button, Container, Stack, Step, StepButton, Stepper } from '@mui/m
 import React, { useState } from 'react'
 import AddLocation from './AddInfo/AddLocation';
 import AddDetails from './AddInfo/AddDetails';
+import AddImages from './AddInfo/AddImages';
 
 const AddRestroom = () => {
 
@@ -53,7 +54,7 @@ const AddRestroom = () => {
         <Box>
             {activeStep === 0 && <AddLocation />}
             {activeStep === 1 && <AddDetails />}
-            {/* {activeStep === 2 && <AddImages />} */}
+            {activeStep === 2 && <AddImages />}
         </Box>
         <Stack
         direction='row'

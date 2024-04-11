@@ -47,7 +47,7 @@ const NavComponent = () => {
                         PMap
                     </Typography>
 
-                    {!currentUser ? (<Button color='inherit' startIcon={<Lock />} onClick={() => dispatch({type:'UPDATE_USER', payload: user})}> 
+                    {!currentUser ? (<Button color='inherit' startIcon={<Lock />} onClick={() => dispatch({type:'OPEN_LOGIN', payload: user})}> 
                         Login 
                     </Button>) : (<UserIcons />)}
 
