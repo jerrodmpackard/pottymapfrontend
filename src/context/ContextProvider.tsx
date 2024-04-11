@@ -1,7 +1,7 @@
 'use client'
 import { createContext, useContext, useReducer } from "react"
-import reducer from "./reducer"
-import {Action} from "./reducer"
+import reducer,{Action} from "./reducer"
+import reducerTwo, {ActionTwo} from "./reducerTwo"
 
 //Declaring types
 interface IContextValue {
@@ -17,10 +17,16 @@ interface User {
 
 interface State {
   currentUser: User | null;
+  openLogin: boolean;
+  loading: boolean;
 }
 
 //Initalizing the variable
-const initialState = { currentUser:null }
+const initialState = { 
+  currentUser:null, 
+  openLogin:false,
+  loading: false,
+ }
 
 // Creating the context
 const Context = createContext<IContextValue>({
@@ -31,6 +37,37 @@ const Context = createContext<IContextValue>({
 
 //Custom hook to replace useContext() 
 export const useValue = () => { return useContext(Context)}
+
+
+//Adding a Second one for notifications.... It currently doesn't work
+
+// interface IContextValueTwo {
+//   stateTwo: StateTwo;
+//   dispatchTwo: React.Dispatch<ActionTwo>;
+//   initialStateTwo: StateTwo; 
+// }
+
+// interface StateTwo {
+//   alertUser: Alert | null;
+// }
+
+// interface Alert {
+//   open: boolean
+//   severity: 'info' | 'success' | 'warning' | 'error';
+//   message: string;
+// }
+
+// const initialStateTwo = {
+//   alertUser: {open:false, severity:'info', message:''}
+// }
+// const ContextTwo = createContext<IContextValueTwo>({
+//   stateTwo: initialStateTwo,
+//   dispatchTwo: () => undefined,
+//   initialStateTwo,
+// });
+
+// export const useValueTwo = () => { return useContext(ContextTwo)}
+
   
 
 //Component the provides the context to the 'children' aka all the other components/files 
@@ -48,6 +85,10 @@ const ContextProvider = ({
 
   //this object holds 'state', 'dispatch', and 'initialState' with the type 'IContextValue'
   const contextValue: IContextValue = { state, dispatch, initialState}
+
+  //doesn't work yet
+  // const [stateTwo, dispatchTwo] = useReducer(reducerTwo, initialStateTwo);
+  // const contextValueTwo: IContextValueTwo = { stateTwo, dispatchTwo, initialStateTwo };
 
   return (
 
