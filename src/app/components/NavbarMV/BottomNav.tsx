@@ -1,11 +1,19 @@
 import { AddLocationAltRounded, Bathroom, LocationOn } from '@mui/icons-material';
 import { BottomNavigation, BottomNavigationAction, Box, Paper } from '@mui/material'
 import React, { useState } from 'react'
+import BetaMap from '../MapsMV/BetaMap';
 
 const BottomNav = () => {
     const [value, setValue] = useState(0);
   return (
     <Box>
+      {
+        {
+          0: <BetaMap />,
+          1: <Bathroom />,
+          // 2: <AddBathroom />
+        }[value]
+      }
         <Paper
         elevation={3}
         sx={{position:'fixed', bottom:0, left:0, zIndex:2}}
