@@ -6,7 +6,7 @@ import { AppBar, Box, Button, Container, IconButton, Toolbar } from '@mui/materi
 import { useValue } from '@/context/ContextProvider';
 import UserIcons from '../UserMV/UserIcons';
 
-import PhotoURL from '../../Assets/vecteezy_cartoon-doodle-golden-toilet_12156543.png'
+import PhotoURL from '@/assets/vecteezy_cartoon-doodle-golden-toilet_12156543.png'
 
 
 const NavComponent = () => {
@@ -47,7 +47,7 @@ const NavComponent = () => {
                         PMap
                     </Typography>
 
-                    {!currentUser ? (<Button color='inherit' startIcon={<Lock />} onClick={() => dispatch({type:'UPDATE_USER', payload: user})}> 
+                    {!currentUser ? (<Button color='inherit' startIcon={<Lock />} onClick={() => dispatch({type:'OPEN_LOGIN', payload: null})}> 
                         Login 
                     </Button>) : (<UserIcons />)}
 

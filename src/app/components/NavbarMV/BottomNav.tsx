@@ -16,7 +16,7 @@ const BottomNav = () => {
       }
         <Paper
         elevation={3}
-        sx={{position:'fixed', bottom:0, left:0, zIndex:2}}
+        sx={{position:'fixed', bottom:0, left:0, zIndex:2, width: '100%'}}
         >  
             <BottomNavigation
             showLabels
