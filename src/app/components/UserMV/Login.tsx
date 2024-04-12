@@ -112,9 +112,9 @@ const Login = () => {
                 {isRegistering ? 'Login': 'Create One'}
             </Button>
         </DialogActions>
-        <DialogActions sx={{justifyContent: 'center', py: '24px'}}>
+        {/* <DialogActions sx={{justifyContent: 'center', py: '24px'}}>
             <GoogleOnTapLogin />
-        </DialogActions>
+        </DialogActions> */}
     </Dialog>
   )
 }
