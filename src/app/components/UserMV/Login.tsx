@@ -1,9 +1,12 @@
+
 import React, { useEffect, useRef, useState } from 'react'
 import { useValue } from '@/context/ContextProvider';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, TextField } from '@mui/material'
 import { Close, Send } from '@mui/icons-material';
 import PasswordField from './PasswordField';
 import GoogleOnTapLogin from './GoogleOnTapLogin';
+
+
 
 const Login = () => {
 
@@ -27,10 +30,10 @@ const Login = () => {
         e.preventDefault();
 
         //testing Loading
-        // dispatch({type: 'START_LOADING', payload:null})
-        // setTimeout(() => {
-        //     dispatch({type: 'END_LOADING', payload:null})
-        // }, 6000)
+        dispatch({type: 'START_LOADING', payload:null})
+        setTimeout(() => {
+            dispatch({type: 'END_LOADING', payload:null})
+        }, 6000)
 
         //testing Notification
         //const password = passwordRef.current.value
@@ -94,7 +97,7 @@ const Login = () => {
                 />
                 <PasswordField passwordRef={passwordRef}/>
                 {isRegistering && (
-                        <PasswordField passwordRef={confirmPasswordRef} id="confirmpassword" label="Confirm Password" />
+                    <PasswordField passwordRef={confirmPasswordRef} id="confirmpassword" label="Confirm Password" />
                 )}
             </DialogContent>
             <DialogActions>
@@ -103,15 +106,15 @@ const Login = () => {
                 </Button>
             </DialogActions>
         </form>
-        <DialogActions sx={{justifyContent: 'left', p:'5px 24px'}}>
+        <DialogActions sx={{justifyContent: 'center', p:'5px 24px'}}>
             {isRegistering ? 'Already have an account?' : 'Don\'t have an account?'}
             <Button onClick={() => setIsRegistering(!isRegistering)}>
                 {isRegistering ? 'Login': 'Create One'}
             </Button>
         </DialogActions>
-        {/* <DialogActions sx={{justifyContent: 'center', py: '24px'}}>
+        <DialogActions sx={{justifyContent: 'center', py: '24px'}}>
             <GoogleOnTapLogin />
-        </DialogActions> */}
+        </DialogActions>
     </Dialog>
   )
 }

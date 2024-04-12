@@ -7,7 +7,7 @@ import {useDropzone} from 'react-dropzone';
 const AddImages = () => {
   const [files, setFiles] = useState([])
 
-  const onDrop = useCallback((acceptedFiles:any) => {
+  const onDrop = useCallback((acceptedFiles:any) => { //type any for now
     setFiles(acceptedFiles)
     // console.log(acceptedFiles)
   }, [])
