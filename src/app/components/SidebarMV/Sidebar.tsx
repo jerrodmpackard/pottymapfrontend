@@ -11,7 +11,7 @@ const DrawerHeader = styled('div')(({theme}) => ({
     ...theme.mixins.toolbar,
 }))
 
-const Sidebar = ({isOpen, setIsOpen}) => {
+const Sidebar = ({isOpen, setIsOpen}: {isOpen:any , setIsOpen:any}) => {
   return (
     <Drawer
     variant='persistent'
