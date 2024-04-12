@@ -1,9 +1,10 @@
-import React from 'react'
+
+import { useValue } from '@/context/ContextProvider'
 import { Mail, Notifications } from '@mui/icons-material'
 import { Avatar, Badge, Box, IconButton, Tooltip } from '@mui/material'
+import React from 'react'
+import toiletImage from '@/assets/vecteezy_cartoon-doodle-golden-toilet_12156543.png'
 import UserMenu from './UserMenu'
-import { useValue } from '@/context/ContextProvider'
-import toiletImage from '../../Assets/vecteezy_cartoon-doodle-golden-toilet_12156543.png'
 
 const UserIcons = () => {
 

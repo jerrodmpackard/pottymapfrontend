@@ -2,36 +2,37 @@ import { Box, Button, Container, Stack, Step, StepButton, Stepper } from '@mui/m
 import React, { useState } from 'react'
 import AddLocation from './AddInfo/AddLocation';
 import AddDetails from './AddInfo/AddDetails';
+import AddImages from './AddInfo/AddImages';
 
 const AddRestroom = () => {
 
-  const [activeStep, setActiveStep] = useState(0);
-  const [steps, setSteps] = useState( [
-    {label:'Location', completed:false},
-    {label:'Details', completed:false},
-    {label:'Images', completed:false},
-  ])
+    const [activeStep, setActiveStep] = useState(0);
+    const [steps, setSteps] = useState( [
+        {label:'Location', completed:false},
+        {label:'Details', completed:false},
+        {label:'Images', completed:false},
+    ])
 
-  const handleNext = () => {
-    if(activeStep < steps.length -1){
-        setActiveStep((activeStep) => activeStep + 1);
-    }else{
-        const stepIndex = findUnfinished();
-        setActiveStep(stepIndex);
+    const handleNext = () => {
+        if(activeStep < steps.length -1){
+            setActiveStep((activeStep) => activeStep + 1);
+        }else{
+            const stepIndex = findUnfinished();
+            setActiveStep(stepIndex);
+        }
     }
-  }
 
-  const checkDisabled = () => {
-      if(activeStep <steps.length -1) return false;
-      const index = findUnfinished();
-      if(index !== -1) return false
+    const checkDisabled = () => {
+        if(activeStep <steps.length -1) return false;
+        const index = findUnfinished();
+        if(index !== -1) return false
 
-      return true
-  }
+        return true
+    }
 
-  const findUnfinished = () => {
-      return steps.findIndex(step => !step.completed)
-  }
+    const findUnfinished = () => {
+        return steps.findIndex(step => !step.completed)
+    }
 
   return (
     <Container sx={{my:4}}>
@@ -53,7 +54,7 @@ const AddRestroom = () => {
         <Box>
             {activeStep === 0 && <AddLocation />}
             {activeStep === 1 && <AddDetails />}
-            {/* {activeStep === 2 && <AddImages />} */}
+            {activeStep === 2 && <AddImages />}
         </Box>
         <Stack
         direction='row'
