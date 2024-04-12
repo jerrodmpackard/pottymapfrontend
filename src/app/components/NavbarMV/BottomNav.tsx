@@ -34,8 +34,9 @@ const BottomNav = () => {
       {
         {
           0: <BetaMap />,
-          1: <Restroom />,
-          2: <AddRestroom />
+          // 1: <Restroom />,
+          // 2: <AddRestroom />
+          1: <AddRestroom/>
         }[value]
       }
       <Paper
@@ -48,7 +49,7 @@ const BottomNav = () => {
           onChange={(e, newValue) => setValue(newValue)}
         >
           <BottomNavigationAction label='Map' icon={<LocationOn />} />
-          <BottomNavigationAction label='Bathrooms' icon={<Bathroom />} />
+          {/* <BottomNavigationAction label='Bathrooms' icon={<Bathroom />} /> */}
           {/* we could use  WCRounded but people could take offense becuase of the two genders lol*/}
 
           {!currentUser ? (

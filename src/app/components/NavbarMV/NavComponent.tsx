@@ -1,21 +1,24 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Menu, Lock } from '@mui/icons-material'
 import { AppBar, Box, Button, Container, IconButton, Toolbar, Typography } from '@mui/material'
 import PhotoURL from '@/assets/vecteezy_cartoon-doodle-golden-toilet_12156543.png'
 import { useValue } from '@/context/ContextProvider';
 import UserIcons from '../UserMV/UserIcons';
+import Sidebar from '../SidebarMV/Sidebar'
 
 
 const NavComponent = () => {
 
     //object 'user' holds the two properties 'name' and 'image'
-    const user = { name: 'test', PhotoURL }
+    // const user = { name: 'test', PhotoURL }
 
     //Ts couldn't infer the type of 'currentUser'
     //'state' is being returend by 'useValue()' and then deconstructed to get to 'currentUser'
     //'dispatch' is being directly returned by 'useValue()'
-    const { state: { currentUser }, dispatch } = useValue();
+    // const { state: { currentUser }, dispatch } = useValue();
+
+    const [isOpen, setIsOpen] = useState(false)
 
     return (
         <div>
@@ -23,7 +26,7 @@ const NavComponent = () => {
                 <Container maxWidth='lg'>
                     <Toolbar disableGutters>
                         <Box sx={{ mr: 1 }}>
-                            <IconButton size='large' color='inherit'>
+                            <IconButton size='large' color='inherit' onClick={() => setIsOpen(true)}>
                                 <Menu />
                             </IconButton>
                         </Box>
@@ -44,14 +47,16 @@ const NavComponent = () => {
                             PMap
                         </Typography>
 
-                        {!currentUser ? (<Button color='inherit' startIcon={<Lock />} onClick={() => dispatch({ type: 'OPEN_LOGIN', payload: null })}>
+                        {/* {!currentUser ? (<Button color='inherit' startIcon={<Lock />} onClick={() => dispatch({ type: 'OPEN_LOGIN', payload: null })}>
                             Login
-                        </Button>) : (<UserIcons />)}
+                        </Button>) : (<UserIcons />)} */}
+                        <UserIcons/>
 
                     </Toolbar>
                 </Container>
             </AppBar>
             <Toolbar />
+            <Sidebar {...{isOpen, setIsOpen}} />
         </div>
     )
 }

@@ -9,6 +9,7 @@ import NavComponent from '@/app/components/NavbarMV/NavComponent';
 import BottomNav from '@/app/components/NavbarMV/BottomNav';
 import Login from '@/app/components/UserMV/Login';
 import Buffering from '@/app/components/UserMV/Buffering';
+import BetaMap from '@/app/components/MapsMV/BetaMap';
 
 export default function mapView() {
 
@@ -18,7 +19,8 @@ export default function mapView() {
       {/* <Notification/> */}
       <Login />
       <NavComponent/>
-      <BottomNav/>
+      <BetaMap />
+      {/* <BottomNav/> */}
     </div>
   )
 }

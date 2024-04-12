@@ -53,7 +53,7 @@ const BetaMap = () => {
 
   }, []);
 
-  return <div id="map" className='betaMapHeight'></div>;
+  return <div id="map" className='mapHeight'></div>;
 }
 
 export default BetaMap
