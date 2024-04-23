@@ -112,6 +112,9 @@ const NavComponent = () => {
                         <Search id="search">
                             {/* Searchboxb/ Geocoder */}
                         </Search>
+                        <Box>
+                            
+                        </Box>
 
                         {/* {!currentUser ? (<Button color='inherit' startIcon={<Lock />} onClick={() => dispatch({ type: 'OPEN_LOGIN', payload: null })}>
                             Login
