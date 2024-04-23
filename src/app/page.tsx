@@ -57,7 +57,10 @@ export default function Home() {
       }
     }
 
+  }
 
+  const handleGuest = () => {
+    router.push('/Pages/MapView');
   }
 
   return (
@@ -85,7 +88,7 @@ export default function Home() {
           </div>
           <div className="grid grid-flow-col-dense">
             <Button color="light" className="underline text-black border-none" onClick={handleSwitch}>{switchBool ? 'Login' : 'Sign up'}</Button>
-            <Button color='light' className="underline text-black bg-white">Continue as guest</Button>
+            <Button color='light' className="underline text-black bg-white" onClick={handleGuest}>Continue as guest</Button>
           </div>
           <div>
             <a href="#" className="flex justify-center underline text-black">Have a moderator code?</a>

@@ -22,13 +22,8 @@ body {
   background-size: contain;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
 .mapHeight {
+  margin-top: 64px;
   height: calc(100vh - 64px);
 }
 

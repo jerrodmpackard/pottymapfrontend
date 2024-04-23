@@ -20,7 +20,6 @@ const BetaMap = () => {
       map.setConfigProperty('basemap', 'lightPreset', 'day'); // the last value can be changed to dawn, day, dusk, or night
     });
 
-
     // Searchbox
     map.addControl(
       new MapboxGeocoder({
@@ -30,6 +29,22 @@ const BetaMap = () => {
       }), 
       'top-left'  
     );
+
+    //Searchbox outside of the map 
+    // const geocoder = new MapboxGeocoder({
+    //   accessToken: mapboxgl.accessToken,
+    //   mapboxgl: mapboxgl,
+    //   placeholder: 'Search for a location',
+    // });
+
+    // const geocoderContainer = document.getElementById('geocoder');
+    // if (geocoderContainer) {
+    //   geocoderContainer.appendChild(geocoder.onAdd(map));
+    // } else {
+    //   console.error('Geocoder container not found');
+    // }
+    
+    
 
     //Geolocator, grabs the devices location
     map.addControl(
@@ -43,17 +58,23 @@ const BetaMap = () => {
       'bottom-right' 
     );
 
-
     //you're already able to zoom using your mouse but this adds a hard button for that as an alternative option
     // also adds the north orientator
+    map.addControl(new mapboxgl.FullscreenControl());
     map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.ScaleControl());
 
-     
+
     return () => map.remove(); // Cleanup when the component unmounts
 
   }, []);
 
-  return <div id="map" className='mapHeight'></div>;
+  return (
+    <>
+      <div id="map" className='mapHeight'></div>
+      {/* <div id="geocoder"></div> */}
+    </>
+  ) 
 }
 
 export default BetaMap

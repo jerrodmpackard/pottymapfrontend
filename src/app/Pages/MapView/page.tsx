@@ -15,11 +15,11 @@ export default function mapView() {
 
     return (
     <div>
-      <Buffering/>
+      {/* <Buffering/> */}
       {/* <Notification/> */}
-      <Login />
+      {/* <Login /> */}
       <NavComponent/>
-      <BetaMap />
+      {/* <BetaMap /> */}
       {/* <BottomNav/> */}
     </div>
   )
