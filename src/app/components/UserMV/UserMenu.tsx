@@ -2,6 +2,7 @@
 import { useValue } from '@/context/ContextProvider';
 import { Logout, Settings } from '@mui/icons-material'
 import { ListItemIcon, Menu, MenuItem } from '@mui/material'
+import { useRouter } from "next/navigation";
 import React from 'react'
 
 interface UserMenuProps {
@@ -10,10 +11,17 @@ interface UserMenuProps {
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ anchorUserMenu, setAnchorUserMenu }) => {
-    const{dispatch} = useValue();
+    // const{dispatch} = useValue();
 
     const handleCloseUserMenu = () => {
         setAnchorUserMenu(null)
+    }
+
+    const router = useRouter();
+
+    const handleLogout = () => {
+        router.push("/")
+        localStorage.clear()
     }
   return (
     <Menu
@@ -28,7 +36,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ anchorUserMenu, setAnchorUserMenu }
         </ListItemIcon>
             Profile
         </MenuItem>
-        <MenuItem onClick={() => dispatch({type:'UPDATE_USER', payload:null})}>
+        <MenuItem onClick={handleLogout}>
         <ListItemIcon>
             <Logout fontSize='small'/>
         </ListItemIcon>
