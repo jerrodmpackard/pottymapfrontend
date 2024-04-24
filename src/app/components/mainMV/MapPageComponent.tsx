@@ -42,7 +42,7 @@ const MapPageComponent = () => {
         //creating the initial viewport
         const newMap = new mapboxgl.Map({
           container: mapContainerRef.current!,
-          center: [-24, 42], //lng, lat
+          center: [-100, 30], //lng, lat
           zoom: 1, //higher the number, the more zoomed in
         });
 

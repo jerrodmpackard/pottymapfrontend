@@ -17,7 +17,7 @@ export default function AutofillCheckoutDemo() {
     const [token, setToken] = useState<string>('');
 
     useEffect(() => {
-        const accessToken: string = 'NEXT_PUBLIC_MAPBOX_TOKEN';
+        const accessToken: string = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
         setToken(accessToken);
         config.accessToken = accessToken;
     }, []);
@@ -70,7 +70,7 @@ export default function AutofillCheckoutDemo() {
     }
 
     return (
-        <>
+        <div className='bg-gray-300'>
             <form ref={formRef} className="flex flex-col" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                     <div className="w-full">
@@ -136,6 +136,6 @@ export default function AutofillCheckoutDemo() {
 
             {/* Validation text */}
             {showValidationText && <div id="validation-msg" className="mt-6 text-md font-bold">Order successfully submitted.</div>}
-        </>
+        </div>
     );
 }

@@ -60,7 +60,7 @@ export default function Home() {
   }
 
   const handleGuest = () => {
-    router.push('/Pages/MapView');
+    router.push('/Pages/TestPage');
   }
 
   return (
