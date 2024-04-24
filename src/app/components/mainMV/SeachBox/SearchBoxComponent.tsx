@@ -76,6 +76,7 @@ export default function AutofillCheckoutDemo() {
                     <div className="w-full">
                         {/* Input form */}
                         <label className="text-sm font-bold text-gray-700 mb-3">Address</label>
+                         {/* @ts-ignore */}
                         <AddressAutofill accessToken={token} onRetrieve={handleRetrieve}>
                             <input
                                 className="input mb-3"
@@ -107,9 +108,11 @@ export default function AutofillCheckoutDemo() {
                     <div className="w-full">
                         {/* Visual confirmation map */}
                         <div id="minimap-container" className="h-64 w-96 relative mt-4">
+                            {/* @ts-ignore */}
                             <AddressMinimap
                                 canAdjustMarker={true}
                                 satelliteToggle={true}
+                                // @ts-ignore
                                 feature={feature}
                                 show={showMinimap}
                                 onSaveMarkerLocation={handleSaveMarkerLocation}
