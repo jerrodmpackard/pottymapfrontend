@@ -4,7 +4,7 @@ import { Menu, Lock, SearchOffOutlined } from '@mui/icons-material'
 import { AppBar, Box, Button, Container, IconButton, Toolbar, Typography, styled } from '@mui/material'
 // import PhotoURL from '@/assets/vecteezy_cartoon-doodle-golden-toilet_12156543.png'
 // import { useValue } from '@/context/ContextProvider';
-import UserIcons from './SidebarMV/UserMV/UserIcons';
+import UserIcons from './UserMV/UserIcons';
 import Sidebar from './SidebarMV/Sidebar'
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -31,7 +31,7 @@ const MapPageComponent = () => {
 
 
     //MapBox GL
-    const [map, setMap] = React.useState<mapboxgl.Map | null>(null);
+    const [map, setMap] = useState<mapboxgl.Map | null>(null)
     const geocoderContainerRef = useRef<HTMLDivElement>(null)
     const mapContainerRef = useRef<HTMLDivElement>(null)
     
@@ -76,7 +76,7 @@ const MapPageComponent = () => {
     //Re-renders the searchbox everytime the map is updated or when the drawer gets open
     //It used to disappear once the navbar got updated by the drawer 
     useEffect(() => {
-        // Searchbox outside of the newMap ?
+        // Searchbox outside of the map display?
         if (map && geocoderContainerRef.current) {
             const geocoder = new MapboxGeocoder({
               accessToken: mapboxgl.accessToken,
