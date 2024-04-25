@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { AddressAutofill, AddressMinimap, useConfirmAddress, config } from '@mapbox/search-js-react';
+import { Button } from '@mui/material';
 
 interface Feature {
     properties: {
@@ -79,7 +80,7 @@ export default function AutofillCheckoutDemo() {
                          {/* @ts-ignore */}
                         <AddressAutofill accessToken={token} onRetrieve={handleRetrieve}>
                             <input
-                                className="input mb-3"
+                                className="w-full h-8 px-3 py-2 rounded mb-3"
                                 placeholder="Start typing your address, e.g. 123 Main..."
                                 autoComplete="address-line1"
                                 id="mapbox-autofill"
@@ -88,7 +89,7 @@ export default function AutofillCheckoutDemo() {
                         {!showFormExpanded && (
                             <div
                                 id="manual-entry"
-                                className="w-180 mt-2 text-sm text-gray-600 border-b border-gray-400 hover:border-black cursor-pointer"
+                                className="w-full mt-2 text-sm text-gray-600 border-b border-gray-400 hover:border-black cursor-pointer"
                                 onClick={() => setShowFormExpanded(true)}
                             >
                                 Enter an address manually
@@ -96,13 +97,13 @@ export default function AutofillCheckoutDemo() {
                         )}
                         <div className="secondary-inputs" style={{ display: showFormExpanded ? 'block' : 'none' }}>
                             <label className="text-sm font-bold text-gray-700 mb-3">Address Line 2</label>
-                            <input className="input mb-3" placeholder="Apartment, suite, unit, building, floor, etc." autoComplete="address-line2" />
+                            <input className="w-full h-8 px-3 py-2 rounded mb-3" placeholder="Apartment, suite, unit, building, floor, etc." autoComplete="address-line2" />
                             <label className="text-sm font-bold text-gray-700 mb-3">City</label>
-                            <input className="input mb-3" placeholder="City" autoComplete="address-level2" />
+                            <input className="w-full h-8 px-3 py-2 rounded mb-3" placeholder="City" autoComplete="address-level2" />
                             <label className="text-sm font-bold text-gray-700 mb-3">State / Region</label>
-                            <input className="input mb-3" placeholder="State / Region" autoComplete="address-level1" />
+                            <input className="w-full h-8 px-3 py-2 rounded mb-3" placeholder="State / Region" autoComplete="address-level1" />
                             <label className="text-sm font-bold text-gray-700 mb-3">ZIP / Postcode</label>
-                            <input className="input" placeholder="ZIP / Postcode" autoComplete="postal-code" />
+                            <input className="w-full h-8 px-3 py-2 rounded" placeholder="ZIP / Postcode" autoComplete="postal-code" />
                         </div>
                     </div>
                     <div className="w-full">
@@ -124,12 +125,8 @@ export default function AutofillCheckoutDemo() {
                 {/* Form buttons */}
                 {showFormExpanded && (
                     <div className="mb-8">
-                        <button type="submit" className="btn btn-primary mr-3">
-                            Confirm
-                        </button>
-                        <button type="button" className="btn btn-secondary" onClick={resetForm}>
-                            Reset
-                        </button>
+                        <Button variant="contained" type='submit' className='mr-3'>Contained</Button>
+                        <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button>
                     </div>
                 )}
             </form>

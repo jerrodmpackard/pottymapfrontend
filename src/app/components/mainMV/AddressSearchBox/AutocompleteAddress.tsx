@@ -18,7 +18,7 @@ const AutocompleteAddress = () => {
     useEffect(() => {
         const delayFunction = setTimeout(() => {
             getAddressList()
-        }, 1000)
+        }, 500)
 
         return () => clearInterval(delayFunction)
     }, [source])
