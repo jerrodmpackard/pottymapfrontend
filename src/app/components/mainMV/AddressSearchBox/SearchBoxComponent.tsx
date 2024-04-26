@@ -93,7 +93,7 @@ export default function AutofillCheckoutDemo() {
                             />
                         </AddressAutofill>
 
-                        {!showFormExpanded && (
+                        {/* {!showFormExpanded && (
                             <div
                                 id="manual-entry"
                                 className="w-full mt-2 text-sm text-gray-600 border-b border-gray-400 hover:border-black cursor-pointer"
@@ -101,9 +101,9 @@ export default function AutofillCheckoutDemo() {
                             >
                                 Enter an address manually
                             </div>
-                        )}
+                        )} */}
 
-                        <div className="secondary-inputs" style={{ display: showFormExpanded ? 'block' : 'none' }}>
+                        <div className="" >
                             {/* <label className="text-sm font-bold text-gray-700 mb-3">Address Line 2</label>
                             <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="Apartment, suite, unit, building, floor, etc." autoComplete="address-line2" /> */}
 
