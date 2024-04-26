@@ -72,20 +72,27 @@ export default function AutofillCheckoutDemo() {
 
     return (
         <div className='bg-gray-300'>
-            <form ref={formRef} className="flex flex-col" onSubmit={handleSubmit}>
+            <form ref={formRef} className="flex flex-col px-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                    <div className='my-3 col-span-2'>
+                        <h1 className='text-3xl text-center mb-3'>Add Bathroom Data</h1>
+                        <hr className='' />
+                    </div>
+
                     <div className="w-full">
                         {/* Input form */}
                         <label className="text-sm font-bold text-gray-700 mb-3">Address</label>
-                         {/* @ts-ignore */}
+
+                        {/* @ts-ignore */}
                         <AddressAutofill accessToken={token} onRetrieve={handleRetrieve}>
                             <input
-                                className="w-full h-8 px-3 py-2 rounded mb-3"
+                                className="w-full h-10 px-3 py-2 rounded mb-3"
                                 placeholder="Start typing your address, e.g. 123 Main..."
                                 autoComplete="address-line1"
                                 id="mapbox-autofill"
                             />
                         </AddressAutofill>
+
                         {!showFormExpanded && (
                             <div
                                 id="manual-entry"
@@ -95,17 +102,84 @@ export default function AutofillCheckoutDemo() {
                                 Enter an address manually
                             </div>
                         )}
+
                         <div className="secondary-inputs" style={{ display: showFormExpanded ? 'block' : 'none' }}>
-                            <label className="text-sm font-bold text-gray-700 mb-3">Address Line 2</label>
-                            <input className="w-full h-8 px-3 py-2 rounded mb-3" placeholder="Apartment, suite, unit, building, floor, etc." autoComplete="address-line2" />
+                            {/* <label className="text-sm font-bold text-gray-700 mb-3">Address Line 2</label>
+                            <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="Apartment, suite, unit, building, floor, etc." autoComplete="address-line2" /> */}
+
                             <label className="text-sm font-bold text-gray-700 mb-3">City</label>
-                            <input className="w-full h-8 px-3 py-2 rounded mb-3" placeholder="City" autoComplete="address-level2" />
+                            <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="City" autoComplete="address-level2" />
+
                             <label className="text-sm font-bold text-gray-700 mb-3">State / Region</label>
-                            <input className="w-full h-8 px-3 py-2 rounded mb-3" placeholder="State / Region" autoComplete="address-level1" />
+                            <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="State / Region" autoComplete="address-level1" />
+
                             <label className="text-sm font-bold text-gray-700 mb-3">ZIP / Postcode</label>
-                            <input className="w-full h-8 px-3 py-2 rounded" placeholder="ZIP / Postcode" autoComplete="postal-code" />
+                            <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="ZIP / Postcode" autoComplete="postal-code" />
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Gender</label>
+                            <select className="w-full h-10 rounded mb-3">
+                                <option value="mens & womens">Men's and Women's</option>
+                                <option value="gender neutral">Gender neutral</option>
+                                <option value="family restroom">Family restroom</option>
+                            </select>
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Type</label>
+                            <select className="w-full h-10 rounded mb-3">
+                                <option value="individual">Individual</option>
+                                <option value="shared">Shared</option>
+                            </select>
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Number of stalls</label>
+                            <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="Enter number of stalls" />
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Wheelchair accessible</label>
+                            <select className="w-full h-10 rounded mb-3">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Hours of operation</label>
+                            <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="Enter hours of operation" />
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Open to public</label>
+                            <select className="w-full h-10 rounded mb-3">
+                                <option value="yes">Yes</option>
+                                <option value="no">Cutomers only</option>
+                            </select>
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Key required</label>
+                            <select className="w-full h-10 rounded mb-3">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                                <option value="code">Code required</option>
+                            </select>
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Baby changing station</label>
+                            <select className="w-full h-10 rounded mb-3">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Cleanliness</label>
+                            <select className="w-full h-10 rounded mb-3">
+                                <option value="very clean">Very clean</option>
+                                <option value="clean">Clean</option>
+                                <option value="average">Average</option>
+                                <option value="dirty">Dirty</option>
+                                <option value="very dirty">Very dirty</option>
+                            </select>
+
+                            <label className="text-sm font-bold text-gray-700 mb-3">Safety</label>
+                            <select className="w-full h-10 rounded mb-3">
+                                <option value="very clean">Very safe</option>
+                                <option value="clean">safe</option>
+                                <option value="average">Average</option>
+                                <option value="dirty">Unsafe</option>
+                                <option value="very dirty">Very unsafe</option>
+                            </select>
                         </div>
                     </div>
+
                     <div className="w-full">
                         {/* Visual confirmation map */}
                         <div id="minimap-container" className="h-64 w-96 relative mt-4">
@@ -125,14 +199,14 @@ export default function AutofillCheckoutDemo() {
                 {/* Form buttons */}
                 {showFormExpanded && (
                     <div className="mb-8">
-                        <Button variant="contained" type='submit' className='mr-3'>Contained</Button>
+                        <Button variant="contained" type='submit' className='mr-3'>Add Bathroom</Button>
                         <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button>
                     </div>
                 )}
             </form>
 
             {/* Validation text */}
-            {showValidationText && <div id="validation-msg" className="mt-6 text-md font-bold">Order successfully submitted.</div>}
+            {showValidationText && <div id="validation-msg" className="mt-6 text-md font-bold">Bathroom successfully submitted.</div>}
         </div>
     );
 }
