@@ -11,10 +11,16 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import mapboxgl from 'mapbox-gl';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
+import ModalInputs from './UserMV/ModalInputs';
+
+
 const MapPageComponent = () => {
 
     //Opening and closing the Drawer component (Sidebar)
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+
+    //Opening and Closing the Modal Component (ModalInputs)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
     //Creating a material UI element to hold the searchbox
     const Search = styled('div')(({ theme }) => ({
@@ -85,7 +91,7 @@ const MapPageComponent = () => {
             });
             geocoderContainerRef.current.appendChild(geocoder.onAdd(map));
         }
-    }, [map, isOpen])
+    }, [map, isOpen, isModalOpen])
 
 
     return (
@@ -129,11 +135,23 @@ const MapPageComponent = () => {
 
             {/* The Drawer component */}
             <Sidebar {...{isOpen, setIsOpen}} />
+            <ModalInputs {...{isModalOpen, setIsModalOpen}}/>
             
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>
                 <div ref={mapContainerRef}className='mapHeight'></div>
             </Box>
+            <Box> 
+                <Button onClick={() => setIsModalOpen(true)}
+                className="addBtn"
+                style={{
+                    position: 'absolute',
+                    bottom: '10px',
+                    right: '10px',
+                    zIndex: 1000 
+                }}
+                >ADD </Button>
+            </Box> 
         </>
     )
 }
