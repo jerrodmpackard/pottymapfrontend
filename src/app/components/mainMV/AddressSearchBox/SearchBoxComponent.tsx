@@ -15,11 +15,11 @@ export default function AutofillCheckoutDemo() {
     const [showMinimap, setShowMinimap] = useState<boolean>(false);
     const [feature, setFeature] = useState<Feature | null>(null);
     const [showValidationText, setShowValidationText] = useState<boolean>(false);
-    const [token, setToken] = useState<string>('');
+    const [mapToken, setMapToken] = useState<string>('');
 
     useEffect(() => {
         const accessToken: string = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
-        setToken(accessToken);
+        setMapToken(accessToken);
         config.accessToken = accessToken;
     }, []);
 
@@ -84,7 +84,7 @@ export default function AutofillCheckoutDemo() {
                         <label className="text-sm font-bold text-gray-700 mb-3">Address</label>
 
                         
-                        <AddressAutofill accessToken={token} onRetrieve={handleRetrieve}>
+                        <AddressAutofill accessToken={mapToken} onRetrieve={handleRetrieve}>
                             <input
                                 className="w-full h-10 px-3 py-2 rounded mb-3"
                                 placeholder="Start typing your address, e.g. 123 Main..."

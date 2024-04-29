@@ -10,8 +10,9 @@ import Sidebar from './SidebarMV/Sidebar'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import mapboxgl from 'mapbox-gl';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import AddBathroom from '../bathroomMV/AddBathroom';
 
-import ModalInputs from './UserMV/ModalInputs';
+
 
 
 const MapPageComponent = () => {
@@ -135,7 +136,7 @@ const MapPageComponent = () => {
 
             {/* The Drawer component */}
             <Sidebar {...{isOpen, setIsOpen}} />
-            <ModalInputs {...{isModalOpen, setIsModalOpen}}/>
+            <AddBathroom {...{isModalOpen, setIsModalOpen}}/>
             
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>
@@ -143,12 +144,12 @@ const MapPageComponent = () => {
             </Box>
             <Box> 
                 <Button onClick={() => setIsModalOpen(true)}
-                className="addBtn"
                 style={{
                     position: 'absolute',
-                    bottom: '10px',
+                    bottom: '100px',
                     right: '10px',
-                    zIndex: 1000 
+                    zIndex: 1000,
+                
                 }}
                 >ADD </Button>
             </Box> 

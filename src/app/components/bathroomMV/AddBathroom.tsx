@@ -1,12 +1,13 @@
-import { Box, Button, Container, Stack, Step, StepButton, Stepper } from '@mui/material'
+import { Close } from '@mui/icons-material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, Step, StepButton, Stepper } from '@mui/material'
 import React, { useState } from 'react'
-import AddLocation from './AddInfo/AddLocation';
 import AddDetails from './AddInfo/AddDetails';
 import AddImages from './AddInfo/AddImages';
+import AddLocation from './AddInfo/AddLocation';
 
-const AddRestroom = () => {
+const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIsModalOpen:any}) => {
 
-    const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
     const [steps, setSteps] = useState( [
         {label:'Location', completed:false},
         {label:'Details', completed:false},
@@ -35,13 +36,36 @@ const AddRestroom = () => {
     }
 
   return (
-    <Container sx={{my:4}}>
-        <Stepper
-        alternativeLabel
-        nonLinear
-        activeStep={activeStep}
-        sx={{mb:3}}
+    <Dialog 
+    open={isModalOpen}
+    fullWidth={true}
+    maxWidth='md'
+    style={{zIndex: 100}}
+    >
+        <DialogTitle sx={{m:0, p:2}}>
+            Add a Bathroom
+        </DialogTitle>
+        <IconButton
+          sx={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            color: (theme) => theme.palette.grey[500]
+          }}
+          onClick={() => setIsModalOpen(false)}
         >
+          <Close />
+        </IconButton>
+        
+        {/* The middle Section */}
+        <DialogContent dividers sx={{my:4}}>
+
+          <Stepper
+          alternativeLabel
+          nonLinear
+          activeStep={activeStep}
+          sx={{mb:3}}
+          >
             {steps.map((step, index) => (
                 <Step key={step.label} completed={step.completed}>
                     <StepButton onClick={() => setActiveStep(index)}>
@@ -49,17 +73,16 @@ const AddRestroom = () => {
                     </StepButton>
                 </Step>
             ))}
-
-        </Stepper>
-        <Box>
+          </Stepper>
+          <Box>
             {activeStep === 0 && <AddLocation />}
             {activeStep === 1 && <AddDetails />}
             {activeStep === 2 && <AddImages />}
-        </Box>
-        <Stack
-        direction='row'
-        sx={{pt:2, pb:7, justifyContent:'space-around'}}
-        >
+          </Box>
+          <Stack
+          direction='row'
+          sx={{pt:2, pb:7, justifyContent:'space-around'}}
+          >
             <Button
             color='inherit'
             disabled={!activeStep}
@@ -73,10 +96,18 @@ const AddRestroom = () => {
             >
                 Next
             </Button>
-            
-        </Stack>
-    </Container>
+          </Stack>
+
+        </DialogContent>
+
+          {/* The footer */}
+        <DialogActions>
+            <Button onClick={() => setIsModalOpen(false)}>
+                Cancel
+            </Button>
+      </DialogActions>
+    </Dialog>
   )
 }
 
-export default AddRestroom
+export default AddBathroom

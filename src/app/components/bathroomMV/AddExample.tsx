@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { AddressAutofill, AddressMinimap, useConfirmAddress, config } from '@mapbox/search-js-react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material'
 import { Close } from '@mui/icons-material'
-import DynamicSearchBoxComponent from '../AddressSearchBox/DynamicSearchBoxComponent'
+import DynamicSearchBoxComponent from '../mainMV/AddressSearchBox/DynamicSearchBoxComponent'
 
 
 interface Feature {
@@ -13,7 +13,7 @@ interface Feature {
     };
 }
 
-const ModalInputs = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIsModalOpen:any}) => {
+const AddExample = () => {
 
     const [showFormExpanded, setShowFormExpanded] = useState<boolean>(false);
     const [showMinimap, setShowMinimap] = useState<boolean>(false);
@@ -73,10 +73,11 @@ const ModalInputs = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
         setShowValidationText(false);
         setFeature(null);
     }
+    const [lol, setLol] = useState(false)
     
   return (
     <Dialog
-      open={isModalOpen}
+      open={lol}
     >
         <DialogTitle  sx={{ m: 0, p: 2 }}>
             Add a Bathroom
@@ -88,7 +89,7 @@ const ModalInputs = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
             right:8,
             color:(theme) => theme.palette.grey[500]
         }}
-        onClick={() => setIsModalOpen(false)}
+        // onClick={() => setIsModalOpen(false)}
         >
             <Close />
         </IconButton>
@@ -224,12 +225,12 @@ const ModalInputs = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
             {showValidationText && <div id="validation-msg" className="mt-6 text-md font-bold">Bathroom successfully submitted.</div>}
         </DialogContent>
         <DialogActions>
-            <Button onClick={() => setIsModalOpen(false)}>
+            {/* <Button onClick={() => setIsModalOpen(false)}>
                 Cancel
-            </Button>
+            </Button> */}
         </DialogActions>
     </Dialog>
   )
 }
 
-export default ModalInputs
+export default AddExample
