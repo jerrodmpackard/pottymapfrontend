@@ -23,9 +23,7 @@ export default function AutofillCheckoutDemo() {
         config.accessToken = accessToken;
     }, []);
 
-    const formRef = useRef<HTMLFormElement>(null);
-
-    const { showConfirm } = useConfirmAddress({
+    const { formRef, showConfirm } = useConfirmAddress({
         minimap: true,
         skipConfirmModal: (feature: Feature) => {
             return ['exact', 'high'].includes(feature.properties.match_code.confidence);
@@ -43,14 +41,17 @@ export default function AutofillCheckoutDemo() {
     );
 
     function handleSaveMarkerLocation(coordinate: any) {
-        console.log(`Marker moved to ${JSON.stringify(coordinate)}.`);
+        console.log(`Marker moved to longitude ${JSON.stringify(coordinate[0])}º.`);
+        console.log(`Marker moved to latitude ${JSON.stringify(coordinate[1])}º.`);
     }
 
     const handleSubmit = useCallback(
         async (e: React.FormEvent) => {
             e.preventDefault();
             const result = await showConfirm();
-            if (result.type === 'nochange') submitForm();
+            if (result.type === 'nochange') {
+                submitForm();
+            }
         },
         [showConfirm]
     );
@@ -93,19 +94,9 @@ export default function AutofillCheckoutDemo() {
                             />
                         </AddressAutofill>
 
-                        {/* {!showFormExpanded && (
-                            <div
-                                id="manual-entry"
-                                className="w-full mt-2 text-sm text-gray-600 border-b border-gray-400 hover:border-black cursor-pointer"
-                                onClick={() => setShowFormExpanded(true)}
-                            >
-                                Enter an address manually
-                            </div>
-                        )} */}
-
                         <div className="" >
-                            {/* <label className="text-sm font-bold text-gray-700 mb-3">Address Line 2</label>
-                            <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="Apartment, suite, unit, building, floor, etc." autoComplete="address-line2" /> */}
+                            <label className="text-sm font-bold text-gray-700 mb-3">Address Line 2</label>
+                            <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="Apartment, suite, unit, building, floor, etc." autoComplete="address-line2" />
 
                             <label className="text-sm font-bold text-gray-700 mb-3">City</label>
                             <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="City" autoComplete="address-level2" />
@@ -172,7 +163,7 @@ export default function AutofillCheckoutDemo() {
                             <label className="text-sm font-bold text-gray-700 mb-3">Safety</label>
                             <select className="w-full h-10 rounded mb-3">
                                 <option value="very clean">Very safe</option>
-                                <option value="clean">safe</option>
+                                <option value="clean">Safe</option>
                                 <option value="average">Average</option>
                                 <option value="dirty">Unsafe</option>
                                 <option value="very dirty">Very unsafe</option>
