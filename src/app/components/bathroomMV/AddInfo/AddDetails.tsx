@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddDetails = () => {
+const AddDetails = ({form, setForm} : {form: any, setForm:any}) => {
   return (
     <div>
       

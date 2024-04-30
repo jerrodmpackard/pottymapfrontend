@@ -52,7 +52,7 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
       safety:"",
     })
     
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setForm({
         ...form,
         [e.target.name]: e.target.value,
@@ -99,14 +99,16 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
             ))}
           </Stepper>
           <Box>
-            {activeStep === 0 && <AddLocation />}
-            {activeStep === 1 && <AddDetails />}
+            {activeStep === 0 && <AddLocation {...{form, setForm}}/>}
+            {activeStep === 1 && <AddDetails {...{form, setForm}}/>}
             {activeStep === 2 && <AddImages />}
           </Box>
-          <Stack
-          direction='row'
-          sx={{pt:2, pb:7, justifyContent:'space-around'}}
-          >
+          
+
+        </DialogContent>
+
+          {/* The footer */}
+        <DialogActions>
             <Button
             color='inherit'
             disabled={!activeStep}
@@ -120,12 +122,6 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
             >
                 Next
             </Button>
-          </Stack>
-
-        </DialogContent>
-
-          {/* The footer */}
-        <DialogActions>
             <Button onClick={() => setIsModalOpen(false)}>
                 Cancel
             </Button>
