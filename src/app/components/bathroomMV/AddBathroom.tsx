@@ -35,6 +35,30 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
         return steps.findIndex(step => !step.completed)
     }
 
+    const [form, setForm] = useState({
+      address:"",
+      city:"",
+      state:"",
+      zipCode:"",
+      gender:"",
+      type:"",
+      numberOfStalls:"",
+      wheelChair:"",
+      hours:"",
+      openTo:"",
+      needKey:"",
+      babyStation:"",
+      cleanliness:"",
+      safety:"",
+    })
+    
+    const handleChange = (e) => {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.value,
+      })
+    }
+
   return (
     <Dialog 
     open={isModalOpen}
