@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import AddDetails from './AddInfo/AddDetails';
 import AddImages from './AddInfo/AddImages';
 import AddLocation from './AddInfo/AddLocation';
+import AddDetailsTwo from './AddInfo/AddDetailsTwo';
 
 const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIsModalOpen:any}) => {
 
@@ -11,6 +12,7 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
     const [steps, setSteps] = useState( [
         {label:'Location', completed:false},
         {label:'Details', completed:false},
+        {label:'Details Cont', completed:false},
         {label:'Images', completed:false},
     ])
 
@@ -82,13 +84,15 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
         </IconButton>
         
         {/* The middle Section */}
-        <DialogContent dividers sx={{my:4}}>
+        <DialogContent dividers>
 
           <Stepper
           alternativeLabel
           nonLinear
           activeStep={activeStep}
-          sx={{mb:3}}
+          sx={{
+            my:3,
+          }}
           >
             {steps.map((step, index) => (
                 <Step key={step.label} completed={step.completed}>
@@ -99,9 +103,10 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
             ))}
           </Stepper>
           <Box>
-            {activeStep === 0 && <AddLocation {...{form, setForm}}/>}
-            {activeStep === 1 && <AddDetails {...{form, setForm}}/>}
-            {activeStep === 2 && <AddImages />}
+            {activeStep === 0 && <AddLocation {...{form, setForm}} {...{handleChange}}  />}
+            {activeStep === 1 && <AddDetails {...{form, setForm}}  {...{handleChange}}/>}
+            {activeStep === 2 && <AddDetailsTwo {...{form, setForm}}  {...{handleChange}}/>}
+            {activeStep === 3 && <AddImages />}
           </Box>
           
 
@@ -122,9 +127,9 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
             >
                 Next
             </Button>
-            <Button onClick={() => setIsModalOpen(false)}>
+            {/* <Button onClick={() => setIsModalOpen(false)}>
                 Cancel
-            </Button>
+            </Button> */}
       </DialogActions>
     </Dialog>
   )
