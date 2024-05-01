@@ -24,7 +24,7 @@ const AddDetails = ({ formInputs, setFormInputs }: { formInputs: any, setFormInp
 
       <FormControl>
         <label className="text-sm font-bold text-gray-700 mb-3">Number of stalls</label>
-        <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="Enter number of stalls" />
+        <input className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="Enter number of stalls" />
       </FormControl>
 
       <FormControl>
@@ -37,7 +37,7 @@ const AddDetails = ({ formInputs, setFormInputs }: { formInputs: any, setFormInp
 
       <FormControl>
         <label className="text-sm font-bold text-gray-700 mb-3">Hours of operation</label>
-        <input className="w-full h-10 px-3 py-2 rounded mb-3" placeholder="Enter hours of operation" />
+        <input className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="Enter hours of operation" />
       </FormControl>
 
       <FormControl>

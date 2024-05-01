@@ -80,7 +80,7 @@ const AddLocation = ({ formInputs, setFormInputs } : { formInputs: any, setFormI
   }
 
   return (
-    <>
+    
       <form ref={formRef} onSubmit={handleSubmit}>
         <div className='grid grid-cols-2 gap-6 my-4' style={{zIndex: 2100}}>
           <FormControl >
@@ -109,10 +109,7 @@ const AddLocation = ({ formInputs, setFormInputs } : { formInputs: any, setFormI
             <label className="text-sm font-bold text-gray-700 mb-3">ZIP / Postcode</label>
             <input className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="ZIP / Postcode" autoComplete="postal-code" />
           </FormControl>
-        </div>
-
-        <div className='gap-6'>
-          <div id="minimap-container" className="h-64 w-full relative my-2">
+          <div id="minimap-container" className="h-64 w-full relative my-2 col-span-2">
             <AddressMinimap
               canAdjustMarker={true}
               satelliteToggle={true}
@@ -122,14 +119,16 @@ const AddLocation = ({ formInputs, setFormInputs } : { formInputs: any, setFormI
               onSaveMarkerLocation={handleSaveMarkerLocation}
             />
           </div>
-          
-          <div className={showMinimap ? 'grid grid-cols-2 gap-6 mt-10 mb-2': 'hidden' }>
-            <Button variant="contained" type='submit' className='mr-3' onClick={hideBtns}>Add Location</Button>
-            <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button>
-          </div>
         </div>
+        
+        
+        <div className={showMinimap ? 'grid grid-cols-2 gap-6 mt-10 mb-2': 'hidden' }>
+          <Button variant="contained" type='submit' className='mr-3' onClick={hideBtns}>Add Location</Button>
+          <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button>
+        </div>
+        
       </form>
-    </>
+    
   )
 }
 
