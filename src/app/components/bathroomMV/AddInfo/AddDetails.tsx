@@ -1,7 +1,7 @@
 import { FormControl } from '@mui/material'
 import React from 'react'
 
-const AddDetails = ({form, setForm} : {form: any, setForm:any}) => {
+const AddDetails = ({ formInputs, setFormInputs }: { formInputs: any, setFormInputs: any }, { handleChange }: { handleChange: any }) => {
   return (
     <div className='grid grid-cols-2 gap-6 my-4'>
 

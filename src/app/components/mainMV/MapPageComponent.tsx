@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
+import AddIcon from '@mui/icons-material/Add';
 import { Menu, Lock, SearchOffOutlined } from '@mui/icons-material'
-import { AppBar, Box, Button, Container, IconButton, Toolbar, Typography, styled } from '@mui/material'
-// import PhotoURL from '@/assets/vecteezy_cartoon-doodle-golden-toilet_12156543.png'
-// import { useValue } from '@/context/ContextProvider';
+import { AppBar, Box, Button, Container, Fab, IconButton, Toolbar, Typography, styled } from '@mui/material'
+
 import UserIcons from './UserMV/UserIcons';
 import Sidebar from './SidebarMV/Sidebar'
 
@@ -97,7 +97,7 @@ const MapPageComponent = () => {
 
     return (
         <>
-            <AppBar>
+            <AppBar style={{zIndex: 10}}>
                 <Container maxWidth='lg'>
                     <Toolbar disableGutters>
                         <Box sx={{ mr: 1 }}>
@@ -140,18 +140,20 @@ const MapPageComponent = () => {
             
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>
-                <div ref={mapContainerRef}className='mapHeight'></div>
+                <div ref={mapContainerRef} className='mapHeight'></div>
             </Box>
             <Box> 
-                <Button onClick={() => setIsModalOpen(true)}
+                <Fab color="primary" onClick={() => setIsModalOpen(true)}
+                size="small" aria-label="add"
                 style={{
                     position: 'absolute',
-                    bottom: '100px',
-                    right: '10px',
-                    zIndex: 1000,
-                
+                    bottom: '75px',
+                    right: '5px',
+                    zIndex: 100,
                 }}
-                >ADD </Button>
+                >
+                    <AddIcon />
+                </Fab>
             </Box> 
         </>
     )

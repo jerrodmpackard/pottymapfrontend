@@ -1,7 +1,7 @@
 import { FormControl } from '@mui/material'
 import React from 'react'
 
-const AddDetailsTwo = ({ form, setForm }: { form: any, setForm: any }) => {
+const AddDetailsTwo = ({ formInputs, setFormInputs }: { formInputs: any, setFormInputs: any }, { handleChange }: { handleChange: any }) => {
   return (
     <div className='grid grid-cols-2 gap-6 my-4'>
       <FormControl>
@@ -20,7 +20,7 @@ const AddDetailsTwo = ({ form, setForm }: { form: any, setForm: any }) => {
           <option value="no">No</option>
         </select>
       </FormControl>
-
+ 
       <FormControl>
         <label className="text-sm font-bold text-gray-700 mb-3">Cleanliness</label>
         <select className="w-full h-10 rounded mb-3">

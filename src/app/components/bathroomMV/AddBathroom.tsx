@@ -13,7 +13,7 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
         {label:'Location', completed:false},
         {label:'Details', completed:false},
         {label:'Details Cont', completed:false},
-        {label:'Images', completed:false},
+        // {label:'Images', completed:false},
     ])
 
     const handleNext = () => {
@@ -66,7 +66,7 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
     open={isModalOpen}
     fullWidth={true}
     maxWidth='md'
-    style={{zIndex: 100}}
+    style={{zIndex: 101}}
     >
         <DialogTitle sx={{m:0, p:2}}>
             Add a Bathroom
@@ -84,27 +84,33 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
         </IconButton>
         
         {/* The middle Section */}
-        <DialogContent dividers>
-
-          <Stepper
-          alternativeLabel
-          nonLinear
-          activeStep={activeStep}
-          sx={{
-            my:3,
-          }}
-          >
-            {steps.map((step, index) => (
-                <Step key={step.label} completed={step.completed}>
-                    <StepButton onClick={() => setActiveStep(index)}>
-                        {step.label}
-                    </StepButton>
-                </Step>
-            ))}
-          </Stepper>
+        <DialogContent dividers className='h-[615px]'>
           <Box>
+            <Stepper
+            alternativeLabel
+            nonLinear
+            activeStep={activeStep}
+            sx={{
+              my:3,
+            }}
+            >
+              {steps.map((step, index) => (
+                  <Step key={step.label} completed={step.completed}>
+                      <StepButton onClick={() => setActiveStep(index)}>
+                          {step.label}
+                      </StepButton>
+                  </Step>
+              ))}
+            </Stepper>
+          </Box>
+          
+          
+          <Box>
+            {/* @ts-ignore */}
             {activeStep === 0 && <AddLocation {...{form, setForm}} {...{handleChange}}  />}
+            {/* @ts-ignore */}
             {activeStep === 1 && <AddDetails {...{form, setForm}}  {...{handleChange}}/>}
+            {/* @ts-ignore */}
             {activeStep === 2 && <AddDetailsTwo {...{form, setForm}}  {...{handleChange}}/>}
             {activeStep === 3 && <AddImages />}
           </Box>
@@ -127,9 +133,6 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
             >
                 Next
             </Button>
-            {/* <Button onClick={() => setIsModalOpen(false)}>
-                Cancel
-            </Button> */}
       </DialogActions>
     </Dialog>
   )
