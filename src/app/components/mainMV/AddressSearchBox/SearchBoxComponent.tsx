@@ -42,7 +42,9 @@ export default function AutofillCheckoutDemo() {
 
     function handleSaveMarkerLocation(coordinate: any) {
         console.log(`Marker moved to longitude ${JSON.stringify(coordinate[0])}º.`);
+        console.log(`Marker moved to longitude ${Number(JSON.stringify(coordinate[0]))}º.`);
         console.log(`Marker moved to latitude ${JSON.stringify(coordinate[1])}º.`);
+        console.log(`Marker moved to latitude ${Number(JSON.stringify(coordinate[1]))}º.`);
     }
 
     const handleSubmit = useCallback(

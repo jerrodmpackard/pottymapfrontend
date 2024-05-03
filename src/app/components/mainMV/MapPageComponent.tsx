@@ -11,6 +11,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import mapboxgl from 'mapbox-gl';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import AddBathroom from '../bathroomMV/AddBathroom';
+import { getMapDots } from '@/utils/DataServices';
 
 
 
@@ -41,43 +42,72 @@ const MapPageComponent = () => {
     const [map, setMap] = useState<mapboxgl.Map | null>(null)
     const geocoderContainerRef = useRef<HTMLDivElement>(null)
     const mapContainerRef = useRef<HTMLDivElement>(null)
-    
+
     useEffect(() => {
-        
+
         mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
-    
+
         //creating the initial viewport
         const newMap = new mapboxgl.Map({
-          container: mapContainerRef.current!,
-          center: [-100, 30], //lng, lat
-          zoom: 1, //higher the number, the more zoomed in
+            container: mapContainerRef.current!,
+            center: [-100, 30], //lng, lat
+            zoom: 1, //higher the number, the more zoomed in
         });
 
         //giving newMap a style, this is what is creating the globe
         newMap.on('style.load', () => {
-          newMap.setConfigProperty('basemap', 'lightPreset', 'day'); // the last value can be changed to dawn, day, dusk, or night
+            newMap.setConfigProperty('basemap', 'lightPreset', 'day'); // the last value can be changed to dawn, day, dusk, or night
         });
+
+        const getData = async () => {
+            const mapDots: any = await getMapDots();
+            console.log(mapDots);
+            return mapDots;
+        }
+        
+        getData().then(mapDots => {
+            newMap.on('load', () => {
+                newMap.addSource('earthquakes', {
+                    type: 'geojson',
+                    // Use a URL for the value for the data property.
+                    data: mapDots,
+                });
     
+                newMap.addLayer({
+                    'id': 'earthquakes-layer',
+                    'type': 'circle',
+                    'source': 'earthquakes',
+                    'paint': {
+                        'circle-radius': 4,
+                        'circle-stroke-width': 2,
+                        'circle-color': 'red',
+                        'circle-stroke-color': 'white'
+                    }
+                });
+            });
+
+        })
+
         // Geolocator, grabs the device's location
         newMap.addControl(
-          new mapboxgl.GeolocateControl({
-            positionOptions: {
-              enableHighAccuracy: true,
-            },
-            trackUserLocation: true,
-            showUserHeading: true,
-          }),
-          'bottom-right'
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true,
+                },
+                trackUserLocation: true,
+                showUserHeading: true,
+            }),
+            'bottom-right'
         );
-    
+
         // you're already able to zoom in and out using your mouse but this adds a hard button for that as an alternative option
         // also adds the north orientator, full screen mode, and scale reference
         newMap.addControl(new mapboxgl.FullscreenControl());
         newMap.addControl(new mapboxgl.NavigationControl());
         newMap.addControl(new mapboxgl.ScaleControl());
-    
+
         setMap(newMap);
-       
+
     }, []);
 
     //Re-renders the searchbox everytime the map is updated or when the drawer gets open
@@ -86,9 +116,9 @@ const MapPageComponent = () => {
         // Searchbox outside of the map display?
         if (map && geocoderContainerRef.current) {
             const geocoder = new MapboxGeocoder({
-              accessToken: mapboxgl.accessToken,
-              mapboxgl: mapboxgl,
-              placeholder: 'Search for a location',
+                accessToken: mapboxgl.accessToken,
+                mapboxgl: mapboxgl,
+                placeholder: 'Search for a location',
             });
             geocoderContainerRef.current.appendChild(geocoder.onAdd(map));
         }
@@ -97,7 +127,7 @@ const MapPageComponent = () => {
 
     return (
         <>
-            <AppBar style={{zIndex: 10}}>
+            <AppBar style={{ zIndex: 10 }}>
                 <Container maxWidth='lg'>
                     <Toolbar disableGutters>
                         <Box sx={{ mr: 1 }}>
@@ -128,33 +158,33 @@ const MapPageComponent = () => {
                         {/* {!currentUser ? (<Button color='inherit' startIcon={<Lock />} onClick={() => dispatch({ type: 'OPEN_LOGIN', payload: null })}>
                             Login
                         </Button>) : (<UserIcons />)} */}
-                        <UserIcons/>
+                        <UserIcons />
 
                     </Toolbar>
                 </Container>
             </AppBar>
 
             {/* The Drawer component */}
-            <Sidebar {...{isOpen, setIsOpen}} />
-            <AddBathroom {...{isModalOpen, setIsModalOpen}}/>
-            
+            <Sidebar {...{ isOpen, setIsOpen }} />
+            <AddBathroom {...{ isModalOpen, setIsModalOpen }} />
+
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>
                 <div ref={mapContainerRef} className='mapHeight'></div>
             </Box>
-            <Box> 
+            <Box>
                 <Fab color="primary" onClick={() => setIsModalOpen(true)}
-                size="small" aria-label="add"
-                style={{
-                    position: 'absolute',
-                    bottom: '75px',
-                    right: '5px',
-                    zIndex: 100,
-                }}
+                    size="small" aria-label="add"
+                    style={{
+                        position: 'absolute',
+                        bottom: '75px',
+                        right: '5px',
+                        zIndex: 100,
+                    }}
                 >
                     <AddIcon />
                 </Fab>
-            </Box> 
+            </Box>
         </>
     )
 }
