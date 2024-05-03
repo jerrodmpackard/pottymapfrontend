@@ -334,7 +334,7 @@ export default function Home() {
       <div className="bg bg-white drop-shadow-xl bg-opacity-80 min-w-96 p-8 rounded-2xl grid grid-flow-row justify-center  align-middle">
         <h1 className="text-[48px] flex justify-center text-[#1283C8]">Potty Map</h1>
         <h1 className="flex justify-center text-[24px] text-black mt-4">{switchBool ? 'Create an account' : 'Find bathrooms near you'}</h1>
-        <form className="flex max-w-md flex-col gap-4">
+        <form className="flex max-w-md flex-col gap-4" autoComplete="off">
           <div className="grid grid-flow-row justify-center">
             <div className="mb-2 block mt-5">
               <Label htmlFor="username" value="Username" className="text-black" />
