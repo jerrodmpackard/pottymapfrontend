@@ -131,7 +131,7 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
           {allStepsCompleted() ? (
               <Box className="flex justify-center itmes-center">
                 <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-                  Here is a gentle confirmation that your action was successful.
+                  Here is a gentle confirmation that adding a bathroom was successful.
                 </Alert>
               </Box>
           
