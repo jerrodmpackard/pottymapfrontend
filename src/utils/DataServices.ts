@@ -123,3 +123,9 @@ export const getAllUserItems = async () => {
     const data = await res.json();
     return data;
 }
+
+export const getMapDots = async () => {
+    const res = await fetch(url + '/Bathroom/GetAllBathroomsAsGeoJSON');
+    const data = await res.json();
+    return data;
+}

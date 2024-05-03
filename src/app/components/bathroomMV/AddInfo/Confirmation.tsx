@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddLocation = () => {
+const Confirmation = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const AddLocation = () => {
   )
 }
 
-export default AddLocation
+export default Confirmation

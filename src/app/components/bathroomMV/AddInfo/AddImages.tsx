@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Restroom = () => {
+const AddImages = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Restroom = () => {
   )
 }
 
-export default Restroom
+export default AddImages
