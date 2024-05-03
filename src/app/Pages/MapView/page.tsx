@@ -1,12 +1,12 @@
 'use client'
-import MapPageComponent from '@/app/components/mainMV/MapPageComponent';
+import DynamicMapViewPage from '@/app/components/mainMV/DynamicMapViewPage';
 import React from 'react';
 
 export default function mapView() {
 
     return (
     <>
-      <MapPageComponent/>
+        <DynamicMapViewPage/>
     </>
   )
 }
