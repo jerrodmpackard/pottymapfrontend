@@ -65,27 +65,29 @@ export default function Home() {
   //     setUserNameError(false);
   //   }
 
-  //   let userData: IUserInfo = {
-  //     Username: username,
-  //     Password: password,
-  //     ID: 0
-  //   }
-
-  //   let token: IToken = await login(userData);
-
-  //   if(password === cpassword){
+  //   console.log(password)
+  //   if(password) {
+      
+  //     let userData: IUserInfo = {
+  //       Username: username,
+  //       Password: password,
+  //       ID: 0
+  //     }
+  
+  //     let token: IToken = await login(userData);
+  
   //     console.log(userData)
   //     await createAccount(userData);
-  //     localStorage.setItem("Token", token.token)
-  //     getLoggedInUserData(username);
-  //     router.push('/Pages/MapView');
+  //     setSwitchBool(false)
   //     setCPasswordError(false)
+     
   //   } else {
   //     setCPasswordError(true)
+  //     alert("Login Failed")
   //   }
   // }
 
-  // const handleLognInSubmit = async() => {
+  // const handleLognInSubmit = async () => {
 
   //   if(username == ''){
   //     setUserNameError(true);
@@ -98,34 +100,40 @@ export default function Home() {
   //   } else {
   //     setUserNameError(false);
   //   }
+
+  //   if(username && password){
+
+  //     console.log(`username is ${username} and pass is ${password}`)
+
+  //     let userData: IUserInfo = {
+  //       Username: username,
+  //       Password: password,
+  //       ID: 0
+  //     }
+      
+
+  //     let token: IToken = await login(userData);
     
-  //   let userData: IUserInfo = {
-  //     Username: username,
-  //     Password: password,
-  //     ID: 0
-  //   }
+  //     console.log(token);
     
-  //   console.log(`username is ${username} and pass is ${password}`)
-  //   let token: IToken = await login(userData);
-  
-  //   console.log(token);
-  
-    
-  //   if (token.token != null) {
-  //     localStorage.setItem("Token", token.token)
-  //     getLoggedInUserData(username);
-  //     router.push('/Pages/MapView');
-  //   } else {
-  //     alert("Login Failed");
+      
+  //     if (token.token != null) {
+  //       localStorage.setItem("Token", token.token)
+  //       getLoggedInUserData(username);
+  //       router.push('/Pages/MapView');
+  //     } else {
+  //       alert("Login Failed");
+  //     }
   //   }
     
   // }
+
   const handleSwitch = () => {
     setSwitchBool(!switchBool)
   }
 
   const handleSubmit = async () => {
-    //Putting our user data inside of an object so we can put it in our Post fetch
+    
     let userData: IUserInfo = {
       Username: username,
       Password: password,
@@ -133,18 +141,18 @@ export default function Home() {
     }
 
     if (switchBool) {
-      //Create account logic in here
+      
       console.log(userData)
       await createAccount(userData);
 
     } else {
-      //Login logic in here
+      
 
       let token: IToken = await login(userData);
 
       console.log(token);
 
-      //Check to see if logged in
+      
       if (token.token != null) {
         localStorage.setItem("Token", token.token)
         getLoggedInUserData(username);
@@ -156,26 +164,30 @@ export default function Home() {
   }
   
   const handleGuest = () => {
-    router.push('/Pages/TestPage');
+    // router.push('/Pages/TestPage');
+    router.push('/Pages/MapView');
   }
 
 
   return (
     // <main className='min-h-screen flex items-center'>
-    //     <section className="hidden lg:grid w-full min-h-screen justify-center items-center bg-gray-200 bg-opacity-90">
+    //     <section className="hidden lg:flex w-full min-h-screen justify-center items-center bg-gray-800 bg-opacity-90 rounded-tr-3xl">
     //       <div>
-              
+    //         <div className="rounded-2xl bg-slate-500 h-full py-11 px-11 text-center">
+    //             Image goes here
+    //         </div>
+    //         <h1 className="text-white z-10">Pottymap where everything is shits and giggles</h1>
     //       </div>
-    //       <h1>Pottymap where everything is shits and giggles</h1>
     //     </section>
 
     //     <section className="w-full flex">  
-    //       {/* card */}
+         
     //       <div className="bg-white drop-shadow-xl border-2 py-10 px-10 w-full sm:rounded-3xl rounded-tr-3xl rounded-tl-3xl rounded-br-none rounded-bl-none mx-none md:mx-auto max-w-lg">
     //         <h1 className="flex justify-center text-4xl text-[#1283C8] mt-5">Welcome to PottyMap</h1>
     //         <p className="flex justify-center text-[24px] text-black mt-4">{switchBool ? 'Create an account' : 'Find bathrooms near you'}</p>
-    //         <form className="xl:mx-10 lg:mx-8 md:mx-5 sm:mx-2" autoComplete="off"> 
+             
     //           {switchBool ? (
+    //               <div className="xl:mx-10 lg:mx-8 md:mx-5 sm:mx-2" >
     //                 <FormControl className="w-full mt-8">
     //                   <TextField className="py-2" 
     //                   required
@@ -235,7 +247,7 @@ export default function Home() {
     //                   error={cpasswordError ? true : false}
     //                 />
 
-    //                 <Button variant="contained" color="secondary" type="submit" onClick={handleCreateAccountSubmit}>Create</Button>
+    //                 <Button variant="contained" color="secondary"  onClick={handleCreateAccountSubmit}>Create</Button>
 
     //                 <Stack direction="row" className="mt-10 justify-center items-center">
     //                   <h1>Already have an account?</h1>
@@ -244,78 +256,81 @@ export default function Home() {
     //                   </Button>
     //                 </Stack>
     //               </FormControl>
+    //               </div>
 
     //             ) : (
+                
+    //             <form className="xl:mx-10 lg:mx-8 md:mx-5 sm:mx-2" autoComplete="off">
+    //               <FormControl className="w-full mt-8">
+                    
+    //                 <TextField className="py-2" 
+    //                   required
+    //                   id="username"
+    //                   name="name"
+    //                   label="Username"
+    //                   value={username}
+    //                   variant="outlined"
+    //                   error={userNameError} 
+    //                   helperText={userNameError}
+    //                   inputProps={{minLength:4}}
+    //                   onChange={(e) => setUsername(e.target.value)}
+    //                 />
 
-    //             <FormControl className="w-full mt-8">
-                  
-    //               <TextField className="py-2" 
-    //                 required
-    //                 id="username"
-    //                 name="name"
-    //                 label="Username"
-    //                 value={username}
-    //                 variant="outlined"
-    //                 error={userNameError} 
-    //                 helperText={userNameError}
-    //                 inputProps={{minLength:4}}
-    //                 onChange={(e) => setUsername(e.target.value)}
-    //               />
+    //                 <TextField className="py-2 mt-2"
+    //                   required 
+    //                   id="password"
+    //                   label="Password"
+    //                   name="password"
+    //                   value={password}
+    //                   type={visible ? "text" : "password"} 
+    //                   variant="outlined"
+    //                   inputProps={{minLength:4}}
+    //                   InputProps={{
+    //                     endAdornment: (
+    //                     <InputAdornment position="end">
+    //                       <IconButton onClick={handleEyeClick}>
+    //                         {visible ? <Visibility />: <VisibilityOff/> }
+    //                       </IconButton>
+    //                     </InputAdornment>
+    //                     )
+    //                   }}
+    //                   onChange={(e) => setPassword(e.target.value)}
+    //                 />
 
-    //               <TextField className="py-2 mt-2"
-    //                 required 
-    //                 id="password"
-    //                 label="Password"
-    //                 name="password"
-    //                 value={password}
-    //                 type={visible ? "text" : "password"} 
-    //                 variant="outlined"
-    //                 inputProps={{minLength:4}}
-    //                 InputProps={{
-    //                   endAdornment: (
-    //                   <InputAdornment position="end">
-    //                     <IconButton onClick={handleEyeClick}>
-    //                       {visible ? <Visibility />: <VisibilityOff/> }
-    //                     </IconButton>
-    //                   </InputAdornment>
-    //                   )
-    //                 }}
-    //                 onChange={(e) => setPassword(e.target.value)}
-    //               />
-
-    //               <Stack direction="row" className="mt-2">
-    //                 <FormControlLabel control={<Checkbox />} label="Remember Me"  />
-    //                 <Button  className="ml-auto">Forgot Password</Button>
-    //               </Stack>
-                  
-    //               <Button variant="contained" className="mt-8" type="submit" onClick={handleLognInSubmit}>
-    //                 Sign in
-    //               </Button>
-                  
-    //               <Stack direction="row" className="mt-8 flex justify-center items-center">
-    //                 <div className="flex-grow border-t border-gray-400"></div>
-    //                 <h1 className="mx-2">Or</h1>
-    //                 <div className="flex-grow border-t border-gray-400"></div>
-    //               </Stack>
-
-    //               <Button variant="outlined" className="mt-8" onClick={handleGuest}>
-    //                 Continue as Guest
-    //               </Button>
-
-    //               <Stack direction="row" className="mt-10 justify-center items-center">    
-    //                 <h1>Are you new?</h1>
-    //                 <Button variant="text" color="secondary" className="underline" onClick={() => setSwitchBool(true) }>
-    //                   Create an Acount
+    //                 <Stack direction="row" className="mt-2">
+    //                   <FormControlLabel control={<Checkbox />} label="Remember Me"  />
+    //                   <Button  className="ml-auto">Forgot Password</Button>
+    //                 </Stack>
+                    
+    //                 <Button variant="contained" className="mt-8" type="submit" onClick={handleLognInSubmit}>
+    //                   Sign in
     //                 </Button>
-    //               </Stack>
-    //             </FormControl>
+                    
+    //                 <Stack direction="row" className="mt-8 flex justify-center items-center">
+    //                   <div className="flex-grow border-t border-gray-400"></div>
+    //                   <h1 className="mx-2">Or</h1>
+    //                   <div className="flex-grow border-t border-gray-400"></div>
+    //                 </Stack>
+
+    //                 <Button variant="outlined" className="mt-8" onClick={handleGuest}>
+    //                   Continue as Guest
+    //                 </Button>
+
+    //                 <Stack direction="row" className="mt-10 justify-center items-center">    
+    //                   <h1>Are you new?</h1>
+    //                   <Button variant="text" color="secondary" className="underline" onClick={() => setSwitchBool(true) }>
+    //                     Create an Acount
+    //                   </Button>
+    //                 </Stack>
+    //               </FormControl>
+    //             </form>
     //           )}
-    //         </form>
+            
     //       </div>
     //     </section>
     // </main>
     <div className="h-screen flex items-center justify-center">
-    <div className="grid grid-flow-row justify-center backdrop-blur-lg align-middle">
+      <div className="grid grid-flow-row justify-center backdrop-blur-lg align-middle">
       <div className="bg bg-white drop-shadow-xl bg-opacity-80 min-w-96 p-8 rounded-2xl grid grid-flow-row justify-center  align-middle">
         <h1 className="text-[48px] flex justify-center text-[#1283C8]">Potty Map</h1>
         <h1 className="flex justify-center text-[24px] text-black mt-4">{switchBool ? 'Create an account' : 'Find bathrooms near you'}</h1>
@@ -331,22 +346,21 @@ export default function Home() {
               <Label htmlFor="password1" value="Password" className="text-black" />
             </div>
             <TextInput id="password1" type="password" placeholder="Enter your password" className="text-black w-[240px]" required onChange={(e) => setPassword(e.target.value)} />
-            <p className="text-black underline mt-5">Forgot Password?</p>
+            {/* <p className="text-black underline mt-5">Forgot Password?</p> */}
           </div>
           <div className="flex justify-center">
             <Button color='light' className="mt-2 mb-2 text-white bg-[#1283C8] hover:bg-[#1283C8]  w-[240px]" onClick={handleSubmit}>Submit</Button>
           </div>
-          <div className="grid grid-flow-col-dense">
-            <Button color="light" className="underline text-black border-none" onClick={handleSwitch}>{switchBool ? 'Login' : 'Sign up'}</Button>
-            <Button color='light' className="underline text-black bg-white" onClick={handleGuest}>Continue as guest</Button>
+          <div className="flex flex-row justify-center items-center mx-4">
+            <a color="light" className="underline text-black border-none" onClick={handleSwitch}>{switchBool ? 'Login' : 'Sign up'}</a>
+            <a color='light' className="underline text-black ml-auto " onClick={handleGuest}>Continue as guest</a>
           </div>
-          <div>
+          {/* <div>
             <a href="#" className="flex justify-center underline text-black">Have a moderator code?</a>
-          </div>
+          </div> */}
         </form>
       </div>
-
-    </div>
+      </div>
     </div>
   )
 }

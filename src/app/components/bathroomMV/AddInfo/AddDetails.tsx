@@ -39,8 +39,10 @@ const AddDetails = ({ formInputs, setFormInputs }: { formInputs: any, setFormInp
         <label className="text-sm font-bold text-gray-700 mb-3">Hours of operation</label>
         {/* <input className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="Enter hours of operation" /> */}
         <TextField
-        type="time"
+        type="text"
+        placeholder="8:30am - 5:00pm"
         variant="outlined"
+        // helperText="Click on a dash or on the clock. Use up and down arrow"
         />
       </FormControl>
 

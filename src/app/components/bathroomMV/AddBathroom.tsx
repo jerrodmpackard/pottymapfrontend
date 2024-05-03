@@ -1,42 +1,66 @@
-import { Close } from '@mui/icons-material'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, Step, StepButton, Stepper } from '@mui/material'
+import { Close} from '@mui/icons-material'
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, Step, StepButton, Stepper, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import AddDetails from './AddInfo/AddDetails';
 import AddImages from './AddInfo/AddImages';
 import AddLocation from './AddInfo/AddLocation';
 import AddDetailsTwo from './AddInfo/AddDetailsTwo';
+import CheckIcon from '@mui/icons-material/Check'
 
 const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIsModalOpen:any}) => {
 
-  const [activeStep, setActiveStep] = useState(0);
-    const [steps, setSteps] = useState( [
-        {label:'Location', completed:false},
-        {label:'Details', completed:false},
-        {label:'Details Cont', completed:false},
-        // {label:'Images', completed:false},
-    ])
+    const steps = ['Location', 'Details', 'Details Cont'];
+    const [activeStep, setActiveStep] = useState(0);
+    const [completed, setCompleted] = React.useState<{
+      [k: number]: boolean;
+    }>({});
+
+    const totalSteps = () => {
+      return steps.length;
+    };
+
+    const completedSteps = () => {
+      return Object.keys(completed).length;
+    };    
+
+    const isLastStep = () => {
+      return activeStep === totalSteps() - 1;
+    };
+
+    const allStepsCompleted = () => {
+      return completedSteps() === totalSteps();
+    };
 
     const handleNext = () => {
-        if(activeStep < steps.length -1){
-            setActiveStep((activeStep) => activeStep + 1);
-        }else{
-            const stepIndex = findUnfinished();
-            setActiveStep(stepIndex);
-        }
-    }
+      const newActiveStep =
+        isLastStep() && !allStepsCompleted()
+          ? // It's the last step, but not all steps have been completed,
+            // find the first step that has been completed
+            steps.findIndex((step, i) => !(i in completed))
+          : activeStep + 1;
+      setActiveStep(newActiveStep);
+    };
 
-    const checkDisabled = () => {
-        if(activeStep <steps.length -1) return false;
-        const index = findUnfinished();
-        if(index !== -1) return false
+    const handleBack = () => {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
 
-        return true
-    }
+    const handleStep = (step: number) => () => {
+      setActiveStep(step);
+    };
 
-    const findUnfinished = () => {
-        return steps.findIndex(step => !step.completed)
-    }
-
+    const handleComplete = () => {
+      const newCompleted = completed;
+      newCompleted[activeStep] = true;
+      setCompleted(newCompleted);
+      handleNext();
+    };
+  
+    const handleReset = () => {
+      setActiveStep(0);
+      setCompleted({});
+    };
+    
     const [form, setForm] = useState({
       address:"",
       city:"",
@@ -94,46 +118,71 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
               my:3,
             }}
             >
-              {steps.map((step, index) => (
-                  <Step key={step.label} completed={step.completed}>
-                      <StepButton onClick={() => setActiveStep(index)}>
-                          {step.label}
-                      </StepButton>
-                  </Step>
+              {steps.map((label, index) => (
+                <Step key={label} completed={completed[index]}>
+                  <StepButton color="inherit" onClick={handleStep(index)}>
+                    {label}
+                  </StepButton>
+                </Step>
               ))}
             </Stepper>
           </Box>
           
+          {allStepsCompleted() ? (
+              <Box className="flex justify-center itmes-center">
+                <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+                  Here is a gentle confirmation that your action was successful.
+                </Alert>
+              </Box>
           
-          <Box>
-            {/* @ts-ignore */}
-            {activeStep === 0 && <AddLocation {...{form, setForm}} {...{handleChange}}  />}
-            {/* @ts-ignore */}
-            {activeStep === 1 && <AddDetails {...{form, setForm}}  {...{handleChange}}/>}
-            {/* @ts-ignore */}
-            {activeStep === 2 && <AddDetailsTwo {...{form, setForm}}  {...{handleChange}}/>}
-            {activeStep === 3 && <AddImages />}
-          </Box>
-          
+            ) : (
 
+            <Box>
+              {/* @ts-ignore */}
+              {activeStep === 0 && <AddLocation {...{form, setForm}} {...{handleChange}}  />}
+              {/* @ts-ignore */}
+              {activeStep === 1 && <AddDetails {...{form, setForm}}  {...{handleChange}}/>}
+              {/* @ts-ignore */}
+              {activeStep === 2 && <AddDetailsTwo {...{form, setForm}}  {...{handleChange}}/>}
+              {activeStep === 3 && <AddImages />}
+            </Box>
+          )}
+          
         </DialogContent>
 
-          {/* The footer */}
-        <DialogActions>
-            <Button
-            color='inherit'
-            disabled={!activeStep}
-            onClick={() => setActiveStep(activeStep => activeStep -1)}
+        {/* The footer */}
+      
+        {allStepsCompleted() ? (
+          <DialogActions>
+            <Button onClick={handleReset}>Reset</Button>
+          </DialogActions>
+        ) : (
+          <DialogActions>
+          <Button
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
             >
-                Back
+              Back
             </Button>
-            <Button
-            disabled={checkDisabled()}
-            onClick={handleNext}
-            >
-                Next
+            <Box sx={{ flex: '1 1 auto' }} />
+            <Button onClick={handleNext} sx={{ mr: 1 }}>
+              Next
             </Button>
-      </DialogActions>
+            {activeStep !== steps.length && (completed[activeStep] ? (
+                <Typography variant="caption" sx={{ display: 'inline-block' }}>
+                  Step {activeStep + 1} is already completed
+                </Typography>
+              ) : (
+                <Button onClick={handleComplete}>
+                  {completedSteps() === totalSteps() - 1
+                    ? 'Finish'
+                    : 'Complete Step'}
+                </Button>
+            ))}
+            </DialogActions>
+        )}
     </Dialog>
   )
 }
