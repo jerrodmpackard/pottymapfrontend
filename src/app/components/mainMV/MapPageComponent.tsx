@@ -64,19 +64,19 @@ const MapPageComponent = () => {
             console.log(mapDots);
             return mapDots;
         }
-        
+
         getData().then(mapDots => {
             newMap.on('load', () => {
-                newMap.addSource('earthquakes', {
+                newMap.addSource('bathrooms', {
                     type: 'geojson',
                     // Use a URL for the value for the data property.
                     data: mapDots,
                 });
-    
+
                 newMap.addLayer({
-                    'id': 'earthquakes-layer',
+                    'id': 'bathrooms',
                     'type': 'circle',
-                    'source': 'earthquakes',
+                    'source': 'bathrooms',
                     'paint': {
                         'circle-radius': 4,
                         'circle-stroke-width': 2,
@@ -87,6 +87,54 @@ const MapPageComponent = () => {
             });
 
         })
+
+        const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
+
+        newMap.on('mouseenter', 'bathrooms', (e: any) => {
+            // Change the cursor style as a UI indicator.
+            newMap.getCanvas().style.cursor = 'pointer';
+
+
+            // Copy coordinates array.
+            const coordinates: any = e?.features?.[0]?.geometry?.coordinates?.slice();
+            const Name = e?.features?.[0]?.properties?.name;
+            const Address = e?.features?.[0]?.properties?.address;
+            const City = e?.features?.[0]?.properties?.city;
+            const State = e?.features?.[0]?.properties?.state;
+            const ZipCode = e?.features?.[0]?.properties?.zipCode;
+            const Gender = e?.features?.[0]?.properties?.gender;
+            const Type = e?.features?.[0]?.properties?.type;
+            const NumberOfStalls = e?.features?.[0]?.properties?.numberOfStalls;
+            const WheelchairAccessibility = e?.features?.[0]?.properties?.wheelchairAccessibility;
+            const HoursOfOperation = e?.features?.[0]?.properties?.hoursOfOperation;
+            const OpenToPublic = e?.features?.[0]?.properties?.openToPublic;
+            const KeyRequired = e?.features?.[0]?.properties?.keyRequired;
+            const BabyChangingStation = e?.features?.[0]?.properties?.babyChangingStation;
+            const Cleanliness = e?.features?.[0]?.properties?.cleanliness;
+            const Safety = e?.features?.[0]?.properties?.safety;
+            const Rating = e?.features?.[0]?.properties?.rating;
+
+            // Ensure that if the map is zoomed out such that multiple
+            // copies of the feature are visible, the popup appears
+            // over the copy being pointed to.
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+
+            const popupContent = `<div><strong>${Name}</strong><br><p>${Address} ${City}, ${State} ${ZipCode}</p><p>Gender: ${Gender}</p><p>Type: ${Type}</p><p>Number of Stalls: ${NumberOfStalls}</p><p>Wheelchair Accessible: ${WheelchairAccessibility}</p><p>Hours of Operation: ${HoursOfOperation}</p><p>Open to Public: ${OpenToPublic}</p><p>Key Required: ${KeyRequired}</p><p>Baby Changing Station: ${BabyChangingStation}</p><p>Cleanliness: ${Cleanliness}</p><p>Safety: ${Safety}</p></div>`;
+
+            // Populate the popup and set its coordinates
+            // based on the feature found.
+            popup.setLngLat(coordinates).setHTML(popupContent).addTo(newMap);
+        });
+
+        newMap.on('mouseleave', 'bathrooms', () => {
+            newMap.getCanvas().style.cursor = '';
+            popup.remove();
+        });
 
         // Geolocator, grabs the device's location
         newMap.addControl(
