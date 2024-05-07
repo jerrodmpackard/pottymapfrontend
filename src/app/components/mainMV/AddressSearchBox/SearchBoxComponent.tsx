@@ -55,7 +55,7 @@ export default function AutofillCheckoutDemo() {
                 submitForm();
             }
         },
-        [showConfirm]
+        [showConfirm, submitForm]
     );
 
     function submitForm() {
@@ -111,7 +111,7 @@ export default function AutofillCheckoutDemo() {
 
                             <label className="text-sm font-bold text-gray-700 mb-3">Gender</label>
                             <select className="w-full h-10 rounded mb-3">
-                                <option value="mens & womens">Men's and Women's</option>
+                                <option value="mens & womens">Men&apos;s and Women&apos;s</option>
                                 <option value="gender neutral">Gender neutral</option>
                                 <option value="family restroom">Family restroom</option>
                             </select>

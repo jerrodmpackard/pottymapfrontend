@@ -145,16 +145,15 @@ export default function Home() {
     mapboxgl.accessToken = 'pk.eyJ1IjoiamVycm9kbXBhY2thcmQiLCJhIjoiY2x0ODgwZnFjMDR5ZzJscDl0d2hvd3ozZSJ9.JSsSYvbTHMBuiNwHMiw6fw';
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
-      style: 'mapbox://styles/mapbox/streets-v9',
       zoom: 1,
-      center: [30, 15]
+      center: [-100, 15]
     });
 
-    map.addControl(new mapboxgl.NavigationControl());
+    // map.addControl(new mapboxgl.NavigationControl());
     map.scrollZoom.disable();
 
     map.on('style.load', () => {
-      map.setFog({}); // Set the default atmosphere style
+      // map.setFog({}); // Set the default atmosphere style
     });
 
     // The following values can be changed to control rotation speed:
@@ -208,16 +207,14 @@ export default function Home() {
   return (
     <main className='min-h-screen flex items-center'>
       <section className="hidden lg:flex w-full min-h-screen justify-center items-center bg-gray-800 bg-opacity-90 rounded-tr-3xl">
-        <div className="w-full" ref={mapContainerRef}>
-          <div  className="rounded-2xl bg-slate-500 h-full py-11 px-11 text-center"></div>
-          <h1 className="text-white z-10">Pottymap where everything is shits and giggles</h1>
+        <div className="w-full h-screen" ref={mapContainerRef}>
         </div>
       </section>
 
       <section className="w-full flex">
 
         <div className="bg-white drop-shadow-xl border-2 py-10 px-10 w-full sm:rounded-3xl rounded-tr-3xl rounded-tl-3xl rounded-br-none rounded-bl-none mx-none md:mx-auto max-w-lg">
-          <h1 className="flex justify-center text-4xl text-[#1283C8] mt-5">Welcome to PottyMap</h1>
+          <h1 className="flex justify-center text-4xl text-[#1283C8] mt-5">Welcome to Potty Map</h1>
           <p className="flex justify-center text-[24px] text-black mt-4">{switchBool ? 'Create an account' : 'Find bathrooms near you'}</p>
 
           {switchBool ? (
