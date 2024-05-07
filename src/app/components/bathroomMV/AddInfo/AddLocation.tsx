@@ -53,7 +53,7 @@ const AddLocation = ({ formInputs, setFormInputs } : { formInputs: any, setFormI
         submitForm();
       }
     },
-    [showConfirm]
+    [showConfirm, submitForm]
   );
 
   function submitForm() {

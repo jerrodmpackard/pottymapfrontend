@@ -21,7 +21,7 @@ const AutocompleteAddress = () => {
         }, 500)
 
         return () => clearInterval(delayFunction)
-    }, [source])
+    }, [source, getAddressList])
 
     console.log(`Source: ${source}`);
 
