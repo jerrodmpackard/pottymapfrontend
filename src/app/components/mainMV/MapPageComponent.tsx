@@ -89,11 +89,11 @@ const MapPageComponent = () => {
         })
 
         const popup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false
+            closeButton: true,
+            closeOnClick: true
         });
 
-        newMap.on('mouseenter', 'bathrooms', (e: any) => {
+        newMap.on('click', 'bathrooms', (e: any) => {
             // Change the cursor style as a UI indicator.
             newMap.getCanvas().style.cursor = 'pointer';
 
@@ -131,9 +131,12 @@ const MapPageComponent = () => {
             popup.setLngLat(coordinates).setHTML(popupContent).addTo(newMap);
         });
 
+        newMap.on('mouseenter', 'bathrooms', () => {
+            newMap.getCanvas().style.cursor = 'pointer';
+        });
+
         newMap.on('mouseleave', 'bathrooms', () => {
             newMap.getCanvas().style.cursor = '';
-            popup.remove();
         });
 
         // Geolocator, grabs the device's location
