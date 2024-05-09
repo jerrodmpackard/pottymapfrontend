@@ -24,12 +24,12 @@ const MapPageComponent = () => {
     const router = useRouter();
 
     //Check if we have a token in local storage
-    if(checkToken()){
+    if (checkToken()) {
         console.log("Logged in is True")
-     }else{
+    } else {
         return notFound()
-     }
-    
+    }
+
     //Opening and closing the Drawer component (Sidebar)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -126,7 +126,7 @@ const MapPageComponent = () => {
     const handleBabyChangingStation = (e: React.ChangeEvent<HTMLInputElement>) => setBabyChangingStation(e.target.value);
     const handleCleanliness = (e: React.ChangeEvent<HTMLInputElement>) => setCleanliness(e.target.value);
     const handleSafety = (e: React.ChangeEvent<HTMLInputElement>) => setSafety(e.target.value);
-    
+
 
     // Mapbox useEffect
     useEffect(() => {

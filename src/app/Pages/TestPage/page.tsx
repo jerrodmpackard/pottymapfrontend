@@ -1,7 +1,7 @@
 'use client'
-import AutocompleteAddress from '@/app/components/mainMV/AddressSearchBox/AutocompleteAddress';
-import DynamicSearchBoxComponent from '@/app/components/mainMV/AddressSearchBox/DynamicSearchBoxComponent';
-import AutofillCheckoutDemo from '@/app/components/mainMV/AddressSearchBox/SearchBoxComponent';
+import AutocompleteAddress from '@/components/mainMV/AddressSearchBox/AutocompleteAddress';
+import DynamicSearchBoxComponent from '@/components/mainMV/AddressSearchBox/DynamicSearchBoxComponent';
+import AutofillCheckoutDemo from '@/components/mainMV/AddressSearchBox/SearchBoxComponent';
 import React from 'react';
 
 export default function TestPage() {
