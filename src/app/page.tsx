@@ -26,6 +26,7 @@ export default function Home() {
 
   const [userNameError, setUserNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorTwo, setPasswordErrorTwo] = useState(false);
   const [cpasswordError, setCPasswordError] = useState(false);
 
   const [switchBool, setSwitchBool] = useState<boolean>(false);
@@ -104,6 +105,8 @@ export default function Home() {
         setUserNameError(false);
       }
 
+      
+
       if (username && password) {
 
         console.log(`username is ${username} and pass is ${password}`)
@@ -135,64 +138,39 @@ export default function Home() {
   }
 
   const handleGuest = () => {
-    // router.push('/Pages/TestPage');
-    router.push('/Pages/MapView');
+    router.push('/Pages/GuestPage');
   }
 
   const mapContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiamVycm9kbXBhY2thcmQiLCJhIjoiY2x0ODgwZnFjMDR5ZzJscDl0d2hvd3ozZSJ9.JSsSYvbTHMBuiNwHMiw6fw';
+    mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
       zoom: 1,
-      center: [-100, 15]
+      center: [-100, 15],
+      interactive:false
     });
 
-    // map.addControl(new mapboxgl.NavigationControl());
+   
     map.scrollZoom.disable();
 
     map.on('style.load', () => {
       // map.setFog({}); // Set the default atmosphere style
     });
 
-    // The following values can be changed to control rotation speed:
-
-    // At low zooms, complete a revolution every two minutes.
-    const secondsPerRevolution = 240;
-    // Above zoom level 5, do not rotate.
-    const maxSpinZoom = 5;
-    // Rotate at intermediate speeds between zoom levels 3 and 5.
-    const slowSpinZoom = 3;
-
-    let userInteracting = false;
-    const spinEnabled = true;
-
     function spinGlobe() {
       const zoom = map.getZoom();
-      if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
-        let distancePerSecond = 360 / secondsPerRevolution;
-        if (zoom > slowSpinZoom) {
-          // Slow spinning at higher zooms
-          const zoomDif =
-            (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
-          distancePerSecond *= zoomDif;
-        }
+      
+        let distancePerSecond = 4 ;
+        
         const center = map.getCenter();
         center.lng -= distancePerSecond;
         // Smoothly animate the map over one second.
         // When this animation is complete, it calls a 'moveend' event.
         map.easeTo({ center, duration: 1000, easing: (n) => n });
-      }
+      
     }
-
-    // Pause spinning on interaction
-    map.on('mousedown', () => {
-      userInteracting = true;
-    });
-    map.on('dragstart', () => {
-      userInteracting = true;
-    });
 
     // When animation is complete, start spinning if there is no ongoing interaction
     map.on('moveend', () => {
@@ -205,16 +183,19 @@ export default function Home() {
 
 
   return (
-    <main className='min-h-screen flex items-center'>
-      <section className="hidden lg:flex w-full min-h-screen justify-center items-center bg-gray-800 bg-opacity-90 rounded-tr-3xl">
-        <div className="w-full h-screen" ref={mapContainerRef}>
-        </div>
+    <main className='min-h-screen grid md:grid-cols-2 items-center'>
+      <section className="hidden md:grid w-full min-h-screen mx-auto py-8 px-8 bg-gray-800 bg-opacity-90 rounded-tr-3xl">
+          <div className="loginMapHeight" ref={mapContainerRef}></div>
+          {/* <div>
+            <h2 className="text-center text-red-600 text-3xl font-semibold">|* Warning * Warning * Warning * Warn |</h2>
+            <h2 className="text-center text-white text-3xl font-semibold">PottyMap Potty Mouth not Included</h2>
+          </div> */}
       </section>
 
-      <section className="w-full flex">
+      <section className="w-full grid">
 
-        <div className="bg-white drop-shadow-xl border-2 py-10 px-10 w-full sm:rounded-3xl rounded-tr-3xl rounded-tl-3xl rounded-br-none rounded-bl-none mx-none md:mx-auto max-w-lg">
-          <h1 className="flex justify-center text-4xl text-[#1283C8] mt-5">Welcome to Potty Map</h1>
+        <div className="bg-white drop-shadow-xl border-2 mt-20 py-10 px-10 w-full sm:rounded-3xl sm:my-auto rounded-tr-3xl rounded-tl-3xl rounded-br-none rounded-bl-none mx-none md:mx-auto max-w-lg md:">
+          <h1 className="text-center text-4xl text-[#1283C8] mt-5">Welcome to Potty Map</h1>
           <p className="flex justify-center text-[24px] text-black mt-4">{switchBool ? 'Create an account' : 'Find bathrooms near you'}</p>
 
           {switchBool ? (
@@ -314,7 +295,7 @@ export default function Home() {
                   value={password}
                   type={visible ? "text" : "password"}
                   variant="outlined"
-                  error={passwordError}
+                  error={passwordError || passwordErrorTwo}
                   inputProps={{ minLength: 4 }}
                   InputProps={{
                     endAdornment: (
@@ -346,8 +327,11 @@ export default function Home() {
                 <Button variant="outlined" className="mt-8" onClick={handleGuest}>
                   Continue as Guest
                 </Button>
+                {/* <Button variant="outlined" color="secondary" className="mt-6" >
+                  Moderator?
+                </Button> */}
 
-                <Stack direction="row" className="mt-10 justify-center items-center">
+                <Stack direction="row" className="mt-5 justify-center items-center">
                   <h1>Are you new?</h1>
                   <Button variant="text" color="secondary" className="underline" onClick={handleSwitch}>
                     Create an Acount
