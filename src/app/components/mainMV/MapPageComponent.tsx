@@ -11,14 +11,25 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import mapboxgl from 'mapbox-gl';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import AddBathroom from '../bathroomMV/AddBathroom';
-import { addBathroom, getMapDots } from '@/utils/DataServices';
+import { addBathroom, checkToken, getLoggedInUserData, getMapDots, loggedinData } from '@/utils/DataServices';
 import { IBathrooms } from '@/Interfaces/Interfaces';
+import { useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation'
 
 
 
 
 const MapPageComponent = () => {
 
+    const router = useRouter();
+
+    //Check if we have a token in local storage
+    if(checkToken()){
+        console.log("Logged in is True")
+     }else{
+        return notFound()
+     }
+    
     //Opening and closing the Drawer component (Sidebar)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -115,6 +126,7 @@ const MapPageComponent = () => {
     const handleBabyChangingStation = (e: React.ChangeEvent<HTMLInputElement>) => setBabyChangingStation(e.target.value);
     const handleCleanliness = (e: React.ChangeEvent<HTMLInputElement>) => setCleanliness(e.target.value);
     const handleSafety = (e: React.ChangeEvent<HTMLInputElement>) => setSafety(e.target.value);
+    
 
     // Mapbox useEffect
     useEffect(() => {
@@ -287,10 +299,6 @@ const MapPageComponent = () => {
                         <Search ref={geocoderContainerRef}>
                             {/* Searchbox / Geocoder */}
                         </Search>
-
-                        {/* {!currentUser ? (<Button color='inherit' startIcon={<Lock />} onClick={() => dispatch({ type: 'OPEN_LOGIN', payload: null })}>
-                            Login
-                        </Button>) : (<UserIcons />)} */}
                         <UserIcons />
 
                     </Toolbar>
