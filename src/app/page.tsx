@@ -162,7 +162,7 @@ export default function Home() {
     function spinGlobe() {
       const zoom = map.getZoom();
       
-        let distancePerSecond = 4 ;
+        let distancePerSecond = 2;
         
         const center = map.getCenter();
         center.lng -= distancePerSecond;
