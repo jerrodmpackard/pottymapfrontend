@@ -199,10 +199,11 @@ export default function Home() {
           <p className="flex justify-center text-[24px] text-black mt-4">{switchBool ? 'Create an account' : 'Find bathrooms near you'}</p>
 
           {switchBool ? (
-            <div className="xl:mx-10 lg:mx-8 md:mx-5 sm:mx-2" >
-              <FormControl className="w-full mt-8">
+            <div className="mt-8 flex justify-center" >
+              <FormControl>
                 <TextField className="py-2"
                   required
+                  autoComplete="off"
                   id="username"
                   name="name"
                   label="Username"
@@ -215,6 +216,7 @@ export default function Home() {
 
                 <TextField className="py-2 mt-2"
                   required
+                  autoComplete="off"
                   id="password"
                   label="Password"
                   name="password"
@@ -237,6 +239,7 @@ export default function Home() {
 
                 <TextField className="py-2 my-2"
                   required
+                  autoComplete="off"
                   id="cpassword"
                   label="Confirm Password"
                   name="cpassword"
@@ -271,11 +274,12 @@ export default function Home() {
 
           ) : (
 
-            <div className="xl:mx-10 lg:mx-8 md:mx-5 sm:mx-2">
-              <FormControl className="w-full mt-8">
+            <div className="mt-8 flex justify-center">
+              <FormControl>
 
                 <TextField className="py-2"
                   required
+                  autoComplete="off"
                   id="username"
                   name="name"
                   label="Username"
@@ -289,6 +293,7 @@ export default function Home() {
 
                 <TextField className="py-2 mt-2"
                   required
+                  autoComplete="off"
                   id="password"
                   label="Password"
                   name="password"
