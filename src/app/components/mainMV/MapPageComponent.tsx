@@ -11,7 +11,8 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import mapboxgl from 'mapbox-gl';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import AddBathroom from '../bathroomMV/AddBathroom';
-import { getMapDots } from '@/utils/DataServices';
+import { addBathroom, getMapDots } from '@/utils/DataServices';
+import { IBathrooms } from '@/Interfaces/Interfaces';
 
 
 
@@ -43,6 +44,79 @@ const MapPageComponent = () => {
     const geocoderContainerRef = useRef<HTMLDivElement>(null)
     const mapContainerRef = useRef<HTMLDivElement>(null)
 
+    const [coordinates, setCoordinates] = useState<string>('');
+
+    // Use States for Bathroom Input Form
+    const [bathroomID, setBathroomID] = useState<number>(0);
+    const [address, setAddress] = useState<string>('');
+    const [city, setCity] = useState<string>('');
+    const [state, setState] = useState<string>('');
+    const [zipCode, setZipCode] = useState<string>('');
+    const [latitude, setLatitude] = useState<number>(0);
+    const [longitude, setLongitude] = useState<number>(0);
+    const [gender, setGender] = useState<string>('');
+    const [type, setType] = useState<string>('');
+    const [numberOfStalls, setNumberOfStalls] = useState<string>('');
+    const [wheelchairAccessibility, setWheelchairAccessibility] = useState<string>('');
+    const [hoursOfOperation, setHoursOfOperation] = useState<string>('');
+    const [openToPublic, setOpenToPublic] = useState<string>('');
+    const [keyRequired, setKeyRequired] = useState<string>('');
+    const [babyChangingStation, setBabyChangingStation] = useState<string>('');
+    const [cleanliness, setCleanliness] = useState<string>('');
+    const [safety, setSafety] = useState<string>('');
+    // const [rating, setRating] = useState<string>('');
+
+    // Helper function for adding bathroom form
+    const handleAddBathroom = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        let bathroom: IBathrooms = {
+            id: bathroomID,
+            address: address,
+            city: city,
+            state: state,
+            zipCode: zipCode,
+            latitude: latitude,
+            longitude: longitude,
+            gender: gender,
+            type: type,
+            numberOfStalls: numberOfStalls,
+            wheelchairAccessibility: wheelchairAccessibility,
+            hoursOfOperation: hoursOfOperation,
+            openToPublic: openToPublic,
+            keyRequired: keyRequired,
+            babyChangingStation: babyChangingStation,
+            cleanliness: cleanliness,
+            safety: safety,
+            // rating: rating
+        }
+
+        let result = false;
+
+        result = await addBathroom(bathroom);
+
+        if (result) {
+            console.log("Bathroom added succesfully");
+        }
+    }
+
+    // Helper functions for passing the user input values from bathroom form to function to call endpoint to save to database
+    const handleAddress = (e: React.ChangeEvent<HTMLInputElement>) => setAddress(e.target.value);
+    const handleCity = (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value);
+    const handleState = (e: React.ChangeEvent<HTMLInputElement>) => setState(e.target.value);
+    const handleZipCode = (e: React.ChangeEvent<HTMLInputElement>) => setZipCode(e.target.value);
+    // const handleLatitude = (e: React.ChangeEvent<HTMLInputElement>) => setLatitude(Number(JSON.stringify(coordinate[1])));
+    // const handleLongitude = (e: React.ChangeEvent<HTMLInputElement>) => setLongitude(Number(JSON.stringify(coordinate[0])));
+    const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => setGender(e.target.value);
+    const handleType = (e: React.ChangeEvent<HTMLInputElement>) => setType(e.target.value);
+    const handleNumberOfStalls = (e: React.ChangeEvent<HTMLInputElement>) => setNumberOfStalls(e.target.value);
+    const handleWheelchairAccessibility = (e: React.ChangeEvent<HTMLInputElement>) => setWheelchairAccessibility(e.target.value);
+    const handleHoursOfOperation = (e: React.ChangeEvent<HTMLInputElement>) => setHoursOfOperation(e.target.value);
+    const handleOpenToPublic = (e: React.ChangeEvent<HTMLInputElement>) => setOpenToPublic(e.target.value);
+    const handleKeyRequired = (e: React.ChangeEvent<HTMLInputElement>) => setKeyRequired(e.target.value);
+    const handleBabyChangingStation = (e: React.ChangeEvent<HTMLInputElement>) => setBabyChangingStation(e.target.value);
+    const handleCleanliness = (e: React.ChangeEvent<HTMLInputElement>) => setCleanliness(e.target.value);
+    const handleSafety = (e: React.ChangeEvent<HTMLInputElement>) => setSafety(e.target.value);
+
+    // Mapbox useEffect
     useEffect(() => {
 
         mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
@@ -59,12 +133,14 @@ const MapPageComponent = () => {
             newMap.setConfigProperty('basemap', 'lightPreset', 'day'); // the last value can be changed to dawn, day, dusk, or night
         });
 
+        // Fetching getAllBathroomsAsGeoJSON endpoint to be added to the map as a layer of markers
         const getData = async () => {
             const mapDots: any = await getMapDots();
             console.log(mapDots);
             return mapDots;
         }
 
+        // Waiting for getData to resolve before passing in the mapDots variable as the source layer
         getData().then(mapDots => {
             newMap.on('load', () => {
                 newMap.addSource('bathrooms', {
@@ -73,12 +149,13 @@ const MapPageComponent = () => {
                     data: mapDots,
                 });
 
+                // Adding the layer of markers and styling the markers
                 newMap.addLayer({
                     'id': 'bathrooms',
                     'type': 'circle',
                     'source': 'bathrooms',
                     'paint': {
-                        'circle-radius': 4,
+                        'circle-radius': 6,
                         'circle-stroke-width': 2,
                         'circle-color': 'red',
                         'circle-stroke-color': 'white'
@@ -88,17 +165,19 @@ const MapPageComponent = () => {
 
         })
 
+        // Declaring the popup and giving properties
         const popup = new mapboxgl.Popup({
             closeButton: true,
             closeOnClick: true
         });
 
+        // Setting popups to appear on click
         newMap.on('click', 'bathrooms', (e: any) => {
             // Change the cursor style as a UI indicator.
             newMap.getCanvas().style.cursor = 'pointer';
 
 
-            // Copy coordinates array.
+            // Copy coordinates array. Use dot notation to access each property of each feature to be passed into popup for display
             const coordinates: any = e?.features?.[0]?.geometry?.coordinates?.slice();
             const Name = e?.features?.[0]?.properties?.name;
             const Address = e?.features?.[0]?.properties?.address;
@@ -124,6 +203,7 @@ const MapPageComponent = () => {
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
             }
 
+            // Variable to hold all properties and formatting them for display on popup
             const popupContent = `<div><strong>${Name}</strong><br><p>${Address} ${City}, ${State} ${ZipCode}</p><p>Gender: ${Gender}</p><p>Type: ${Type}</p><p>Number of Stalls: ${NumberOfStalls}</p><p>Wheelchair Accessible: ${WheelchairAccessibility}</p><p>Hours of Operation: ${HoursOfOperation}</p><p>Open to Public: ${OpenToPublic}</p><p>Key Required: ${KeyRequired}</p><p>Baby Changing Station: ${BabyChangingStation}</p><p>Cleanliness: ${Cleanliness}</p><p>Safety: ${Safety}</p></div>`;
 
             // Populate the popup and set its coordinates
@@ -131,10 +211,12 @@ const MapPageComponent = () => {
             popup.setLngLat(coordinates).setHTML(popupContent).addTo(newMap);
         });
 
+        // When mousing over a marker, style cursor as pointer
         newMap.on('mouseenter', 'bathrooms', () => {
             newMap.getCanvas().style.cursor = 'pointer';
         });
 
+        // When mouse leaves a marker, change cursor back to default
         newMap.on('mouseleave', 'bathrooms', () => {
             newMap.getCanvas().style.cursor = '';
         });

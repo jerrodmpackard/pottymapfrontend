@@ -37,7 +37,7 @@ const AutocompleteAddress = () => {
                 {addressList?.suggestions ?
                     <div className='shadow-md p-1 rounded-md absolute w-full bg-white'>
                         {addressList.suggestions.map((item: any, index: number) => (
-                            <h2 className='p-3 hover:bg-gray-100 cursor-pointer'
+                            <h2 key={index} className='p-3 hover:bg-gray-100 cursor-pointer'
                                 onClick={() => { setSource(item.full_address); setAddressList([]) }}
                             >{item.full_address}</h2>
                         ))}
