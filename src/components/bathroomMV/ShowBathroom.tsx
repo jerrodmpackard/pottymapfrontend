@@ -1,11 +1,11 @@
-import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Button, Alert, IconButton, Typography, Stack } from '@mui/material'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Button, Alert, IconButton, Typography, Stack, Rating, Tooltip } from '@mui/material'
 import { Close} from '@mui/icons-material'
 import React, { useState } from 'react'
 
-const ShowBathroom = () => {
-    const [placeholder, setPlaceholder] = useState<boolean>(false)
+const ShowBathroom = ({placeholder, setPlaceholder} : {placeholder:boolean, setPlaceholder:any}) => {
 
     const title = "lol"
+
   return (
     <Dialog
     open={placeholder}
@@ -31,7 +31,13 @@ const ShowBathroom = () => {
           <Box>
             {/* Image */}
           </Box>
-          <Stack>
+          <Stack direction="row" className="mt-2">
+            <Stack spacing={1}>
+              <Tooltip title="Rate this Bathroom">
+                <Rating name="half-rating" defaultValue={0} precision={0.5} />
+              </Tooltip>
+            </Stack>
+
             
           </Stack>
         </DialogContent>
