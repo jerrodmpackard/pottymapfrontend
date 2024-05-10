@@ -259,7 +259,7 @@ const MapPageComponent = () => {
                 <div ref={mapContainerRef} className='mapHeightMobile  mobile:mapHeight'></div>
             </Box>
             <Box>
-                <Fab color="primary" onClick={() => setIsModalOpen(true)}
+                <Fab color="primary" onClick={() => setPlaceholder(true)}
                     size="small" aria-label="add"
                     style={{
                         position: 'absolute',
