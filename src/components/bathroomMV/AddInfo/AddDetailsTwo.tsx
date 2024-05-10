@@ -1,50 +1,68 @@
-import { FormControl } from '@mui/material'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import React from 'react'
 
 const AddDetailsTwo = ({form, setForm, handleChange} : {form:any , setForm:any, handleChange:any}) => {
   return (
     <div className='grid grid-cols-2 gap-6 my-4'>
       <FormControl>
-        <label className="text-sm font-bold text-gray-700 mb-3">Key required</label>
-        <select name="needKey" className="w-full h-10 rounded mb-3 border-sky-800" onChange={handleChange}>
-          <option value=""></option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-          <option value="code">Code required</option>
-        </select>
+        <InputLabel >Key Required ?</InputLabel>
+        <Select name="keyRequired"
+        label="Key Required?"
+        value={form.keyRequired}
+        autoWidth
+        onChange={handleChange}
+        >
+          <MenuItem value="yes">Yes</MenuItem>
+          <MenuItem value="no">No</MenuItem>
+          <MenuItem value="code">Code required</MenuItem>
+        </Select>
       </FormControl>
 
       <FormControl>
-        <label className="text-sm font-bold text-gray-700 mb-3">Baby changing station</label>
-        <select name="babyStation" className="w-full h-10 rounded mb-3" onChange={handleChange}>
-          <option value=""></option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
+        <InputLabel >Baby Changing Station?</InputLabel>
+        <Select name="babyChangingStation"
+        label="Baby Changing Station?"
+        value={form.babyChangingStation}
+        autoWidth
+        onChange={handleChange}
+        >
+          
+          <MenuItem value="yes">Yes</MenuItem>
+          <MenuItem value="no">No</MenuItem>
+        </Select>
       </FormControl>
  
       <FormControl>
-        <label className="text-sm font-bold text-gray-700 mb-3">Cleanliness</label>
-        <select name="cleanliness" className="w-full h-10 rounded mb-3" onChange={handleChange}>
-          <option value=""></option>
-          <option value="very clean">Very clean</option>
-          <option value="clean">Clean</option>
-          <option value="average">Average</option>
-          <option value="dirty">Dirty</option>
-          <option value="very dirty">Very dirty</option>
-        </select>
+        <InputLabel >Cleanliness</InputLabel>
+        <Select name="cleanliness" 
+        label="Cleanliness"
+        value={form.cleanliness}
+        autoWidth 
+        onChange={handleChange}
+        >
+          
+          <MenuItem value="very clean">Very clean</MenuItem>
+          <MenuItem value="clean">Clean</MenuItem>
+          <MenuItem value="average">Average</MenuItem>
+          <MenuItem value="dirty">Dirty</MenuItem>
+          <MenuItem value="very dirty">Very dirty</MenuItem>
+        </Select>
       </FormControl>
 
       <FormControl>
-        <label className="text-sm font-bold text-gray-700 mb-3">Safety</label>
-        <select name="safety" className="w-full h-10 rounded mb-3" onChange={handleChange}>
-          <option value=""></option>
-          <option value="very clean">Very safe</option>
-          <option value="clean">safe</option>
-          <option value="average">Average</option>
-          <option value="dirty">Unsafe</option>
-          <option value="very dirty">Very unsafe</option>
-        </select>
+        <InputLabel >Safety</InputLabel>
+        <Select name="safety"
+        label="Safety"
+        value={form.safety} 
+        autoWidth
+        onChange={handleChange}
+        >
+          <MenuItem value="very clean">Very safe</MenuItem>
+          <MenuItem value="clean">safe</MenuItem>
+          <MenuItem value="average">Average</MenuItem>
+          <MenuItem value="dirty">Unsafe</MenuItem>
+          <MenuItem value="very dirty">Very unsafe</MenuItem>
+        </Select>
       </FormControl>
     </div>
   )
