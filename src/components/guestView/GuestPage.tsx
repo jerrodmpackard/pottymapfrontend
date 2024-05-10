@@ -1,7 +1,4 @@
 'use client'
-
-import { Menu, Lock } from '@mui/icons-material';
-import { AppBar, Box, Button, Container, IconButton, Toolbar, Tooltip, Typography, styled } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from "next/navigation";
 
@@ -9,6 +6,10 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import mapboxgl from 'mapbox-gl';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { getMapDots } from '@/utils/DataServices';
+
+import { AppBar, Box, Button, Container, IconButton, Toolbar, Tooltip, Typography, styled } from '@mui/material'
+import { Menu, Lock } from '@mui/icons-material';
+
 
 const GuestPage = () => {
 
@@ -27,7 +28,6 @@ const GuestPage = () => {
     }));
 
     // Mapbox GL
-
     const [map, setMap] = useState<mapboxgl.Map | null>(null)
     const geocoderContainerRef = useRef<HTMLDivElement>(null)
     const mapContainerRef = useRef<HTMLDivElement>(null)
@@ -42,6 +42,7 @@ const GuestPage = () => {
             zoom: 1,
         });
 
+        //Givng the Map a Style. The last value of setCongfigPropertycan be 'dawn', 'day', 'dusk', or 'night'
         newMap.on('style.load', () => {
             newMap.setConfigProperty('basemap', 'lightPreset', 'day');
         });
@@ -134,7 +135,7 @@ const GuestPage = () => {
             newMap.getCanvas().style.cursor = '';
         });
 
-
+        // Adds the geolocator and grabs the device's location on click
         newMap.addControl(
             new mapboxgl.GeolocateControl({
                 positionOptions: {
@@ -146,6 +147,7 @@ const GuestPage = () => {
             'bottom-right'
         );
 
+        //Adding the fullscreen, zoom, north indicator, and Scale Controls to the map
         newMap.addControl(new mapboxgl.FullscreenControl());
         newMap.addControl(new mapboxgl.NavigationControl());
         newMap.addControl(new mapboxgl.ScaleControl());
@@ -154,7 +156,7 @@ const GuestPage = () => {
     }, [])
 
     useEffect(() => {
-        // Searchbox outside of the map display?
+        // Getting the Searchbox outside of the map display
         if (map && geocoderContainerRef.current) {
             const geocoder = new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
@@ -168,8 +170,6 @@ const GuestPage = () => {
     const backToLogin = () => {
         router.push("/")
     }
-
-
 
     return (
         <>
@@ -201,7 +201,7 @@ const GuestPage = () => {
                         </Typography>
                         <Search ref={geocoderContainerRef}></Search>
 
-                        <Tooltip title="Login to have access">
+                        <Tooltip title="Click to Login">
                             <Button color='inherit' startIcon={<Lock />} onClick={backToLogin}>Login</Button>
                         </Tooltip>
 
@@ -209,7 +209,7 @@ const GuestPage = () => {
                 </Container>
             </AppBar>
             <Box>
-                <div ref={mapContainerRef} className='mapHeight'></div>
+                <div ref={mapContainerRef} className='mapHeightMobile  mobile:mapHeight'></div>
             </Box>
         </>
     )

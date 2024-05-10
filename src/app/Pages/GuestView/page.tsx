@@ -1,6 +1,6 @@
 'use client'
 
-import GuestPage from '@/components/guest/GuestPage';
+import GuestPage from '@/components/guestView/GuestPage';
 import React from 'react';
 
 export default function guest() {

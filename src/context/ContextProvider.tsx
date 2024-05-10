@@ -1,8 +1,6 @@
 'use client'
 import { createContext, useContext, useReducer } from "react"
 import reducer, {Action} from "./reducer"
-import reducerTwo, {ActionTwo} from "./reducerTwo"
-
 
 //Declaring types
 interface IContextValue {
@@ -38,37 +36,6 @@ const Context = createContext<IContextValue>({
 
 //Custom hook to replace useContext() 
 export const useValue = () => { return useContext(Context)}
-
-
-
-//doing it all again fro 'reducerTwo'
-interface IContextValueTwo {
-  stateTwo: StateTwo;
-  dispatchTwo: React.Dispatch<ActionTwo>;
-  initialStateTwo: StateTwo; 
-}
-
-interface StateTwo {
-  alertUser: Alert | null;
-}
-
-interface Alert {
-  open: boolean
-  severity: 'info' | 'success' | 'warning' | 'error';
-  message: string;
-}
-
-const initialStateTwo = {
-  alertUser: {open:false, severity:'info', message:''}
-}
-
-// const ContextTwo = createContext<IContextValueTwo>({
-//   stateTwo: initialStateTwo,
-//   dispatchTwo: () => undefined,
-//   initialStateTwo,
-// });
-
-// export const useValueTwo = () => { return useContext(ContextTwo)}
 
 //Component the provides the context to the 'children' aka all the other components/files 
 const ContextProvider = ({

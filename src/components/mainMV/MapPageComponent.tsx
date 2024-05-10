@@ -1,26 +1,33 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
-import AddIcon from '@mui/icons-material/Add';
-import { Menu, MoreVert } from '@mui/icons-material'
-import { AppBar, Box, Button, Container, Fab, IconButton, Toolbar, Tooltip, Typography, styled } from '@mui/material'
+import { notFound } from 'next/navigation'
 
+//Interface Imports
+import { checkToken, getMapDots } from '@/utils/DataServices';
+
+//Mapbox GL Js Imports
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import mapboxgl from 'mapbox-gl';
+
+
+//Material UI Imports
+import { AppBar, Box, Container, IconButton, Toolbar, Tooltip, Typography, styled } from '@mui/material'
+import { AddCircleOutline, Menu } from '@mui/icons-material'
+
+
+//Custom Components
 import UserIcons from './UserMV/UserIcons';
 import Sidebar from './SidebarMV/Sidebar'
-
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import mapboxgl from 'mapbox-gl';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import AddBathroom from '../bathroomMV/AddBathroom';
-import { addBathroom, checkToken, getMapDots } from '@/utils/DataServices';
-import { IBathrooms } from '@/Interfaces/Interfaces';
-import { notFound } from 'next/navigation'
 import MobileDropIcon from './UserMV/MobileDropIcon';
+
 
 
 
 const MapPageComponent = () => {
 
-    //Check if we have a token in local storage
+    //Checking if there is a token in local storage
     if (!checkToken()) {
         return notFound()
     }
@@ -28,10 +35,10 @@ const MapPageComponent = () => {
     //Opening and closing the Drawer component (Sidebar)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
-    //Opening and Closing the Modal Component (ModalInputs)
+    //Opening and Closing the Modal Component (AddBathroom)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-    //Navbar styling for the search box
+    //Styling for the searchbox container 
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -44,84 +51,10 @@ const MapPageComponent = () => {
         },
     }));
 
-
     //MapBox GL
     const [map, setMap] = useState<mapboxgl.Map | null>(null)
     const geocoderContainerRef = useRef<HTMLDivElement>(null)
     const mapContainerRef = useRef<HTMLDivElement>(null)
-
-    const [coordinates, setCoordinates] = useState<string>('');
-
-    // Use States for Bathroom Input Form
-    const [bathroomID, setBathroomID] = useState<number>(0);
-    const [address, setAddress] = useState<string>('');
-    const [city, setCity] = useState<string>('');
-    const [state, setState] = useState<string>('');
-    const [zipCode, setZipCode] = useState<string>('');
-    const [latitude, setLatitude] = useState<number>(0);
-    const [longitude, setLongitude] = useState<number>(0);
-    const [gender, setGender] = useState<string>('');
-    const [type, setType] = useState<string>('');
-    const [numberOfStalls, setNumberOfStalls] = useState<string>('');
-    const [wheelchairAccessibility, setWheelchairAccessibility] = useState<string>('');
-    const [hoursOfOperation, setHoursOfOperation] = useState<string>('');
-    const [openToPublic, setOpenToPublic] = useState<string>('');
-    const [keyRequired, setKeyRequired] = useState<string>('');
-    const [babyChangingStation, setBabyChangingStation] = useState<string>('');
-    const [cleanliness, setCleanliness] = useState<string>('');
-    const [safety, setSafety] = useState<string>('');
-    // const [rating, setRating] = useState<string>('');
-
-    // Helper function for adding bathroom form
-    const handleAddBathroom = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        let bathroom: IBathrooms = {
-            id: bathroomID,
-            address: address,
-            city: city,
-            state: state,
-            zipCode: zipCode,
-            latitude: latitude,
-            longitude: longitude,
-            gender: gender,
-            type: type,
-            numberOfStalls: numberOfStalls,
-            wheelchairAccessibility: wheelchairAccessibility,
-            hoursOfOperation: hoursOfOperation,
-            openToPublic: openToPublic,
-            keyRequired: keyRequired,
-            babyChangingStation: babyChangingStation,
-            cleanliness: cleanliness,
-            safety: safety,
-            // rating: rating
-        }
-
-        let result = false;
-
-        result = await addBathroom(bathroom);
-
-        if (result) {
-            console.log("Bathroom added succesfully");
-        }
-    }
-
-    // Helper functions for passing the user input values from bathroom form to function to call endpoint to save to database
-    const handleAddress = (e: React.ChangeEvent<HTMLInputElement>) => setAddress(e.target.value);
-    const handleCity = (e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value);
-    const handleState = (e: React.ChangeEvent<HTMLInputElement>) => setState(e.target.value);
-    const handleZipCode = (e: React.ChangeEvent<HTMLInputElement>) => setZipCode(e.target.value);
-    // const handleLatitude = (e: React.ChangeEvent<HTMLInputElement>) => setLatitude(Number(JSON.stringify(coordinate[1])));
-    // const handleLongitude = (e: React.ChangeEvent<HTMLInputElement>) => setLongitude(Number(JSON.stringify(coordinate[0])));
-    const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => setGender(e.target.value);
-    const handleType = (e: React.ChangeEvent<HTMLInputElement>) => setType(e.target.value);
-    const handleNumberOfStalls = (e: React.ChangeEvent<HTMLInputElement>) => setNumberOfStalls(e.target.value);
-    const handleWheelchairAccessibility = (e: React.ChangeEvent<HTMLInputElement>) => setWheelchairAccessibility(e.target.value);
-    const handleHoursOfOperation = (e: React.ChangeEvent<HTMLInputElement>) => setHoursOfOperation(e.target.value);
-    const handleOpenToPublic = (e: React.ChangeEvent<HTMLInputElement>) => setOpenToPublic(e.target.value);
-    const handleKeyRequired = (e: React.ChangeEvent<HTMLInputElement>) => setKeyRequired(e.target.value);
-    const handleBabyChangingStation = (e: React.ChangeEvent<HTMLInputElement>) => setBabyChangingStation(e.target.value);
-    const handleCleanliness = (e: React.ChangeEvent<HTMLInputElement>) => setCleanliness(e.target.value);
-    const handleSafety = (e: React.ChangeEvent<HTMLInputElement>) => setSafety(e.target.value);
-
 
     // Mapbox useEffect
     useEffect(() => {
@@ -250,10 +183,10 @@ const MapPageComponent = () => {
 
     }, []);
 
-    //Re-renders the searchbox everytime the map is updated or when the drawer gets open
-    //It used to disappear once the navbar got updated by the drawer 
+    //Re-renders the searchbox everytime the map or navbar is updated
+    //It used to disappear whenever the navbar got updated through the drawer and modal 
     useEffect(() => {
-        // Searchbox outside of the map display?
+        
         if (map && geocoderContainerRef.current) {
             const geocoder = new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
@@ -264,22 +197,24 @@ const MapPageComponent = () => {
         }
     }, [map, isOpen, isModalOpen])
 
-
+    
     return (
         <>
             <AppBar style={{ zIndex: 10 }}>
                 <Container maxWidth='lg'>
                     <Toolbar disableGutters>
                         <Box sx={{ mr: 1 }}>
-                            <IconButton size='large' color='inherit' onClick={() => setIsOpen(true)}>
-                                <Menu />
-                            </IconButton>
+                            <Tooltip title="Open Favorites">
+                                <IconButton size='large' color='inherit' onClick={() => setIsOpen(true)}>
+                                    <Menu />
+                                </IconButton>
+                            </Tooltip>
                         </Box>
                         <Typography
                             variant='h6'
                             component='h1'
                             noWrap
-                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}
+                            sx={{ display: { xs: 'none', sm: 'flex' } }}
                         >
                             Potty Map
                         </Typography>
@@ -288,13 +223,20 @@ const MapPageComponent = () => {
                             <Search ref={geocoderContainerRef}></Search>
                         </Box>
 
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Tooltip title="Add a Bathroom">
+                                <IconButton color='inherit' onClick={() => setIsModalOpen(true)}>
+                                    <AddCircleOutline />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+
                         <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
                             <UserIcons />
                         </Box>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+                        <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
                             <MobileDropIcon />
                         </Box>
-
                     </Toolbar>
                 </Container>
             </AppBar>
@@ -305,9 +247,9 @@ const MapPageComponent = () => {
 
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>
-                <div ref={mapContainerRef} className='mapHeightMobile mobile:mapHeight'></div>
+                <div ref={mapContainerRef} className='mapHeightMobile  mobile:mapHeight'></div>
             </Box>
-            <Box>
+            {/* <Box>
                 <Fab color="primary" onClick={() => setIsModalOpen(true)}
                     size="small" aria-label="add"
                     style={{
@@ -319,7 +261,7 @@ const MapPageComponent = () => {
                 >
                     <AddIcon />
                 </Fab>
-            </Box>
+            </Box> */}
         </>
     )
 }

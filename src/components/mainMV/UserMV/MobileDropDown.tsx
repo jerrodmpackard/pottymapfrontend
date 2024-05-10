@@ -1,4 +1,4 @@
-import { Logout, Settings } from '@mui/icons-material';
+import { AddCircleOutline, Logout, Settings } from '@mui/icons-material';
 import { ListItemIcon, Menu, MenuItem } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -33,14 +33,14 @@ const MobileDropDown: React.FC<MobileMenuProps> = ({mobileDropDown, setMobileDro
         <ListItemIcon>
             <Settings fontSize='small'/>
         </ListItemIcon>
-            Profile
+            Profile Page
         </MenuItem>
 
         <MenuItem>
         <ListItemIcon>
-
+            <AddCircleOutline fontSize='small' />
         </ListItemIcon>
-            Add bathroom
+            Add a Bathroom
         </MenuItem>
 
         <MenuItem onClick={handleLogout}>

@@ -138,7 +138,7 @@ export default function Home() {
   }
 
   const handleGuest = () => {
-    router.push('/Pages/GuestPage');
+    router.push('/Pages/GuestView');
   }
 
   const mapContainerRef = useRef<HTMLDivElement>(null)
