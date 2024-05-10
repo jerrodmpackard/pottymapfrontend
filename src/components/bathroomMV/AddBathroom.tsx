@@ -2,7 +2,6 @@ import { Close} from '@mui/icons-material'
 import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, Step, StepButton, Stepper, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import AddDetails from './AddInfo/AddDetails';
-import AddImages from './AddInfo/AddImages';
 import AddLocation from './AddInfo/AddLocation';
 import AddDetailsTwo from './AddInfo/AddDetailsTwo';
 import CheckIcon from '@mui/icons-material/Check'
@@ -144,7 +143,6 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
               {activeStep === 1 && <AddDetails {...{form, setForm}}  {...{handleChange}}/>}
               {/* @ts-ignore */}
               {activeStep === 2 && <AddDetailsTwo {...{form, setForm}}  {...{handleChange}}/>}
-              {activeStep === 3 && <AddImages />}
             </Box>
           )}
           

@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
-import { Menu, Lock, SearchOffOutlined } from '@mui/icons-material'
-import { AppBar, Box, Button, Container, Fab, IconButton, Toolbar, Typography, styled } from '@mui/material'
+import { Menu, MoreVert } from '@mui/icons-material'
+import { AppBar, Box, Button, Container, Fab, IconButton, Toolbar, Tooltip, Typography, styled } from '@mui/material'
 
 import UserIcons from './UserMV/UserIcons';
 import Sidebar from './SidebarMV/Sidebar'
@@ -11,22 +11,17 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import mapboxgl from 'mapbox-gl';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import AddBathroom from '../bathroomMV/AddBathroom';
-import { addBathroom, checkToken, getLoggedInUserData, getMapDots, loggedinData } from '@/utils/DataServices';
+import { addBathroom, checkToken, getMapDots } from '@/utils/DataServices';
 import { IBathrooms } from '@/Interfaces/Interfaces';
-import { useRouter } from 'next/navigation';
 import { notFound } from 'next/navigation'
-
+import MobileDropIcon from './UserMV/MobileDropIcon';
 
 
 
 const MapPageComponent = () => {
 
-    const router = useRouter();
-
     //Check if we have a token in local storage
-    if (checkToken()) {
-        console.log("Logged in is True")
-    } else {
+    if (!checkToken()) {
         return notFound()
     }
 
@@ -36,7 +31,7 @@ const MapPageComponent = () => {
     //Opening and Closing the Modal Component (ModalInputs)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-    //Creating a material UI element to hold the searchbox
+    //Navbar styling for the search box
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -284,22 +279,21 @@ const MapPageComponent = () => {
                             variant='h6'
                             component='h1'
                             noWrap
-                            sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
+                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}
                         >
                             Potty Map
                         </Typography>
-                        <Typography
-                            variant='h6'
-                            component='h1'
-                            noWrap
-                            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-                        >
-                            PMap
-                        </Typography>
-                        <Search ref={geocoderContainerRef}>
-                            {/* Searchbox / Geocoder */}
-                        </Search>
-                        <UserIcons />
+
+                        <Box>
+                            <Search ref={geocoderContainerRef}></Search>
+                        </Box>
+
+                        <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                            <UserIcons />
+                        </Box>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+                            <MobileDropIcon />
+                        </Box>
 
                     </Toolbar>
                 </Container>
@@ -311,7 +305,7 @@ const MapPageComponent = () => {
 
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>
-                <div ref={mapContainerRef} className='mapHeight'></div>
+                <div ref={mapContainerRef} className='mapHeightMobile mobile:mapHeight'></div>
             </Box>
             <Box>
                 <Fab color="primary" onClick={() => setIsModalOpen(true)}
