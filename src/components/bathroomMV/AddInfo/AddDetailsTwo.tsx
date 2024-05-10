@@ -10,6 +10,7 @@ const AddDetailsTwo = ({form, setForm, handleChange} : {form:any , setForm:any, 
         label="Key Required?"
         value={form.keyRequired}
         autoWidth
+        autoSave="true"
         onChange={handleChange}
         >
           <MenuItem value="yes">Yes</MenuItem>
@@ -24,6 +25,7 @@ const AddDetailsTwo = ({form, setForm, handleChange} : {form:any , setForm:any, 
         label="Baby Changing Station?"
         value={form.babyChangingStation}
         autoWidth
+        autoSave="true"
         onChange={handleChange}
         >
           
@@ -38,6 +40,7 @@ const AddDetailsTwo = ({form, setForm, handleChange} : {form:any , setForm:any, 
         label="Cleanliness"
         value={form.cleanliness}
         autoWidth 
+        autoSave="true"
         onChange={handleChange}
         >
           
@@ -55,6 +58,7 @@ const AddDetailsTwo = ({form, setForm, handleChange} : {form:any , setForm:any, 
         label="Safety"
         value={form.safety} 
         autoWidth
+        autoSave="true"
         onChange={handleChange}
         >
           <MenuItem value="very clean">Very safe</MenuItem>

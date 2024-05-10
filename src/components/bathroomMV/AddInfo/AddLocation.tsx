@@ -91,6 +91,7 @@ const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, ha
                 value={form.address}
                 margin="normal"
                 autoComplete="address-line1"
+                autoSave="true"
                 onChange={handleChange}
               />
             </AddressAutofill>
@@ -102,6 +103,7 @@ const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, ha
             variant="outlined" 
             margin="normal"
             value={form.city}
+            autoSave="true"
             autoComplete="address-level2"
             onChange={handleChange}
             />
@@ -113,6 +115,7 @@ const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, ha
             variant="outlined"
             value={form.state} 
             autoComplete="address-level1" 
+            autoSave="true"
             onChange={handleChange} 
             />
           </FormControl>
@@ -123,6 +126,7 @@ const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, ha
             variant="outlined" 
             value={form.zipCode}
             autoComplete="postal-code" 
+            autoSave="true"
             onChange={handleChange} 
             />
           </FormControl>
@@ -140,10 +144,10 @@ const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, ha
         </div>
         
         
-        <div className={showMinimap ? 'grid grid-cols-2 gap-6 mt-10 mb-2': 'hidden' }>
+        {/* <div className={showMinimap ? 'grid grid-cols-2 gap-6 mt-10 mb-2': 'hidden' }>
           <Button variant="contained" type='submit' className='mr-3' onClick={hideBtns}>Add Location</Button>
-          {/* <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button> */}
-        </div>
+          <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button>
+        </div> */}
         
       </form>
     
