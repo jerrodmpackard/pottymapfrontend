@@ -147,7 +147,7 @@ export default function Home() {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
       zoom: 1.8,
-      center: [-100, 15],
+      center: [-60, 15],
       interactive: false
     });
 

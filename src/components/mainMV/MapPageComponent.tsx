@@ -197,7 +197,7 @@ const MapPageComponent = () => {
             });
             geocoderContainerRef.current.appendChild(geocoder.onAdd(map));
         }
-    }, [map, isOpen, isModalOpen])
+    }, [map, isOpen, isModalOpen, placeholder])
 
         //Checking if there is a token in local storage
         if (!checkToken()) {
