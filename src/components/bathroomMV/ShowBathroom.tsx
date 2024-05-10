@@ -38,7 +38,7 @@ const ShowBathroom = ({placeholder, setPlaceholder} : {placeholder:boolean, setP
               </Tooltip>
             </Stack>
 
-            
+            <Box>SOS</Box>
           </Stack>
         </DialogContent>
         <DialogActions>
