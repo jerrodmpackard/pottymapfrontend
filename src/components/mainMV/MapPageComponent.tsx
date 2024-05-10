@@ -251,6 +251,7 @@ const MapPageComponent = () => {
             <Sidebar {...{ isOpen, setIsOpen }} />
             <AddBathroom {...{ isModalOpen, setIsModalOpen }} />
             <ShowBathroom {...{placeholder, setPlaceholder}}/>
+            
 
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>
