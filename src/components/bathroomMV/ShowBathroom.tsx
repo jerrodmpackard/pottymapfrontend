@@ -42,7 +42,7 @@ const ShowBathroom = ({placeholder, setPlaceholder} : {placeholder:boolean, setP
           </Stack>
         </DialogContent>
         <DialogActions>
-            <Button>Close</Button>
+            <Button onClick={() => {setPlaceholder(false)}}>Close</Button>
         </DialogActions> 
     </Dialog>
   )
