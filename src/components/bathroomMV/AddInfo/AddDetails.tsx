@@ -12,6 +12,7 @@ const AddDetails = ({form, setForm, handleChange} : {form:any , setForm:any, han
         label="Gender"
         value={form.gender}  
         autoWidth
+        autoSave="true"
         onChange={handleChange}
         >
           <MenuItem value=""></MenuItem>
@@ -27,6 +28,7 @@ const AddDetails = ({form, setForm, handleChange} : {form:any , setForm:any, han
         label="Type"
         value={form.type}
         autoWidth
+        autoSave="true"
         onChange={handleChange}
         >
           <MenuItem value="individual">Individual</MenuItem>
@@ -40,21 +42,23 @@ const AddDetails = ({form, setForm, handleChange} : {form:any , setForm:any, han
         label="Number of Stalls"
         variant="outlined"  
         value={form.numberOfStalls} 
+        autoSave="true"
         onChange={handleChange}
         />
       </FormControl>
 
       <FormControl>
-      <InputLabel>Wheelchair Accessible</InputLabel>
-      <Select name="wheelChair" 
-      label="Wheelchair Accessible"
-      value={form.wheelchairAccessibility}
-      autoWidth
-      onChange={handleChange}
-      >
-        <MenuItem value="yes">Yes</MenuItem>
-        <MenuItem value="no">No</MenuItem>
-      </Select>
+        <InputLabel>Wheelchair Accessible</InputLabel>
+        <Select name="wheelchairAccessibility" 
+        label="Wheelchair Accessible"
+        value={form.wheelchairAccessibility}
+        autoWidth
+        autoSave="true"
+        onChange={handleChange}
+        >
+          <MenuItem value="yes">Yes</MenuItem>
+          <MenuItem value="no">No</MenuItem>
+        </Select>
       </FormControl>
 
       <FormControl>
@@ -62,6 +66,7 @@ const AddDetails = ({form, setForm, handleChange} : {form:any , setForm:any, han
         label="Hours of Operation" 
         variant="outlined" 
         value={form.hoursOfOperation}
+        autoSave="true"
         onChange={handleChange} 
         />
       </FormControl>
@@ -72,6 +77,7 @@ const AddDetails = ({form, setForm, handleChange} : {form:any , setForm:any, han
       label="Open To Public?"
       value={form.openToPublic}
       autoWidth
+      autoSave="true"
       onChange={handleChange}>
           <MenuItem value=""></MenuItem>
           <MenuItem value="yes">Yes</MenuItem>
