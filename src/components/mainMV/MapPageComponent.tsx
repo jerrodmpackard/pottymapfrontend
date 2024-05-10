@@ -28,10 +28,7 @@ import ShowBathroom from '../bathroomMV/ShowBathroom';
 
 const MapPageComponent = () => {
 
-    //Checking if there is a token in local storage
-    if (!checkToken()) {
-        return notFound()
-    }
+
 
     //Opening and closing the Drawer component (Sidebar)
     const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -201,6 +198,11 @@ const MapPageComponent = () => {
         }
     }, [map, isOpen, isModalOpen])
 
+        //Checking if there is a token in local storage
+        if (!checkToken()) {
+            return notFound()
+        }
+
     
     return (
         <>
@@ -227,7 +229,7 @@ const MapPageComponent = () => {
                             <Search ref={geocoderContainerRef}></Search>
                         </Box>
 
-                        <Box sx={{ flexGrow: 1 }}>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
                             <Tooltip title="Add a Bathroom">
                                 <IconButton color='inherit' onClick={() => setIsModalOpen(true)}>
                                     <AddCircleOutline />
@@ -239,7 +241,7 @@ const MapPageComponent = () => {
                             <UserIcons />
                         </Box>
                         <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-                            <MobileDropIcon />
+                            <MobileDropIcon {...{isModalOpen, setIsModalOpen}} />
                         </Box>
                     </Toolbar>
                 </Container>

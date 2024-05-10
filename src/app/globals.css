@@ -24,5 +24,27 @@ body {
   border-radius: 40px;
 }
 
+/* .mapboxgl-ctrl-geocoder {
+  width: 240px;
+  height: 36px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
 
+.mapboxgl-ctrl-geocoder input[type="text"] {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 36px;
+}
 
+.mapboxgl-ctrl-geocoder--icon {
+  padding: 0px;
+  display: flex;
+
+}
+
+.mapboxgl-ctrl-geocoder--icon-search {
+  padding: 0px;
+  display: flex;
+} */
