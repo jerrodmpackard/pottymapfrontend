@@ -12,7 +12,7 @@ import mapboxgl from 'mapbox-gl';
 
 
 //Material UI Imports
-import { AppBar, Box, Container, IconButton, Toolbar, Tooltip, Typography, styled } from '@mui/material'
+import { AppBar, Box, Container, Fab, IconButton, Toolbar, Tooltip, Typography, styled } from '@mui/material'
 import { AddCircleOutline, Menu } from '@mui/icons-material'
 
 
@@ -21,6 +21,7 @@ import UserIcons from './UserMV/UserIcons';
 import Sidebar from './SidebarMV/Sidebar'
 import AddBathroom from '../bathroomMV/AddBathroom';
 import MobileDropIcon from './UserMV/MobileDropIcon';
+import ShowBathroom from '../bathroomMV/ShowBathroom';
 
 
 
@@ -37,6 +38,9 @@ const MapPageComponent = () => {
 
     //Opening and Closing the Modal Component (AddBathroom)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
+    //Testing INfo modal
+    const [placeholder, setPlaceholder] = useState<boolean>(false)
 
     //Styling for the searchbox container 
     const Search = styled('div')(({ theme }) => ({
@@ -244,12 +248,13 @@ const MapPageComponent = () => {
             {/* The Drawer component */}
             <Sidebar {...{ isOpen, setIsOpen }} />
             <AddBathroom {...{ isModalOpen, setIsModalOpen }} />
+            <ShowBathroom {...{placeholder, setPlaceholder}}/>
 
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>
                 <div ref={mapContainerRef} className='mapHeightMobile  mobile:mapHeight'></div>
             </Box>
-            {/* <Box>
+            <Box>
                 <Fab color="primary" onClick={() => setIsModalOpen(true)}
                     size="small" aria-label="add"
                     style={{
@@ -259,9 +264,9 @@ const MapPageComponent = () => {
                         zIndex: 100,
                     }}
                 >
-                    <AddIcon />
+                    <AddCircleOutline />
                 </Fab>
-            </Box> */}
+            </Box>
         </>
     )
 }
