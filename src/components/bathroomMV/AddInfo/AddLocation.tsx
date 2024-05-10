@@ -1,4 +1,4 @@
-import { FormControl, Button } from '@mui/material'
+import { FormControl, Button, TextField } from '@mui/material'
 import { AddressAutofill, AddressMinimap, useConfirmAddress, config } from '@mapbox/search-js-react';
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 
@@ -64,8 +64,8 @@ const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, ha
   }
 
   // function resetForm() {
-  //   const inputs = document.querySelectorAll("input");
-  //   inputs.forEach((input: HTMLInputElement) => (input.value = ""));
+  //   const TextFields = document.querySelectorAll("TextField");
+  //   TextFields.forEach((TextField: HTMLTextFieldElement) => (TextField.value = ""));
   //   setShowMinimap(false)
   //   setShowValidationText(false);
   //   setFeature(null);
@@ -83,34 +83,50 @@ const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, ha
     
       <form ref={formRef} onSubmit={handleSubmit}>
         <div className='grid grid-cols-2 gap-6 my-4' style={{zIndex: 2100}}>
-          <FormControl >
-            <label className="text-sm font-bold text-gray-700 mb-3">Address</label>
+          <FormControl>
             <AddressAutofill accessToken={mapToken} onRetrieve={handleRetrieve}>
-              <input
-                name="address"
-                className="w-full h-10 px-3 py-2 rounded mb-3 border-2"
-                placeholder="Start typing your address, e.g. 123 Main..."
+              <TextField id="mapbox-autofill" name="address"
+                label="Address"
+                variant="outlined" 
+                value={form.address}
+                margin="normal"
                 autoComplete="address-line1"
-                id="mapbox-autofill"
                 onChange={handleChange}
               />
             </AddressAutofill>
           </FormControl>
 
-          <FormControl>
-            <label className="text-sm font-bold text-gray-700 mb-3">City</label>
-            <input name="city" className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="City" autoComplete="address-level2" onChange={handleChange}/>
+          <FormControl className='w-full p-2'>
+            <TextField name="city" 
+            label="City"
+            variant="outlined" 
+            margin="normal"
+            value={form.city}
+            autoComplete="address-level2"
+            onChange={handleChange}
+            />
+          </FormControl>
+
+          <FormControl className='w-full p-2'>
+            <TextField name="state" 
+            label="State / Region"
+            variant="outlined"
+            value={form.state} 
+            autoComplete="address-level1" 
+            onChange={handleChange} 
+            />
           </FormControl>
 
           <FormControl>
-            <label className="text-sm font-bold text-gray-700 mb-3">State / Region</label>
-            <input name="state" className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="State / Region" autoComplete="address-level1" onChange={handleChange} />
+            <TextField name="zipCode" 
+            label="Zip / Postcode"
+            variant="outlined" 
+            value={form.zipCode}
+            autoComplete="postal-code" 
+            onChange={handleChange} 
+            />
           </FormControl>
 
-          <FormControl>
-            <label className="text-sm font-bold text-gray-700 mb-3">ZIP / Postcode</label>
-            <input name="zipCode" className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="ZIP / Postcode" autoComplete="postal-code" onChange={handleChange} />
-          </FormControl>
           <div id="minimap-container" className="h-64 w-full relative my-2 col-span-2">
             <AddressMinimap
               canAdjustMarker={true}
