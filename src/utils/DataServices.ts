@@ -1,4 +1,4 @@
-import { IUserItems, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
+import { IBathrooms, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
 
 
 const url = "https://pottymapwebapi.azurewebsites.net"
@@ -82,13 +82,13 @@ export const getUserItemsByUserId = async (userId: number) => {
     return data;
 }
 
-export const addUser = async (Users: IUserItems) => {
-    const res = await fetch( url + '/User/AddUser', {
+export const addBathroom = async (bathroom: IBathrooms) => {
+    const res = await fetch( url + '/Bathroom/AddBathroom', {
         method: "POST",
         headers:{
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(Users)
+        body:JSON.stringify(bathroom)
     });
 
     if(!res.ok){
@@ -100,13 +100,13 @@ export const addUser = async (Users: IUserItems) => {
     return data;
 }
 
-export const updateUser = async (Users: IUserItems) => {
-    const res = await fetch( url + '/User/UpdateUser/{id}/{username}', {
+export const updateBathroom = async (bathroom: IBathrooms) => {
+    const res = await fetch( url + '/Bathroom/UpdateBathroom', {
         method: "PUT",
         headers:{
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(Users)
+        body:JSON.stringify(bathroom)
     });
 
     if(!res.ok){

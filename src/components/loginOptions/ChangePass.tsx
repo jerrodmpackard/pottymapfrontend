@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddImages = () => {
+const ChangePass = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const AddImages = () => {
   )
 }
 
-export default AddImages
+export default ChangePass

@@ -1,5 +1,3 @@
-
-import { useValue } from '@/context/ContextProvider';
 import { Logout, Settings } from '@mui/icons-material'
 import { ListItemIcon, Menu, MenuItem } from '@mui/material'
 import { useRouter } from "next/navigation";
@@ -23,6 +21,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ anchorUserMenu, setAnchorUserMenu }
         router.push("/")
         localStorage.clear()
     }
+    
   return (
     <Menu
     anchorEl={anchorUserMenu}

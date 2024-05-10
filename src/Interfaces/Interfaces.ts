@@ -1,15 +1,23 @@
-export interface IUserItems {
+export interface IBathrooms {
     id: number
-    userID: number
-    publishedName: string
-    date: string
-    title: string
-    description: string
-    image: string
-    tags: string
-    categories: string
-    isPublished: boolean
-    isDeleted: boolean
+    // name: string
+    address: string
+    city: string
+    state: string
+    zipCode: string
+    latitude: number
+    longitude: number
+    gender: string
+    type: string
+    numberOfStalls: string
+    wheelchairAccessibility: string
+    hoursOfOperation: string
+    openToPublic: string
+    keyRequired: string
+    babyChangingStation: string
+    cleanliness: string
+    safety: string
+    // rating: string
 }
 
 //Get our token

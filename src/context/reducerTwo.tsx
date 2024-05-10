@@ -1,5 +1,6 @@
 'use client'
 
+//for alerts
 interface StateTwo {
     alertUser: Alert | null;
 }
