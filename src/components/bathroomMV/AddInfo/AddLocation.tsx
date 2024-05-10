@@ -11,7 +11,7 @@ interface Feature {
 }
 
 
-const AddLocation = ({ formInputs, setFormInputs } : { formInputs: any, setFormInputs: any }, { handleChange }: { handleChange: any }) => {
+const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, handleChange:any}) => {
 
   const [showMinimap, setShowMinimap] = useState<boolean>(false);
   const [feature, setFeature] = useState<Feature | null>(null);
@@ -87,27 +87,29 @@ const AddLocation = ({ formInputs, setFormInputs } : { formInputs: any, setFormI
             <label className="text-sm font-bold text-gray-700 mb-3">Address</label>
             <AddressAutofill accessToken={mapToken} onRetrieve={handleRetrieve}>
               <input
+                name="address"
                 className="w-full h-10 px-3 py-2 rounded mb-3 border-2"
                 placeholder="Start typing your address, e.g. 123 Main..."
                 autoComplete="address-line1"
                 id="mapbox-autofill"
+                onChange={handleChange}
               />
             </AddressAutofill>
           </FormControl>
 
           <FormControl>
             <label className="text-sm font-bold text-gray-700 mb-3">City</label>
-            <input className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="City" autoComplete="address-level2" />
+            <input name="city" className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="City" autoComplete="address-level2" onChange={handleChange}/>
           </FormControl>
 
           <FormControl>
             <label className="text-sm font-bold text-gray-700 mb-3">State / Region</label>
-            <input className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="State / Region" autoComplete="address-level1" />
+            <input name="state" className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="State / Region" autoComplete="address-level1" onChange={handleChange} />
           </FormControl>
 
           <FormControl>
             <label className="text-sm font-bold text-gray-700 mb-3">ZIP / Postcode</label>
-            <input className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="ZIP / Postcode" autoComplete="postal-code" />
+            <input name="zipCode" className="w-full h-10 px-3 py-2 rounded mb-3 border-2" placeholder="ZIP / Postcode" autoComplete="postal-code" onChange={handleChange} />
           </FormControl>
           <div id="minimap-container" className="h-64 w-full relative my-2 col-span-2">
             <AddressMinimap

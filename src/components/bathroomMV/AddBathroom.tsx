@@ -5,6 +5,8 @@ import AddDetails from './AddInfo/AddDetails';
 import AddLocation from './AddInfo/AddLocation';
 import AddDetailsTwo from './AddInfo/AddDetailsTwo';
 import CheckIcon from '@mui/icons-material/Check'
+import { IBathrooms } from '@/Interfaces/Interfaces';
+import { addBathroom } from '@/utils/DataServices';
 
 const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIsModalOpen:any}) => {
 
@@ -60,19 +62,22 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
       setCompleted({});
     };
     
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<IBathrooms>({
+      id: 0,
       address:"",
       city:"",
       state:"",
       zipCode:"",
+      latitude: 0,
+      longitude: 0,
       gender:"",
       type:"",
       numberOfStalls:"",
-      wheelChair:"",
-      hours:"",
-      openTo:"",
-      needKey:"",
-      babyStation:"",
+      wheelchairAccessibility:"",
+      hoursOfOperation:"",
+      openToPublic:"",
+      keyRequired:"",
+      babyChangingStation:"",
       cleanliness:"",
       safety:"",
     })
@@ -81,8 +86,26 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
       setForm({
         ...form,
         [e.target.name]: e.target.value,
+
       })
+      console.log(`${e.target.name} now has the value of ${e.target.value}`)
     }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      try {
+        const res = addBathroom(form);
+        console.log("Response:", res);
+        alert("Success")
+
+      } catch(error){
+          console.error('Error occured while adding bathroom', error);
+          alert("Failed LOL")
+      }
+    }
+
+    
 
   return (
     <Dialog 
@@ -138,11 +161,11 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
 
             <Box>
               {/* @ts-ignore */}
-              {activeStep === 0 && <AddLocation {...{form, setForm}} {...{handleChange}}  />}
+              {activeStep === 0 && <AddLocation form={form} setForm={setForm} handleChange={handleChange} />}
               {/* @ts-ignore */}
-              {activeStep === 1 && <AddDetails {...{form, setForm}}  {...{handleChange}}/>}
+              {activeStep === 1 && <AddDetails form={form} setForm={setForm} handleChange={handleChange}/>}
               {/* @ts-ignore */}
-              {activeStep === 2 && <AddDetailsTwo {...{form, setForm}}  {...{handleChange}}/>}
+              {activeStep === 2 && <AddDetailsTwo form={form} setForm={setForm} handleChange={handleChange}/>}
             </Box>
           )}
           
