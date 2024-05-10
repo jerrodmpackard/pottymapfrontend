@@ -244,6 +244,7 @@ const MapPageComponent = () => {
                     </Toolbar>
                 </Container>
             </AppBar>
+     
 
             {/* The Drawer component */}
             <Sidebar {...{ isOpen, setIsOpen }} />
