@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react';
 
 //Interface Imports
 import { checkToken, getMapDots } from '@/utils/DataServices';
@@ -249,7 +250,11 @@ const MapPageComponent = () => {
 
             {/* The Drawer component */}
             <Sidebar {...{ isOpen, setIsOpen }} />
-            <AddBathroom {...{ isModalOpen, setIsModalOpen }} />
+
+            <Suspense fallback="Loading...">
+                <AddBathroom {...{ isModalOpen, setIsModalOpen }} />
+            </Suspense>
+
             <ShowBathroom {...{placeholder, setPlaceholder}}/>
             
 
