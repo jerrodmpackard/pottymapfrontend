@@ -3,7 +3,12 @@ import { Box, IconButton, Tooltip } from '@mui/material'
 import React, { useState } from 'react'
 import MobileDropDown from './MobileDropDown'
 
-const MobileDropIcon = () => {
+interface MobileMenuProps {
+    isModalOpen: boolean;
+    setIsModalOpen: any;
+}
+
+const MobileDropIcon: React.FC<MobileMenuProps> = ({isModalOpen, setIsModalOpen}) => {
 
     const [mobileDropDown, setMobileDropDown] = useState<HTMLElement | null>(null);
     
@@ -14,7 +19,7 @@ const MobileDropIcon = () => {
                     <MoreVert />
                 </IconButton>
             </Tooltip>
-            <MobileDropDown {...{ mobileDropDown, setMobileDropDown }} />
+            <MobileDropDown {...{ mobileDropDown, setMobileDropDown }} {...{isModalOpen, setIsModalOpen}} />
         </Box>
     )
 }

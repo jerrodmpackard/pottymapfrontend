@@ -6,20 +6,26 @@ import React from 'react'
 interface MobileMenuProps {
     mobileDropDown: HTMLElement | null;
     setMobileDropDown: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+    isModalOpen: boolean;
+    setIsModalOpen: any;
 }
 
 
-const MobileDropDown: React.FC<MobileMenuProps> = ({mobileDropDown, setMobileDropDown}) => {
+const MobileDropDown: React.FC<MobileMenuProps> = ({mobileDropDown, setMobileDropDown, isModalOpen, setIsModalOpen}) => {
 
     const handleCloseUserMenu = () => {
-        setMobileDropDown(null)
+        setMobileDropDown(null);
+    }
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
     }
 
     const router = useRouter();
 
     const handleLogout = () => {
-        router.push("/")
-        localStorage.clear()
+        router.push("/");
+        localStorage.clear();
     }
     
   return (
@@ -36,7 +42,7 @@ const MobileDropDown: React.FC<MobileMenuProps> = ({mobileDropDown, setMobileDro
             Profile Page
         </MenuItem>
 
-        <MenuItem>
+        <MenuItem onClick={handleOpenModal}>
         <ListItemIcon>
             <AddCircleOutline fontSize='small' />
         </ListItemIcon>
