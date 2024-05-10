@@ -59,17 +59,17 @@ const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, ha
   function submitForm() {
     setShowValidationText(true);
     setTimeout(() => {
-      resetForm();
+      // resetForm();
     }, 2500);
   }
 
-  function resetForm() {
-    const inputs = document.querySelectorAll("input");
-    inputs.forEach((input: HTMLInputElement) => (input.value = ""));
-    setShowMinimap(false)
-    setShowValidationText(false);
-    setFeature(null);
-  }
+  // function resetForm() {
+  //   const inputs = document.querySelectorAll("input");
+  //   inputs.forEach((input: HTMLInputElement) => (input.value = ""));
+  //   setShowMinimap(false)
+  //   setShowValidationText(false);
+  //   setFeature(null);
+  // }
 
   const hideBtns = () => {
     setShowMinimap(false)
@@ -126,7 +126,7 @@ const AddLocation = ({form, setForm, handleChange} : {form:any , setForm:any, ha
         
         <div className={showMinimap ? 'grid grid-cols-2 gap-6 mt-10 mb-2': 'hidden' }>
           <Button variant="contained" type='submit' className='mr-3' onClick={hideBtns}>Add Location</Button>
-          <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button>
+          {/* <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button> */}
         </div>
         
       </form>
