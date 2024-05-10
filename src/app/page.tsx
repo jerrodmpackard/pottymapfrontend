@@ -105,7 +105,7 @@ export default function Home() {
         setUserNameError(false);
       }
 
-      
+
 
       if (username && password) {
 
@@ -126,7 +126,7 @@ export default function Home() {
           getLoggedInUserData(username);
           router.push('/Pages/MapView');
         } else {
-          alert("Login Failed");
+          alert("Login Failed - Please ensure you are entering your credentials correctly.");
         }
       }
     }
@@ -147,12 +147,12 @@ export default function Home() {
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
-      zoom: 1,
+      zoom: 1.8,
       center: [-100, 15],
-      interactive:false
+      interactive: false
     });
 
-   
+
     map.scrollZoom.disable();
 
     map.on('style.load', () => {
@@ -161,15 +161,15 @@ export default function Home() {
 
     function spinGlobe() {
       const zoom = map.getZoom();
-      
-        let distancePerSecond = 2;
-        
-        const center = map.getCenter();
-        center.lng -= distancePerSecond;
-        // Smoothly animate the map over one second.
-        // When this animation is complete, it calls a 'moveend' event.
-        map.easeTo({ center, duration: 1000, easing: (n) => n });
-      
+
+      let distancePerSecond = 2;
+
+      const center = map.getCenter();
+      center.lng -= distancePerSecond;
+      // Smoothly animate the map over one second.
+      // When this animation is complete, it calls a 'moveend' event.
+      map.easeTo({ center, duration: 1000, easing: (n) => n });
+
     }
 
     // When animation is complete, start spinning if there is no ongoing interaction
@@ -185,8 +185,8 @@ export default function Home() {
   return (
     <main className='min-h-screen grid md:grid-cols-2 items-center'>
       <section className="hidden md:grid w-full min-h-screen mx-auto py-8 px-8 bg-gray-800 bg-opacity-90 rounded-tr-3xl">
-          <div className="loginMapHeight" ref={mapContainerRef}></div>
-          {/* <div>
+        <div className="loginMapHeight" ref={mapContainerRef}></div>
+        {/* <div>
             <h2 className="text-center text-red-600 text-3xl font-semibold">|* Warning * Warning * Warning * Warn |</h2>
             <h2 className="text-center text-white text-3xl font-semibold">PottyMap Potty Mouth not Included</h2>
           </div> */}
@@ -261,7 +261,7 @@ export default function Home() {
 
                 />
 
-                <Button className="mt-4" variant="contained" color="secondary" onClick={handleSubmit}>Create</Button>
+                <Button className="mt-4" variant="contained" color="secondary" onClick={handleSubmit}>Create Account</Button>
 
                 <Stack direction="row" className="mt-10 justify-center items-center">
                   <h1>Already have an account?</h1>
@@ -338,8 +338,8 @@ export default function Home() {
 
                 <Stack direction="row" className="mt-5 justify-center items-center">
                   <h1>Are you new?</h1>
-                  <Button variant="text" color="secondary" className="underline" onClick={handleSwitch}>
-                    Create an Acount
+                  <Button variant="text" color="info" className="underline" onClick={handleSwitch}>
+                    Create an Account
                   </Button>
                 </Stack>
               </FormControl>
