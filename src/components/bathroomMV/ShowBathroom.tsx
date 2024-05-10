@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Button, Alert, IconButton, Typography } from '@mui/material'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Button, Alert, IconButton, Typography, Stack } from '@mui/material'
 import { Close} from '@mui/icons-material'
 import React, { useState } from 'react'
 
@@ -28,7 +28,12 @@ const ShowBathroom = () => {
           <Close />
         </IconButton>
         <DialogContent dividers className='h-[615px]'>
-          {/* bathroom dot info goes here */}
+          <Box>
+            {/* Image */}
+          </Box>
+          <Stack>
+            
+          </Stack>
         </DialogContent>
         <DialogActions>
             <Button>Close</Button>
