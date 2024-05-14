@@ -234,6 +234,7 @@ export default function Home() {
                   id="username"
                   name="name"
                   label="Username"
+                  size="small"
                   value={username}
                   variant="outlined"
                   error={userNameError}
@@ -242,12 +243,13 @@ export default function Home() {
                   onChange={(e) => setUsername(e.target.value)}
                 />
 
-                <TextField className="mt-2"
+                <TextField className="mt-4"
                   required
                   autoComplete="off"
                   id="password"
                   label="Password"
                   name="password"
+                  size="small"
                   value={password}
                   type={visible ? "text" : "password"}
                   variant="outlined"
@@ -265,12 +267,13 @@ export default function Home() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <TextField className="my-2"
+                <TextField className="mt-4"
                   required
                   autoComplete="off"
                   id="cpassword"
                   label="Confirm Password"
                   name="cpassword"
+                  size="small"
                   value={cpassword}
                   type={visibleTwo ? "text" : "password"}
                   variant="outlined"
