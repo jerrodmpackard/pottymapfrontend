@@ -59,7 +59,7 @@ export default function Home() {
       }
       
       if (password === '') {
-        setPasswordError(true)
+        setPasswordError(true);
         // setPassErrMess("Password length must be at least 4 characters")
       } else {
         setUserNameError(false);
@@ -68,16 +68,15 @@ export default function Home() {
       }
       
       if (cpassword === '') {
-        setCPasswordError(true)
+        setCPasswordError(true);
         // setCPassErrMess("Passwords do not match")
       } else {
         setUserNameError(false);
         // setCPassErrMess("")
       }
       
-      console.log(password)
       
-      if (password === cpassword) {
+      if (username.length >= 4 && password.length >= 4 && password === cpassword) {
         
         let userData: IUserInfo = {
           Username: username,
@@ -85,18 +84,18 @@ export default function Home() {
           ID: 0
         }
         
-        console.log(userData)
         await createAccount(userData);
-        setSwitchBool(false)
-        setSuccessful(true)
+        setSwitchBool(false);
+        setSuccessful(true);
 
-        setUsername('')
-        setPassword('')
-        setCPassword('')
-        setCPasswordError(false)
+        setUsername('');
+        setPassword('');
+        setCPassword('');
+        setPasswordError(false);
+        setCPasswordError(false);
 
       } else {
-        setCPasswordError(true)
+        setCPasswordError(true);
         // alert("Login Failed - Passwords do not match")
       }
       
@@ -115,9 +114,7 @@ export default function Home() {
       }
       
       if (username && password) {
-        
-        console.log(`username is ${username} and pass is ${password}`)
-        
+                
         let userData: IUserInfo = {
           Username: username,
           Password: password,
