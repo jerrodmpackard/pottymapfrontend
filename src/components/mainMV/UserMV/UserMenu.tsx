@@ -8,7 +8,7 @@ interface UserMenuProps {
     setAnchorUserMenu: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ anchorUserMenu, setAnchorUserMenu }) => {
+const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }: UserMenuProps) => {
 
 
     const handleCloseUserMenu = () => {

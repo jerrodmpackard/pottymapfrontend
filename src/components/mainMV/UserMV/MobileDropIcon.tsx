@@ -8,7 +8,7 @@ interface MobileMenuProps {
     setIsModalOpen: any;
 }
 
-const MobileDropIcon: React.FC<MobileMenuProps> = ({isModalOpen, setIsModalOpen}) => {
+const MobileDropIcon = ({isModalOpen, setIsModalOpen}: MobileMenuProps) => {
 
     const [mobileDropDown, setMobileDropDown] = useState<HTMLElement | null>(null);
     
