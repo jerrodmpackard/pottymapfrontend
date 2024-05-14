@@ -34,7 +34,8 @@ export default function Home() {
   const [marked, setMarked] = useState<boolean>(false);
 
   const[isLoading, setIsLoading] = useState<boolean>(false);
-  const[successful, setSuccessful] = useState<boolean>(false);
+  const[successfulAccount, setSuccessfulAccount] = useState<boolean>(false);
+  const[successfulLogin, setSuccessfulLogin] = useState<boolean>(false);
 
   // const usernameErrorMessage = "Username length must be at least 4 characters";
   // const passwordErrorMessage = "Password length must be at least 4 characters";
@@ -86,7 +87,7 @@ export default function Home() {
         
         await createAccount(userData);
         setSwitchBool(false);
-        setSuccessful(true);
+        setSuccessfulAccount(true);
 
         setUsername('');
         setPassword('');
@@ -128,6 +129,7 @@ export default function Home() {
         if (token.token != null) {
           localStorage.setItem("Token", token.token)
           getLoggedInUserData(username);
+          setSuccessfulLogin(true);
           router.push('/Pages/MapView');
         } else {
           alert("Login Failed - Please ensure you are entering your credentials correctly.");
@@ -141,7 +143,15 @@ export default function Home() {
       return;
     }
 
-    setSuccessful(false);
+    setSuccessfulAccount(false);
+  };
+
+  const handleCloseTwo = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSuccessfulLogin(false);
   };
   
   const handleEyeClick = () => {
@@ -377,7 +387,7 @@ export default function Home() {
           )}
         </div>
       </section>
-      <Snackbar open={successful} autoHideDuration={3500} onClose={handleClose}>
+      <Snackbar open={successfulAccount} autoHideDuration={3500} onClose={handleClose}>
         <Alert
           onClose={handleClose}
           severity="success"
@@ -388,7 +398,18 @@ export default function Home() {
         </Alert>
       </Snackbar>
 
-      <Snackbar />
+      <Snackbar open={successfulLogin} autoHideDuration={3500} onClose={handleCloseTwo}>
+        <Alert
+          onClose={handleCloseTwo}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Login Successful
+        </Alert>
+      </Snackbar>
+
+
     </main>
   )
 }
