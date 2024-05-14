@@ -1,7 +1,11 @@
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const AddDetails = ({form, setForm, handleChange} : {form:any , setForm:any, handleChange:any}) => {
+
+  useEffect(() => {
+    console.log(form);
+  }, [form])
 
   return (
     <div className='grid grid-cols-2 gap-6 my-4'>

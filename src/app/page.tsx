@@ -387,7 +387,7 @@ export default function Home() {
           )}
         </div>
       </section>
-      <Snackbar open={successfulAccount} autoHideDuration={3500} onClose={handleClose}>
+      <Snackbar open={successfulAccount} autoHideDuration={3500} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <Alert
           onClose={handleClose}
           severity="success"
@@ -398,7 +398,7 @@ export default function Home() {
         </Alert>
       </Snackbar>
 
-      <Snackbar open={successfulLogin} autoHideDuration={3500} onClose={handleCloseTwo}>
+      <Snackbar open={successfulLogin} autoHideDuration={3500} onClose={handleCloseTwo}  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <Alert
           onClose={handleCloseTwo}
           severity="success"

@@ -18,7 +18,6 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
 
   const [showMinimap, setShowMinimap] = useState<boolean>(false);
   const [feature, setFeature] = useState<Feature | null>(null);
-  const [showValidationText, setShowValidationText] = useState<boolean>(false);
   const [mapToken, setMapToken] = useState<string>('');
   const [saveLatitude, setSaveLatitude] = useState<number>(0);
   const [saveLongitude, setSaveLongitude] = useState<number>(0);
@@ -38,25 +37,31 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
 
   const handleRetrieve = useCallback(
     (res: any) => {
-      const feature: Feature = res.features[0];
-      setFeature(feature);
-      setSaveLongitude(feature.geometry.coordinates[0]);
-      setSaveLatitude(feature.geometry.coordinates[1]);
-      console.log(feature);
+      const feature2: Feature = res.features[0];
+      setFeature(feature2);
+      setSaveLongitude(feature2.geometry.coordinates[0]);
+      setSaveLatitude(feature2.geometry.coordinates[1]);
       setShowMinimap(true);
+
+      setForm({
+        ...form,
+        longitude: feature2.geometry.coordinates[0],
+        latitude: feature2.geometry.coordinates[1]
+      })
     },
     [setFeature, setShowMinimap]
   );
 
-    function handleSaveMarkerLocation(coordinate: any) {
-      console.log(`Marker moved to longitude ${JSON.stringify(coordinate[0])}º.`);
-      console.log(`Marker moved to latitude ${JSON.stringify(coordinate[1])}º.`);
-    }
+  function handleSaveMarkerLocation(coordinate: any) {
+    console.log(`Marker moved to longitude ${JSON.stringify(coordinate[0])}º.`);
+    console.log(`Marker moved to latitude ${JSON.stringify(coordinate[1])}º.`);
+  }
 
-    useEffect(() => {
-      console.log(`Longitude: ${saveLongitude}`);
-      console.log(`Latitude: ${saveLatitude}`);
-    }, [saveLatitude, saveLongitude])
+
+  useEffect(() => {
+    console.log(`Longitude: ${saveLongitude}`);
+    console.log(`Latitude: ${saveLatitude}`);
+  }, [form])
 
   const handleLocationSubmit = useCallback(
     async (e: React.FormEvent) => {
@@ -70,7 +75,6 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
   );
 
   function submitForm() {
-    setShowValidationText(true);
     setTimeout(() => {
       // resetForm();
     }, 2500);
@@ -161,6 +165,11 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
           <Button variant="contained" type='submit' className='mr-3' onClick={hideBtns}>Add Location</Button>
           <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button>
         </div> */}
+
+      <div className='hidden'>
+        <input type="text" name='latitude' value={form.latitude} />
+        <input type="text" name='longitude' value={form.longitude} />
+      </div>
 
     </form>
 
