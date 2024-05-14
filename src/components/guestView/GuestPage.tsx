@@ -209,7 +209,7 @@ const GuestPage = () => {
                 </Container>
             </AppBar>
             <Box>
-                <div ref={mapContainerRef} className='mapHeightMobile  mobile:mapHeight'></div>
+                <div ref={mapContainerRef} className='mt-[56px] h-[calc(100vh-56px)] mobile:mt-16 mobile:h-[calc(100vh-64px)]'></div>
             </Box>
         </>
     )
