@@ -15,7 +15,7 @@ import { IBathrooms } from '@/Interfaces/Interfaces';
 import { addBathroom } from '@/utils/DataServices';
 
 
-const AddBathroom = ({ isModalOpen, setIsModalOpen, setSave }: { isModalOpen: boolean, setIsModalOpen: any, setSave: any }) => {
+const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOpen: boolean, setIsModalOpen: any, save:boolean, setSave: any }) => {
 
 
   // Add map form useStates
