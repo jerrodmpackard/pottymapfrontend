@@ -15,12 +15,13 @@ import { IBathrooms } from '@/Interfaces/Interfaces';
 import { addBathroom } from '@/utils/DataServices';
 
 
-const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOpen: boolean, setIsModalOpen: any, save:boolean, setSave: any }) => {
+const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap }: { isModalOpen: boolean, setIsModalOpen: any, save: boolean, setSave: any, setUpdateMap: any }) => {
 
 
   // Add map form useStates
   const [form, setForm] = useState<IBathrooms>({
     id: 0,
+    name: "",
     address: "",
     city: "",
     state: "",
@@ -50,7 +51,7 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOp
 
   const isFilledOne = form.address != '' && form.city != '' && form.state != '' && form.zipCode != ''
 
-  const isFilledTwo = form.gender != '' && form.type != '' && form.numberOfStalls != '' && form.wheelchairAccessibility != '' && form.hoursOfOperation != '' && form.openToPublic != ''
+  const isFilledTwo = form.name != '' && form.gender != '' && form.type != '' && form.numberOfStalls != '' && form.wheelchairAccessibility != '' && form.hoursOfOperation != '' && form.openToPublic != ''
 
   const isFilledThree = form.keyRequired != '' && form.babyChangingStation != '' && form.cleanliness != '' && form.safety != ''
 
@@ -78,7 +79,7 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOp
 
     setForm({
       id: 0,
-      // name: "",
+      name: "",
       address: "",
       city: "",
       state: "",
@@ -104,11 +105,11 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOp
     try {
       const res = addBathroom(form);
       console.log("Response:", res);
-      alert("Success")
+      setUpdateMap(true);
 
-    } catch(error){
-        console.error('Error occured while adding bathroom', error);
-        alert("Failed LOL")
+    } catch (error) {
+      console.error('Error occured while adding bathroom', error);
+      alert("Your bathroom was not added. Please try again.")
     }
   }
 
@@ -130,10 +131,12 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOp
           right: 8,
           color: (theme) => theme.palette.grey[500]
         }}
-        onClick={() => { setIsModalOpen(false);
-           setSave(false);
-           setForm({
+        onClick={() => {
+          setIsModalOpen(false);
+          setSave(false);
+          setForm({
             id: 0,
+            name: "",
             address: "",
             city: "",
             state: "",
@@ -152,6 +155,7 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOp
             safety: "",
           });
           setActiveStep(0);
+          setUpdateMap(false);
         }}
       >
         <Close />
@@ -175,7 +179,7 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOp
           </Stepper>
         </Box>
 
-        {activeStep === steps.length  ? (
+        {activeStep === steps.length ? (
           <Box className="flex justify-center itmes-center">
             <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
               Here is a gentle confirmation that your action was successful.
@@ -198,7 +202,7 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOp
 
       {/* The footer */}
 
-      {activeStep === steps.length  ? (
+      {activeStep === steps.length ? (
         <DialogActions>
           <Button onClick={handleReset}>Reset</Button>
         </DialogActions>
@@ -217,11 +221,11 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOp
             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
           </Button> */}
           {activeStep === steps.length - 1 ? (
-            
+
             <Button variant="contained" onClick={handleSubmit} >Submit</Button>
-            
+
           ) : (
-            
+
             <Button variant="text" onClick={handleNext}>Next</Button>
           )}
         </DialogActions>

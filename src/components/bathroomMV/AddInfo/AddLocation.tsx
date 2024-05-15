@@ -36,7 +36,7 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
   });
 
   const handleRetrieve = useCallback(
-     async (res: any) => {
+    async (res: any) => {
       const feature2: Feature = res.features[0];
       setFeature(feature2);
       setShowMinimap(true);
@@ -56,17 +56,17 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
   }
 
   useEffect(() => {
-    if(feature != null){
+    if (feature != null) {
       setSaveLongitude(feature.geometry.coordinates[0]);
       setSaveLatitude(feature.geometry.coordinates[1]);
     }
-  },[feature])
+  }, [feature])
 
   useEffect(() => {
     setForm({
       ...form,
-      longitude : saveLongitude,
-      latitude : saveLatitude
+      longitude: saveLongitude,
+      latitude: saveLatitude
     })
   }, [saveLongitude, saveLatitude])
 
@@ -99,9 +99,9 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
   //   setFeature(null);
   // }
 
-  
 
-  
+
+
   return (
 
     <form ref={formRef} onSubmit={handleLocationSubmit}>
@@ -167,7 +167,7 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
       </div>
 
       <div className='hidden'>
-      
+
       </div>
 
     </form>

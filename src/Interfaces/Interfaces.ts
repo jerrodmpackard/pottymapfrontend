@@ -1,6 +1,6 @@
 export interface IBathrooms {
     id: number
-    // name: string
+    name: string
     address: string
     city: string
     state: string

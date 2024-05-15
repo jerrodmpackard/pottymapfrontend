@@ -28,6 +28,8 @@ import ShowBathroom from '../bathroomMV/ShowBathroom';
 
 const MapPageComponent = () => {
 
+    // Update the map whenever a new bathroom is entered using the form
+    const [updateMap, setUpdateMap] = useState<boolean>(false);
 
     //Opening and closing the Drawer component (Sidebar)
     const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -184,7 +186,7 @@ const MapPageComponent = () => {
 
         setMap(newMap);
 
-    }, []);
+    }, [updateMap]);
 
     //Re-renders the searchbox everytime the map or navbar is updated
     //It used to disappear whenever the navbar got updated through the drawer and modal 
@@ -198,7 +200,7 @@ const MapPageComponent = () => {
             });
             geocoderContainerRef.current.appendChild(geocoder.onAdd(map));
         }
-    }, [map, isOpen, isModalOpen, placeholder])
+    }, [map, isOpen, isModalOpen, placeholder, updateMap])
 
         //Checking if there is a token in local storage
         if (!checkToken()) {
@@ -252,7 +254,7 @@ const MapPageComponent = () => {
             {/* The Drawer component */}
             <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
-            <AddBathroom isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} save={save} setSave={setSave}/>
+            <AddBathroom setUpdateMap={setUpdateMap} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} save={save} setSave={setSave}/>
             
             <ShowBathroom placeholder={placeholder} setPlaceholder={setPlaceholder}/>
             
