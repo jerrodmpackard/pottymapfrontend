@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import React, { useEffect } from 'react'
 
-const AddDetails = ({form,  handleChange } : {form:any , setForm:any, handleChange:any }) => {
+const AddDetails = ({ form, handleChange }: { form: any, setForm: any, handleChange: any }) => {
 
   // useEffect(() => {
   //   console.log(form)
@@ -10,14 +10,24 @@ const AddDetails = ({form,  handleChange } : {form:any , setForm:any, handleChan
   return (
     <div className='grid grid-cols-2 gap-6 my-4'>
 
+      <FormControl className='col-span-2'>
+        <TextField name="name"
+          label="Name of Bathroom"
+          variant="outlined"
+          value={form.name}
+          autoSave="true"
+          onChange={handleChange}
+        />
+      </FormControl>
+
       <FormControl>
         <InputLabel>Gender</InputLabel>
-        <Select name="gender" 
-        label="Gender"
-        value={form.gender}  
-        autoWidth
-        autoSave="true"
-        onChange={handleChange}
+        <Select name="gender"
+          label="Gender"
+          value={form.gender}
+          autoWidth
+          autoSave="true"
+          onChange={handleChange}
         >
           <MenuItem value=""></MenuItem>
           <MenuItem value="men&apos;s &amp; women&apos;s">Men&apos;s &amp; Women&apos;s</MenuItem>
@@ -28,12 +38,12 @@ const AddDetails = ({form,  handleChange } : {form:any , setForm:any, handleChan
 
       <FormControl>
         <InputLabel>Type</InputLabel>
-        <Select name="type" 
-        label="Type"
-        value={form.type}
-        autoWidth
-        autoSave="true"
-        onChange={handleChange}
+        <Select name="type"
+          label="Type"
+          value={form.type}
+          autoWidth
+          autoSave="true"
+          onChange={handleChange}
         >
           <MenuItem value="individual">Individual</MenuItem>
           <MenuItem value="shared">Shared</MenuItem>
@@ -41,24 +51,24 @@ const AddDetails = ({form,  handleChange } : {form:any , setForm:any, handleChan
       </FormControl>
 
       <FormControl>
-        
+
         <TextField name="numberOfStalls"
-        label="Number of Stalls"
-        variant="outlined"  
-        value={form.numberOfStalls} 
-        autoSave="true"
-        onChange={handleChange}
+          label="Number of Stalls"
+          variant="outlined"
+          value={form.numberOfStalls}
+          autoSave="true"
+          onChange={handleChange}
         />
       </FormControl>
 
       <FormControl>
         <InputLabel>Wheelchair Accessible</InputLabel>
-        <Select name="wheelchairAccessibility" 
-        label="Wheelchair Accessible"
-        value={form.wheelchairAccessibility}
-        autoWidth
-        autoSave="true"
-        onChange={handleChange}
+        <Select name="wheelchairAccessibility"
+          label="Wheelchair Accessible"
+          value={form.wheelchairAccessibility}
+          autoWidth
+          autoSave="true"
+          onChange={handleChange}
         >
           <MenuItem value="yes">Yes</MenuItem>
           <MenuItem value="no">No</MenuItem>
@@ -66,28 +76,28 @@ const AddDetails = ({form,  handleChange } : {form:any , setForm:any, handleChan
       </FormControl>
 
       <FormControl>
-        <TextField name="hoursOfOperation" 
-        label="Hours of Operation" 
-        variant="outlined" 
-        value={form.hoursOfOperation}
-        autoSave="true"
-        onChange={handleChange} 
+        <TextField name="hoursOfOperation"
+          label="Hours of Operation"
+          variant="outlined"
+          value={form.hoursOfOperation}
+          autoSave="true"
+          onChange={handleChange}
         />
       </FormControl>
 
       <FormControl>
-      <InputLabel>Open to Public?</InputLabel>
-      <Select name="openToPublic" 
-      label="Open To Public?"
-      value={form.openToPublic}
-      autoWidth
-      autoSave="true"
-      onChange={handleChange}>
+        <InputLabel>Open to Public?</InputLabel>
+        <Select name="openToPublic"
+          label="Open To Public?"
+          value={form.openToPublic}
+          autoWidth
+          autoSave="true"
+          onChange={handleChange}>
           <MenuItem value=""></MenuItem>
           <MenuItem value="yes">Yes</MenuItem>
           <MenuItem value="no">Cutomers only</MenuItem>
-      </Select>
-      </FormControl>      
+        </Select>
+      </FormControl>
     </div>
   )
 }
