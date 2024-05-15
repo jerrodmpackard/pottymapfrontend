@@ -78,6 +78,7 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave }: { isModalOp
 
     setForm({
       id: 0,
+      // name: "",
       address: "",
       city: "",
       state: "",
