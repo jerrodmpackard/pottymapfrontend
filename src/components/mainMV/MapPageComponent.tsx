@@ -251,10 +251,8 @@ const MapPageComponent = () => {
             {/* The Drawer component */}
             <Sidebar {...{ isOpen, setIsOpen }} />
 
-            <Suspense fallback="Loading...">
-                <AddBathroom {...{ isModalOpen, setIsModalOpen }} />
-            </Suspense>
-
+            <AddBathroom {...{ isModalOpen, setIsModalOpen }} />
+            
             <ShowBathroom {...{placeholder, setPlaceholder}}/>
             
 

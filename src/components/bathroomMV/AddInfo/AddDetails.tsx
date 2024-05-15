@@ -20,7 +20,7 @@ const AddDetails = ({form, setForm, handleChange} : {form:any , setForm:any, han
         onChange={handleChange}
         >
           <MenuItem value=""></MenuItem>
-          <MenuItem value="mens & womens">Men&apos;s and Women&apos;s</MenuItem>
+          <MenuItem value="men&apos;s &amp; women&apos;s">Men&apos;s &amp; Women&apos;s</MenuItem>
           <MenuItem value="gender neutral">Gender neutral</MenuItem>
           <MenuItem value="family restroom">Family restroom</MenuItem>
         </Select>
