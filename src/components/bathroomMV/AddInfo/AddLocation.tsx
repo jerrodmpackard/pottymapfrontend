@@ -36,11 +36,9 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
   });
 
   const handleRetrieve = useCallback(
-    (res: any) => {
+     async (res: any) => {
       const feature2: Feature = res.features[0];
       setFeature(feature2);
-      setSaveLongitude(feature2.geometry.coordinates[0]);
-      setSaveLatitude(feature2.geometry.coordinates[1]);
       setShowMinimap(true);
 
       setForm({
@@ -57,11 +55,20 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
     console.log(`Marker moved to latitude ${JSON.stringify(coordinate[1])}º.`);
   }
 
+  useEffect(() => {
+    if(feature != null){
+      setSaveLongitude(feature.geometry.coordinates[0]);
+      setSaveLatitude(feature.geometry.coordinates[1]);
+    }
+  },[feature])
 
   useEffect(() => {
-    console.log(`Longitude: ${saveLongitude}`);
-    console.log(`Latitude: ${saveLatitude}`);
-  }, [form])
+    setForm({
+      ...form,
+      longitude : saveLongitude,
+      latitude : saveLatitude
+    })
+  }, [saveLongitude, saveLatitude])
 
   const handleLocationSubmit = useCallback(
     async (e: React.FormEvent) => {
