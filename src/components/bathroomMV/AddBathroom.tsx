@@ -55,6 +55,7 @@ const AddBathroom = ({isModalOpen, setIsModalOpen} : {isModalOpen:boolean, setIs
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
       handleNext();
+      console.log(form)
     };
   
     const handleReset = () => {

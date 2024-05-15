@@ -19,7 +19,7 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }: UserMenuProps) => {
 
     const handleLogout = () => {
         router.push("/")
-        localStorage.clear()
+        localStorage.removeItem("Token")
     }
     
   return (
