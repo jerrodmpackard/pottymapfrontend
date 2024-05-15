@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react';
 
 //Interface Imports
 import { checkToken, getMapDots } from '@/utils/DataServices';
@@ -30,7 +29,6 @@ import ShowBathroom from '../bathroomMV/ShowBathroom';
 const MapPageComponent = () => {
 
 
-
     //Opening and closing the Drawer component (Sidebar)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -39,6 +37,9 @@ const MapPageComponent = () => {
 
     //Testing INfo modal
     const [placeholder, setPlaceholder] = useState<boolean>(false)
+
+    //Turn on and off the autoSave
+    const [save, setSave] = useState<boolean>(false)
 
     //Styling for the searchbox container 
     const Search = styled('div')(({ theme }) => ({
@@ -232,7 +233,7 @@ const MapPageComponent = () => {
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
                             <Tooltip title="Add a Bathroom">
-                                <IconButton color='inherit' onClick={() => setIsModalOpen(true)}>
+                                <IconButton color='inherit' onClick={() => {setIsModalOpen(true); setSave(true)}}>
                                     <AddCircleOutline />
                                 </IconButton>
                             </Tooltip>
@@ -242,7 +243,7 @@ const MapPageComponent = () => {
                             <UserIcons />
                         </Box>
                         <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-                            <MobileDropIcon {...{isModalOpen, setIsModalOpen}} />
+                            <MobileDropIcon isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                         </Box>
                     </Toolbar>
                 </Container>
@@ -250,11 +251,11 @@ const MapPageComponent = () => {
      
 
             {/* The Drawer component */}
-            <Sidebar {...{ isOpen, setIsOpen }} />
+            <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
-            <AddBathroom {...{ isModalOpen, setIsModalOpen }} />
+            <AddBathroom isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} save={save} setSave={setSave}/>
             
-            <ShowBathroom {...{placeholder, setPlaceholder}}/>
+            <ShowBathroom placeholder={placeholder} setPlaceholder={setPlaceholder}/>
             
 
             {/* Rendering the map below the navbar (Appbar) */}

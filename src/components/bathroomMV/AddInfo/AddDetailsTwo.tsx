@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import React from 'react'
 
-const AddDetailsTwo = ({form, setForm, handleChange} : {form:any , setForm:any, handleChange:any}) => {
+const AddDetailsTwo = ({form, handleChange } : {form:any , setForm:any, handleChange:any }) => {
   return (
     <div className='grid grid-cols-2 gap-6 my-4'>
       <FormControl>
