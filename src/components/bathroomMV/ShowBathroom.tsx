@@ -10,8 +10,8 @@ import bgImg from '../../assets/Kids_Free_Hand_Drawing_of_Toilet_Paper_Rolls_Sea
 
 //Icon imports
 
-import { PiHeart, PiStar, PiShareNetwork, PiPersonLight, PiClockLight, PiKey, PiBuildings, PiDoor, PiShieldCheck, PiWheelchair, PiBabyLight, PiSprayBottleLight } from "react-icons/pi";
-
+import { PiHeart, PiStar, PiPersonLight, PiClockLight, PiKey, PiBuildings, PiDoor, PiShieldCheck, PiWheelchair, PiBabyLight, PiSprayBottleLight } from "react-icons/pi";
+import { GrShare } from "react-icons/gr";
 
 
 const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, setPlaceholder: any }) => {
@@ -22,7 +22,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
     <Dialog
       open={placeholder}
       fullWidth={true}
-      maxWidth='md'
+      maxWidth='sm'
       style={{ zIndex: 101 }}
     >
       <DialogTitle sx={{ m: 0, p: 2 }}>
@@ -46,7 +46,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
             alt="toilet background "
             height={200}
             width={900}
-            className="aspect-[4.5/1] border-4 border-[#B9DEE6] rounded-2xl flex object-cover"
+            className="aspect-[4/1] border-4 border-[#B9DEE6] rounded-2xl flex object-cover"
           />
         </Box>
 
@@ -54,7 +54,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
           <Stack spacing={1} sx={{ flexGrow: 1 }} >
             <Tooltip title="Bathroom Rating">
               <Box>
-                <Rating  value={4.5} precision={0.5} readOnly />
+                <Rating name="rating" value={4.5} precision={0.5} readOnly size="large" />
               </Box>
               {/* <Rating name="half-rating" defaultValue={0} precision={0.5} /> */}
             </Tooltip>
@@ -63,7 +63,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
           <Box>
             <Tooltip title="Favorite">
               <IconButton color="error">
-                <PiHeart />
+                <PiHeart className='text-3xl' />
               </IconButton>
             </Tooltip>
           </Box>
@@ -71,7 +71,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
           <Box>
             <Tooltip title="Rate Bathroom">
               <IconButton>
-                <PiStar className='text-yellow-600' />
+                <PiStar className='text-yellow-600 text-3xl' />
               </IconButton>
             </Tooltip>
           </Box>
@@ -79,14 +79,15 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
           <Box>
             <Tooltip title="Share Bathroom">
               <IconButton>
-                <PiShareNetwork />
+              <GrShare  className='text-2xl'/>
               </IconButton>
             </Tooltip>
           </Box>
         </Stack>
 
+
         <Box>
-          <h2 className='text-lg font-semibold'>Genral Infomartion</h2>
+          <h2 className='text-lg font-semibold'>General Information</h2>
           <div className='mx-2 mt-2 flex item-center'>
             <PiPersonLight className='text-2xl' />
             <p className="ml-1">Men&apos;s &amp; Women&apos;s</p>
@@ -117,7 +118,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
             <p className="ml-1">Safe</p>
           </div>
 
-          <h2 className='text-lg font-semibold'>Amenities</h2>
+          <h2 className='text-lg mt-4 font-semibold'>Amenities</h2>
           <div className='mx-2 mt-2 flex item-center'>
             <PiWheelchair className='text-2xl'/>
             <p className="ml-1">Wheelchair accessible</p>
