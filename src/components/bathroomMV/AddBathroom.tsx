@@ -97,19 +97,19 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, setSave }: { isModalOpen: bo
     })
   };
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    try {
+      const res = addBathroom(form);
+      console.log("Response:", res);
+      alert("Success")
 
-  //   try {
-  //     const res = addBathroom(form);
-  //     console.log("Response:", res);
-  //     alert("Success")
-
-  //   } catch(error){
-  //       console.error('Error occured while adding bathroom', error);
-  //       alert("Failed LOL")
-  //   }
-  // }
+    } catch(error){
+        console.error('Error occured while adding bathroom', error);
+        alert("Failed LOL")
+    }
+  }
 
 
   return (
@@ -212,10 +212,17 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, setSave }: { isModalOpen: bo
             Back
           </Button>
           <Box sx={{ flex: '1 1 auto' }} />
-          <Button onClick={handleNext} sx={{ mr: 1 }}>
+          {/* <Button onClick={handleNext} sx={{ mr: 1 }}>
             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-          </Button>
-
+          </Button> */}
+          {activeStep === steps.length - 1 ? (
+            
+            <Button variant="contained" onClick={handleSubmit} >Submit</Button>
+            
+          ) : (
+            
+            <Button variant="text" onClick={handleNext}>Next</Button>
+          )}
         </DialogActions>
       )}
     </Dialog>
