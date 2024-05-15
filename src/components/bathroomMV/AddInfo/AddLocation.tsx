@@ -87,6 +87,10 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
     }, 2500);
   }
 
+  useEffect(() => {
+    console.log(form)
+  }, [form])
+
   // function resetForm() {
   //   const TextFields = document.querySelectorAll("TextField");
   //   TextFields.forEach((TextField: HTMLTextFieldElement) => (TextField.value = ""));
@@ -95,14 +99,9 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
   //   setFeature(null);
   // }
 
-  const hideBtns = () => {
-    setShowMinimap(false)
-  }
+  
 
-  const completeStep = () => {
-
-  }
-
+  
   return (
 
     <form ref={formRef} onSubmit={handleLocationSubmit}>
@@ -167,15 +166,8 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
         </div>
       </div>
 
-
-      {/* <div className={showMinimap ? 'grid grid-cols-2 gap-6 mt-10 mb-2': 'hidden' }>
-          <Button variant="contained" type='submit' className='mr-3' onClick={hideBtns}>Add Location</Button>
-          <Button variant='outlined' type="button" color='info' className="ml-3" onClick={resetForm}>Reset</Button>
-        </div> */}
-
       <div className='hidden'>
-        <input type="text" name='latitude' value={form.latitude} />
-        <input type="text" name='longitude' value={form.longitude} />
+      
       </div>
 
     </form>
