@@ -272,19 +272,6 @@ const MapPageComponent = () => {
             <Box>
                 <div ref={mapContainerRef} className='mt-[56px] h-[calc(100vh-56px)] mobile:mt-16 mobile:h-[calc(100vh-64px)]'></div>
             </Box>
-            <Box>
-                <Fab color="primary" onClick={() => setPlaceholder(true)}
-                    size="small" aria-label="add"
-                    style={{
-                        position: 'absolute',
-                        bottom: '90px',
-                        right: '5px',
-                        zIndex: 100,
-                    }}
-                >
-                    <AddCircleOutline />
-                </Fab>
-            </Box>
         </>
     )
 }
