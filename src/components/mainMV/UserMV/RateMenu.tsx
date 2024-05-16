@@ -6,7 +6,7 @@ interface UserRateProps {
     anchorRateMenu: HTMLElement | null;
     setAnchorRateMenu: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
     value: number | null;
-    setValue: any
+    setValue: any;
 }
 
     const labels: { [index: string]: string } = {

@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 
-//Material UI imports
+//Material UI Imports
 import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Button, Alert, IconButton, Stack, Rating, Tooltip } from '@mui/material'
 import { Close } from '@mui/icons-material'
 
-//Image imports
+//Image Imports
 import Image from 'next/image'
 import bgImg from '../../assets/Kids_Free_Hand_Drawing_of_Toilet_Paper_Rolls_Seamless_Background_Pattern_generated.jpg'
 
-//Icon imports
-
+//Icon Imports
 import { PiHeart, PiPersonLight, PiClockLight, PiKey, PiBuildings, PiDoor, PiShieldCheck, PiWheelchair, PiBabyLight, PiSprayBottleLight } from "react-icons/pi";
-import { GrShare } from "react-icons/gr";
+
+//Custom Components Imports
 import RateIcon from '../mainMV/UserMV/RateIcon'
+import ShareIcon from '../mainMV/UserMV/ShareIcon'
 
 
 const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { placeholder: boolean, setPlaceholder: any, selectedMarkerData: any }) => {
@@ -73,17 +74,10 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
             </Tooltip>
           </Box>
 
-          
           <RateIcon />
-          
 
-          <Box>
-            <Tooltip title="Share Bathroom">
-              <IconButton>
-              <GrShare  className='text-2xl'/>
-              </IconButton>
-            </Tooltip>
-          </Box>
+          <ShareIcon />
+          
         </Stack>
 
 
