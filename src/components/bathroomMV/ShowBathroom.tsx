@@ -17,7 +17,7 @@ import RateIcon from '../mainMV/UserMV/RateIcon'
 
 const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, setPlaceholder: any }) => {
 
-  const title = "Best Potty"
+  const title = "Best Potty Spot"
 
   return (
     <Dialog
@@ -55,7 +55,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
           <Stack spacing={1} sx={{ flexGrow: 1 }} >
             <Tooltip title="Bathroom Rating">
               <Box>
-                <Rating name="rating" value={4.5} precision={0.5} readOnly size="large" />
+                <Rating name="This bathrooms rating" value={4.5} precision={0.5} readOnly size="large" />
               </Box>
               {/* <Rating name="half-rating" defaultValue={0} precision={0.5} /> */}
             </Tooltip>
