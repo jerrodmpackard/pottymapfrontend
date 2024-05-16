@@ -40,14 +40,8 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
       const feature2: Feature = res.features[0];
       setFeature(feature2);
       setShowMinimap(true);
-
-      setForm({
-        ...form,
-        longitude: feature2.geometry.coordinates[0],
-        latitude: feature2.geometry.coordinates[1]
-      })
     },
-    [setFeature, setShowMinimap, form, setForm]
+    [setFeature, setShowMinimap]
   );
 
   function handleSaveMarkerLocation(coordinate: any) {
@@ -68,7 +62,7 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
       longitude: saveLongitude,
       latitude: saveLatitude
     })
-  }, [saveLongitude, saveLatitude, form, setForm])
+  }, [saveLongitude, saveLatitude])
 
   const handleLocationSubmit = useCallback(
     async (e: React.FormEvent) => {
