@@ -12,6 +12,7 @@ import bgImg from '../../assets/Kids_Free_Hand_Drawing_of_Toilet_Paper_Rolls_Sea
 
 import { PiHeart, PiStar, PiPersonLight, PiClockLight, PiKey, PiBuildings, PiDoor, PiShieldCheck, PiWheelchair, PiBabyLight, PiSprayBottleLight } from "react-icons/pi";
 import { GrShare } from "react-icons/gr";
+import RateIcon from '../mainMV/UserMV/RateIcon'
 
 
 const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, setPlaceholder: any }) => {
@@ -69,11 +70,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
           </Box>
 
           <Box>
-            <Tooltip title="Rate Bathroom">
-              <IconButton>
-                <PiStar className='text-yellow-600 text-3xl' />
-              </IconButton>
-            </Tooltip>
+            <RateIcon />
           </Box>
 
           <Box>
