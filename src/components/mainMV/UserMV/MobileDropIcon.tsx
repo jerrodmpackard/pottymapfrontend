@@ -19,7 +19,7 @@ const MobileDropIcon = ({isModalOpen, setIsModalOpen}: MobileMenuProps) => {
                     <MoreVert />
                 </IconButton>
             </Tooltip>
-            <MobileDropDown {...{ mobileDropDown, setMobileDropDown }} {...{isModalOpen, setIsModalOpen}} />
+            <MobileDropDown mobileDropDown={mobileDropDown} setMobileDropDown={setMobileDropDown}  isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
         </Box>
     )
 }

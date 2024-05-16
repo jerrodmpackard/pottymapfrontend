@@ -13,7 +13,7 @@ const UserIcons = () => {
                 <Avatar></Avatar>
             </IconButton>
         </Tooltip>
-        <UserMenu {...{anchorUserMenu, setAnchorUserMenu}}/>
+        <UserMenu anchorUserMenu={anchorUserMenu} setAnchorUserMenu={setAnchorUserMenu}/>
     </Box>
   )
 }

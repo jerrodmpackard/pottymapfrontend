@@ -11,7 +11,7 @@ interface MobileMenuProps {
 }
 
 
-const MobileDropDown: React.FC<MobileMenuProps> = ({mobileDropDown, setMobileDropDown, isModalOpen, setIsModalOpen}) => {
+const MobileDropDown = ({mobileDropDown, setMobileDropDown, isModalOpen, setIsModalOpen}: MobileMenuProps) => {
 
     const handleCloseUserMenu = () => {
         setMobileDropDown(null);
