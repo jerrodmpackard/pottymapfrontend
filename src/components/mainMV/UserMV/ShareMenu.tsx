@@ -1,6 +1,6 @@
 import React from 'react'
 import { ListItemIcon, Menu, MenuItem } from '@mui/material';
-import { 
+import {
   LinkedinShareButton,
   TwitterShareButton,
   FacebookShareButton,
@@ -18,14 +18,14 @@ import {
   EmailIcon,
   WorkplaceIcon,
   PinterestIcon,
- } from "react-share";
+} from "react-share";
 
 interface UserShareProps {
   anchorShareMenu: HTMLElement | null;
   setAnchorShareMenu: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
 }
 
-const ShareMenu = ({anchorShareMenu, setAnchorShareMenu}: UserShareProps) => {
+const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu }: UserShareProps) => {
 
   const handleCloseShareMenu = () => {
     setAnchorShareMenu(null)
@@ -36,10 +36,18 @@ const ShareMenu = ({anchorShareMenu, setAnchorShareMenu}: UserShareProps) => {
 
   return (
     <Menu
-    anchorEl={anchorShareMenu}
-    open={Boolean(anchorShareMenu)}
-    onClose={handleCloseShareMenu}
-    onClick={handleCloseShareMenu}
+      anchorEl={anchorShareMenu}
+      open={Boolean(anchorShareMenu)}
+      onClose={handleCloseShareMenu}
+      onClick={handleCloseShareMenu}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
     >
       <MenuItem disabled={true}>Share to</MenuItem>
       <MenuItem>
@@ -68,7 +76,7 @@ const ShareMenu = ({anchorShareMenu, setAnchorShareMenu}: UserShareProps) => {
       </MenuItem>
       {/* need the appID */}
       <MenuItem>
-        <FacebookMessengerShareButton  appId="" url={palceholderUrl} className="flex items-center">
+        <FacebookMessengerShareButton appId="" url={palceholderUrl} className="flex items-center">
           <ListItemIcon className="mr-1">
             <FacebookMessengerIcon size={32} round={true} />
           </ListItemIcon>
