@@ -32,16 +32,18 @@ const MapPageComponent = () => {
     const [updateMap, setUpdateMap] = useState<boolean>(false);
 
     //Opening and closing the Drawer component (Sidebar)
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     //Opening and Closing the Modal Component (AddBathroom)
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     //Testing INfo modal
-    const [placeholder, setPlaceholder] = useState<boolean>(false)
+    const [placeholder, setPlaceholder] = useState<boolean>(false);
+
+    const [selectedMarkerData, setSelectedMarkerData] = useState<any>(null);
 
     //Turn on and off the autoSave
-    const [save, setSave] = useState<boolean>(false)
+    const [save, setSave] = useState<boolean>(false);
 
     //Styling for the searchbox container 
     const Search = styled('div')(({ theme }) => ({
@@ -124,22 +126,24 @@ const MapPageComponent = () => {
 
             // Copy coordinates array. Use dot notation to access each property of each feature to be passed into popup for display
             const coordinates: any = e?.features?.[0]?.geometry?.coordinates?.slice();
-            const Name = e?.features?.[0]?.properties?.name;
-            const Address = e?.features?.[0]?.properties?.address;
-            const City = e?.features?.[0]?.properties?.city;
-            const State = e?.features?.[0]?.properties?.state;
-            const ZipCode = e?.features?.[0]?.properties?.zipCode;
-            const Gender = e?.features?.[0]?.properties?.gender;
-            const Type = e?.features?.[0]?.properties?.type;
-            const NumberOfStalls = e?.features?.[0]?.properties?.numberOfStalls;
-            const WheelchairAccessibility = e?.features?.[0]?.properties?.wheelchairAccessibility;
-            const HoursOfOperation = e?.features?.[0]?.properties?.hoursOfOperation;
-            const OpenToPublic = e?.features?.[0]?.properties?.openToPublic;
-            const KeyRequired = e?.features?.[0]?.properties?.keyRequired;
-            const BabyChangingStation = e?.features?.[0]?.properties?.babyChangingStation;
-            const Cleanliness = e?.features?.[0]?.properties?.cleanliness;
-            const Safety = e?.features?.[0]?.properties?.safety;
-            const Rating = e?.features?.[0]?.properties?.rating;
+            const markerData = e.features[0].properties;
+            console.log(markerData);
+            // const Name = e.features[0].properties.name;
+            // const Address = e?.features?.[0]?.properties?.address;
+            // const City = e?.features?.[0]?.properties?.city;
+            // const State = e?.features?.[0]?.properties?.state;
+            // const ZipCode = e?.features?.[0]?.properties?.zipCode;
+            // const Gender = e?.features?.[0]?.properties?.gender;
+            // const Type = e?.features?.[0]?.properties?.type;
+            // const NumberOfStalls = e?.features?.[0]?.properties?.numberOfStalls;
+            // const WheelchairAccessibility = e?.features?.[0]?.properties?.wheelchairAccessibility;
+            // const HoursOfOperation = e?.features?.[0]?.properties?.hoursOfOperation;
+            // const OpenToPublic = e?.features?.[0]?.properties?.openToPublic;
+            // const KeyRequired = e?.features?.[0]?.properties?.keyRequired;
+            // const BabyChangingStation = e?.features?.[0]?.properties?.babyChangingStation;
+            // const Cleanliness = e?.features?.[0]?.properties?.cleanliness;
+            // const Safety = e?.features?.[0]?.properties?.safety;
+            // const Rating = e?.features?.[0]?.properties?.rating;
 
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
@@ -148,12 +152,16 @@ const MapPageComponent = () => {
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
             }
 
+            setSelectedMarkerData(markerData);
+
+            setPlaceholder(true);
+
             // Variable to hold all properties and formatting them for display on popup
-            const popupContent = `<div><strong>${Name}</strong><br><p>${Address} ${City}, ${State} ${ZipCode}</p><p>Gender: ${Gender}</p><p>Type: ${Type}</p><p>Number of Stalls: ${NumberOfStalls}</p><p>Wheelchair Accessible: ${WheelchairAccessibility}</p><p>Hours of Operation: ${HoursOfOperation}</p><p>Open to Public: ${OpenToPublic}</p><p>Key Required: ${KeyRequired}</p><p>Baby Changing Station: ${BabyChangingStation}</p><p>Cleanliness: ${Cleanliness}</p><p>Safety: ${Safety}</p></div>`;
+            // const popupContent = `<div><strong>${Name}</strong><br><p>${Address} ${City}, ${State} ${ZipCode}</p><p>Gender: ${Gender}</p><p>Type: ${Type}</p><p>Number of Stalls: ${NumberOfStalls}</p><p>Wheelchair Accessible: ${WheelchairAccessibility}</p><p>Hours of Operation: ${HoursOfOperation}</p><p>Open to Public: ${OpenToPublic}</p><p>Key Required: ${KeyRequired}</p><p>Baby Changing Station: ${BabyChangingStation}</p><p>Cleanliness: ${Cleanliness}</p><p>Safety: ${Safety}</p></div>`;
 
             // Populate the popup and set its coordinates
             // based on the feature found.
-            popup.setLngLat(coordinates).setHTML(popupContent).addTo(newMap);
+            // popup.setLngLat(coordinates).setHTML(popupContent).addTo(newMap);
         });
 
         // When mousing over a marker, style cursor as pointer
@@ -257,7 +265,7 @@ const MapPageComponent = () => {
 
             <AddBathroom setUpdateMap={setUpdateMap} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} save={save} setSave={setSave}/>
             
-            <ShowBathroom placeholder={placeholder} setPlaceholder={setPlaceholder}/>
+            <ShowBathroom selectedMarkerData={selectedMarkerData} placeholder={placeholder} setPlaceholder={setPlaceholder}/>
             
 
             {/* Rendering the map below the navbar (Appbar) */}
