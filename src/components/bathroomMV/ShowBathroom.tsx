@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 //Material UI imports
-import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Button, Alert, IconButton, Typography, Stack, Rating, Tooltip } from '@mui/material'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Button, Alert, IconButton, Stack, Rating, Tooltip } from '@mui/material'
 import { Close } from '@mui/icons-material'
 
 //Image imports
@@ -10,7 +10,7 @@ import bgImg from '../../assets/Kids_Free_Hand_Drawing_of_Toilet_Paper_Rolls_Sea
 
 //Icon imports
 
-import { PiHeart, PiStar, PiPersonLight, PiClockLight, PiKey, PiBuildings, PiDoor, PiShieldCheck, PiWheelchair, PiBabyLight, PiSprayBottleLight } from "react-icons/pi";
+import { PiHeart, PiPersonLight, PiClockLight, PiKey, PiBuildings, PiDoor, PiShieldCheck, PiWheelchair, PiBabyLight, PiSprayBottleLight } from "react-icons/pi";
 import { GrShare } from "react-icons/gr";
 import RateIcon from '../mainMV/UserMV/RateIcon'
 
@@ -40,27 +40,32 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
       >
         <Close />
       </IconButton>
+
       <DialogContent dividers className='h-[615px]'>
         <Box>
-          <Image
-            src={bgImg}
-            alt="toilet background "
-            height={200}
-            width={900}
-            className="aspect-[4/1] border-4 border-[#B9DEE6] rounded-2xl flex object-cover"
-          />
+          <Tooltip title="Mini Map coming soon" placement="bottom">
+            <Image
+              src={bgImg}
+              alt="toilet background "
+              height={200}
+              width={900}
+              className="aspect-[4/1] border-4 border-[#B9DEE6] rounded-2xl flex object-cover"
+            />
+          </Tooltip>
         </Box>
 
-        <Stack direction="row" className="mt-1 flex items-center">
-          <Stack spacing={1} sx={{ flexGrow: 1 }} >
-            <Tooltip title="Bathroom Rating">
-              <Box>
-                <Rating name="This bathrooms rating" value={4.5} precision={0.5} readOnly size="large" />
-              </Box>
-              {/* <Rating name="half-rating" defaultValue={0} precision={0.5} /> */}
-            </Tooltip>
-          </Stack>
+        <Stack direction="row" className="mt-1 flex items-center" >
 
+          <h2 className="text-xl font-semibold">Rating</h2>  
+          <Rating name="This bathrooms rating" 
+            value={4.5} precision={0.5} 
+            readOnly
+            size="large" 
+            className='ml-1' 
+            sx={{ flexGrow: 1 }}
+            // spacing={1}
+          />
+              
           <Box>
             <Tooltip title="Favorite">
               <IconButton color="error">
@@ -69,9 +74,9 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
             </Tooltip>
           </Box>
 
-          <Box>
-            <RateIcon />
-          </Box>
+          
+          <RateIcon />
+          
 
           <Box>
             <Tooltip title="Share Bathroom">
