@@ -70,8 +70,8 @@ const AddDetails = ({ form, handleChange }: { form: any, setForm: any, handleCha
           autoSave="true"
           onChange={handleChange}
         >
-          <MenuItem value="Yes">Yes</MenuItem>
-          <MenuItem value="No">No</MenuItem>
+          <MenuItem value="Wheelchair accessible">Yes</MenuItem>
+          <MenuItem value="Not wheelchair accessible">No</MenuItem>
         </Select>
       </FormControl>
 
@@ -94,8 +94,8 @@ const AddDetails = ({ form, handleChange }: { form: any, setForm: any, handleCha
           autoSave="true"
           onChange={handleChange}>
           <MenuItem value=""></MenuItem>
-          <MenuItem value="Yes">Yes</MenuItem>
-          <MenuItem value="No">Cutomers only</MenuItem>
+          <MenuItem value="Open to public">Yes</MenuItem>
+          <MenuItem value="Customers only">Cutomers only</MenuItem>
         </Select>
       </FormControl>
     </div>

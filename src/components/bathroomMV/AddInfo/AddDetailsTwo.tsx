@@ -13,8 +13,8 @@ const AddDetailsTwo = ({ form, handleChange }: { form: any, setForm: any, handle
           autoSave="true"
           onChange={handleChange}
         >
-          <MenuItem value="Yes">Yes</MenuItem>
-          <MenuItem value="No">No</MenuItem>
+          <MenuItem value="Key required">Yes</MenuItem>
+          <MenuItem value="No key required">No</MenuItem>
           <MenuItem value="Code required">Code required</MenuItem>
         </Select>
       </FormControl>
@@ -29,8 +29,8 @@ const AddDetailsTwo = ({ form, handleChange }: { form: any, setForm: any, handle
           onChange={handleChange}
         >
 
-          <MenuItem value="Yes">Yes</MenuItem>
-          <MenuItem value="No">No</MenuItem>
+          <MenuItem value="Baby changing station">Yes</MenuItem>
+          <MenuItem value="No baby changing station">No</MenuItem>
         </Select>
       </FormControl>
 

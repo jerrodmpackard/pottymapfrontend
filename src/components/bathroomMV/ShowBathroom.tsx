@@ -15,9 +15,8 @@ import { GrShare } from "react-icons/gr";
 import RateIcon from '../mainMV/UserMV/RateIcon'
 
 
-const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, setPlaceholder: any }) => {
+const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { placeholder: boolean, setPlaceholder: any, selectedMarkerData: any }) => {
 
-  const title = "Best Potty Spot"
 
   return (
     <Dialog
@@ -27,7 +26,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
       style={{ zIndex: 101 }}
     >
       <DialogTitle sx={{ m: 0, p: 2 }}>
-        {title}
+      {selectedMarkerData?.name}
       </DialogTitle>
       <IconButton
         sx={{
@@ -58,7 +57,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
 
           <h2 className="text-xl font-semibold">Rating</h2>  
           <Rating name="This bathrooms rating" 
-            value={4.5} precision={0.5} 
+            value={selectedMarkerData?.rating} precision={0.5} 
             readOnly
             size="large" 
             className='ml-1' 
@@ -89,49 +88,49 @@ const ShowBathroom = ({ placeholder, setPlaceholder }: { placeholder: boolean, s
 
 
         <Box>
-          <h2 className='text-lg font-semibold'>General Information</h2>
+          <h2 className='text-lg font-semibold mt-2'>General Information</h2>
           <div className='mx-2 mt-2 flex item-center'>
             <PiPersonLight className='text-2xl' />
-            <p className="ml-1">Men&apos;s &amp; Women&apos;s</p>
+            <p className="ml-1">{selectedMarkerData?.gender}</p>
           </div>
         
           <div className='mx-2 mt-2 flex item-center'>
             <PiClockLight className='text-2xl' />
-            <p className="ml-1"> Hours 8:00am &#8210; 5:00pm</p>
+            <p className="ml-1">{selectedMarkerData?.hoursOfOperation}</p>
           </div>
         
           <div className='mx-2 mt-2 flex item-center'>
             <PiKey  className='text-2xl' />
-            <p className="ml-1">Key required</p>
+            <p className="ml-1">{selectedMarkerData?.keyRequired}</p>
           </div>
 
           <div className='mx-2 mt-2 flex item-center'>
             <PiBuildings className='text-2xl' />
-            <p className="ml-1">Customers only</p>
+            <p className="ml-1">{selectedMarkerData?.openToPublic}</p>
           </div>
 
           <div className='mx-2 mt-2 flex item-center'>
             <PiDoor className='text-2xl' />
-            <p className="ml-1">3 stalls</p>
+            <p className="ml-1">{selectedMarkerData?.numberOfStalls} stalls</p>
           </div>
 
           <div className='mx-2 mt-2 flex item-center'>
             <PiShieldCheck className='text-2xl' />
-            <p className="ml-1">Safe</p>
+            <p className="ml-1">{selectedMarkerData?.safety}</p>
           </div>
 
           <h2 className='text-lg mt-4 font-semibold'>Amenities</h2>
           <div className='mx-2 mt-2 flex item-center'>
             <PiWheelchair className='text-2xl'/>
-            <p className="ml-1">Wheelchair accessible</p>
+            <p className="ml-1">{selectedMarkerData?.wheelchairAccessibility}</p>
           </div>
           < div className='mx-2 mt-2 flex item-center'>
             <PiBabyLight className='text-2xl' />
-            <p className="ml-1">Baby changing station</p>
+            <p className="ml-1">{selectedMarkerData?.babyChangingStation}</p>
           </div>
           <div className='mx-2 mt-2 flex item-center'>
             <PiSprayBottleLight className='text-2xl' />
-            <p className="ml-1">Very clean</p>
+            <p className="ml-1">{selectedMarkerData?.cleanliness}</p>
           </div>
         </Box>
       </DialogContent>
