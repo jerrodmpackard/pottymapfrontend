@@ -5,7 +5,7 @@ const AddDetailsTwo = ({ form, handleChange }: { form: any, setForm: any, handle
   return (
     <div className='grid grid-cols-2 gap-6 my-4'>
       <FormControl>
-        <InputLabel >Key Required ?</InputLabel>
+        <InputLabel >Key Required?</InputLabel>
         <Select name="keyRequired"
           label="Key Required?"
           value={form.keyRequired}
@@ -13,9 +13,9 @@ const AddDetailsTwo = ({ form, handleChange }: { form: any, setForm: any, handle
           autoSave="true"
           onChange={handleChange}
         >
-          <MenuItem value="yes">Yes</MenuItem>
-          <MenuItem value="no">No</MenuItem>
-          <MenuItem value="code">Code required</MenuItem>
+          <MenuItem value="Yes">Yes</MenuItem>
+          <MenuItem value="No">No</MenuItem>
+          <MenuItem value="Code required">Code required</MenuItem>
         </Select>
       </FormControl>
 
@@ -29,8 +29,8 @@ const AddDetailsTwo = ({ form, handleChange }: { form: any, setForm: any, handle
           onChange={handleChange}
         >
 
-          <MenuItem value="yes">Yes</MenuItem>
-          <MenuItem value="no">No</MenuItem>
+          <MenuItem value="Yes">Yes</MenuItem>
+          <MenuItem value="No">No</MenuItem>
         </Select>
       </FormControl>
 
