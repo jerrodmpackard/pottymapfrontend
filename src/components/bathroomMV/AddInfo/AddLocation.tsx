@@ -47,6 +47,9 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
   function handleSaveMarkerLocation(coordinate: any) {
     console.log(`Marker moved to longitude ${JSON.stringify(coordinate[0])}º.`);
     console.log(`Marker moved to latitude ${JSON.stringify(coordinate[1])}º.`);
+
+    setSaveLongitude(coordinate[0]);
+    setSaveLatitude(coordinate[1]);
   }
 
   useEffect(() => {
