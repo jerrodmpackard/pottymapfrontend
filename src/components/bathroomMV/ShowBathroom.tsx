@@ -131,9 +131,9 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
 
       <DialogActions className="mx-4 my-2">
         <Box sx={{ flexGrow: 1 }}>
-          <Button color="secondary" variant="contained">Leave a comment</Button>
+          <Button color="error" variant="contained">Report</Button>
         </Box>
-        <Button color="error" variant="contained">Report</Button>
+        <Button color="secondary" variant="contained">Leave a comment</Button>
       </DialogActions>
     </Dialog>
   )
