@@ -1,17 +1,17 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import React from 'react'
 
-const AddDetailsTwo = ({form, handleChange } : {form:any , setForm:any, handleChange:any }) => {
+const AddDetailsTwo = ({ form, handleChange }: { form: any, setForm: any, handleChange: any }) => {
   return (
     <div className='grid grid-cols-2 gap-6 my-4'>
       <FormControl>
         <InputLabel >Key Required ?</InputLabel>
         <Select name="keyRequired"
-        label="Key Required?"
-        value={form.keyRequired}
-        autoWidth
-        autoSave="true"
-        onChange={handleChange}
+          label="Key Required?"
+          value={form.keyRequired}
+          autoWidth
+          autoSave="true"
+          onChange={handleChange}
         >
           <MenuItem value="yes">Yes</MenuItem>
           <MenuItem value="no">No</MenuItem>
@@ -22,50 +22,50 @@ const AddDetailsTwo = ({form, handleChange } : {form:any , setForm:any, handleCh
       <FormControl>
         <InputLabel >Baby Changing Station?</InputLabel>
         <Select name="babyChangingStation"
-        label="Baby Changing Station?"
-        value={form.babyChangingStation}
-        autoWidth
-        autoSave="true"
-        onChange={handleChange}
+          label="Baby Changing Station?"
+          value={form.babyChangingStation}
+          autoWidth
+          autoSave="true"
+          onChange={handleChange}
         >
-          
+
           <MenuItem value="yes">Yes</MenuItem>
           <MenuItem value="no">No</MenuItem>
         </Select>
       </FormControl>
- 
+
       <FormControl>
         <InputLabel >Cleanliness</InputLabel>
-        <Select name="cleanliness" 
-        label="Cleanliness"
-        value={form.cleanliness}
-        autoWidth 
-        autoSave="true"
-        onChange={handleChange}
+        <Select name="cleanliness"
+          label="Cleanliness"
+          value={form.cleanliness}
+          autoWidth
+          autoSave="true"
+          onChange={handleChange}
         >
-          
-          <MenuItem value="very clean">Very clean</MenuItem>
-          <MenuItem value="clean">Clean</MenuItem>
-          <MenuItem value="average">Average</MenuItem>
-          <MenuItem value="dirty">Dirty</MenuItem>
-          <MenuItem value="very dirty">Very dirty</MenuItem>
+
+          <MenuItem value="Very clean">Very clean</MenuItem>
+          <MenuItem value="Clean">Clean</MenuItem>
+          <MenuItem value="Average">Average</MenuItem>
+          <MenuItem value="Dirty">Dirty</MenuItem>
+          <MenuItem value="Very dirty">Very dirty</MenuItem>
         </Select>
       </FormControl>
 
       <FormControl>
         <InputLabel >Safety</InputLabel>
         <Select name="safety"
-        label="Safety"
-        value={form.safety} 
-        autoWidth
-        autoSave="true"
-        onChange={handleChange}
+          label="Safety"
+          value={form.safety}
+          autoWidth
+          autoSave="true"
+          onChange={handleChange}
         >
-          <MenuItem value="very clean">Very safe</MenuItem>
-          <MenuItem value="clean">safe</MenuItem>
-          <MenuItem value="average">Average</MenuItem>
-          <MenuItem value="dirty">Unsafe</MenuItem>
-          <MenuItem value="very dirty">Very unsafe</MenuItem>
+          <MenuItem value="Very safe">Very safe</MenuItem>
+          <MenuItem value="Safe">Safe</MenuItem>
+          <MenuItem value="Average">Average</MenuItem>
+          <MenuItem value="Unsafe">Unsafe</MenuItem>
+          <MenuItem value="Very unsafe">Very unsafe</MenuItem>
         </Select>
       </FormControl>
     </div>

@@ -30,9 +30,9 @@ const AddDetails = ({ form, handleChange }: { form: any, setForm: any, handleCha
           onChange={handleChange}
         >
           <MenuItem value=""></MenuItem>
-          <MenuItem value="men&apos;s &amp; women&apos;s">Men&apos;s &amp; Women&apos;s</MenuItem>
-          <MenuItem value="gender neutral">Gender neutral</MenuItem>
-          <MenuItem value="family restroom">Family restroom</MenuItem>
+          <MenuItem value="Men&apos;s &amp; Women&apos;s">Men&apos;s &amp; Women&apos;s</MenuItem>
+          <MenuItem value="Gender neutral">Gender neutral</MenuItem>
+          <MenuItem value="Family restroom">Family restroom</MenuItem>
         </Select>
       </FormControl>
 
@@ -45,8 +45,8 @@ const AddDetails = ({ form, handleChange }: { form: any, setForm: any, handleCha
           autoSave="true"
           onChange={handleChange}
         >
-          <MenuItem value="individual">Individual</MenuItem>
-          <MenuItem value="shared">Shared</MenuItem>
+          <MenuItem value="Individual">Individual</MenuItem>
+          <MenuItem value="Shared">Shared</MenuItem>
         </Select>
       </FormControl>
 
@@ -70,8 +70,8 @@ const AddDetails = ({ form, handleChange }: { form: any, setForm: any, handleCha
           autoSave="true"
           onChange={handleChange}
         >
-          <MenuItem value="yes">Yes</MenuItem>
-          <MenuItem value="no">No</MenuItem>
+          <MenuItem value="Yes">Yes</MenuItem>
+          <MenuItem value="No">No</MenuItem>
         </Select>
       </FormControl>
 
@@ -94,8 +94,8 @@ const AddDetails = ({ form, handleChange }: { form: any, setForm: any, handleCha
           autoSave="true"
           onChange={handleChange}>
           <MenuItem value=""></MenuItem>
-          <MenuItem value="yes">Yes</MenuItem>
-          <MenuItem value="no">Cutomers only</MenuItem>
+          <MenuItem value="Yes">Yes</MenuItem>
+          <MenuItem value="No">Cutomers only</MenuItem>
         </Select>
       </FormControl>
     </div>
