@@ -356,7 +356,7 @@ export default function Home() {
 
                 <Stack direction="row" className="mt-2">
                   <FormControlLabel control={<Checkbox />} label="Remember Me" />
-                  <Button className="ml-auto" onClick={handleChangePass}>Forgot Password</Button>
+                  {/* <Button className="ml-auto" onClick={handleChangePass}>Forgot Password</Button> */}
                 </Stack>
 
                 <Button variant="contained" className="mt-8" type="submit" onClick={handleSubmit}>
