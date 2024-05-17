@@ -6,7 +6,6 @@ import { createAccount, getLoggedInUserData, login } from "@/utils/DataServices"
 import { IToken } from "@/Interfaces/Interfaces";
 import { IUserInfo } from "@/Interfaces/Interfaces";
 import { Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, Stack, TextField, Button, Snackbar, Alert} from "@mui/material";
-import { Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, Stack, TextField, Button, Snackbar, Alert} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import mapboxgl from 'mapbox-gl';
 
