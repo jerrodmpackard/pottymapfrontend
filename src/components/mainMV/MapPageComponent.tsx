@@ -25,7 +25,6 @@ import ShowBathroom from '../bathroomMV/ShowBathroom';
 
 
 
-
 const MapPageComponent = () => {
 
     // Update the map whenever a new bathroom is entered using the form
@@ -37,9 +36,10 @@ const MapPageComponent = () => {
     //Opening and Closing the Modal Component (AddBathroom)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-    //Testing INfo modal
+    //Testing Info modal (ShowBathroom)
     const [placeholder, setPlaceholder] = useState<boolean>(false);
 
+    //Saving map dot data to a useState
     const [selectedMarkerData, setSelectedMarkerData] = useState<any>(null);
 
     //Turn on and off the autoSave
@@ -109,42 +109,19 @@ const MapPageComponent = () => {
                     }
                 });
             });
-
         })
 
-        // Declaring the popup and giving properties
-        const popup = new mapboxgl.Popup({
-            closeButton: true,
-            closeOnClick: true
-        });
-
-        // Setting popups to appear on click
+        // Setting info modal (ShowBathroom) to appear on click
         newMap.on('click', 'bathrooms', (e: any) => {
+
             // Change the cursor style as a UI indicator.
             newMap.getCanvas().style.cursor = 'pointer';
-
 
             // Copy coordinates array. Use dot notation to access each property of each feature to be passed into popup for display
             const coordinates: any = e?.features?.[0]?.geometry?.coordinates?.slice();
             const markerData = e.features[0].properties;
             console.log(markerData);
-            // const Name = e.features[0].properties.name;
-            // const Address = e?.features?.[0]?.properties?.address;
-            // const City = e?.features?.[0]?.properties?.city;
-            // const State = e?.features?.[0]?.properties?.state;
-            // const ZipCode = e?.features?.[0]?.properties?.zipCode;
-            // const Gender = e?.features?.[0]?.properties?.gender;
-            // const Type = e?.features?.[0]?.properties?.type;
-            // const NumberOfStalls = e?.features?.[0]?.properties?.numberOfStalls;
-            // const WheelchairAccessibility = e?.features?.[0]?.properties?.wheelchairAccessibility;
-            // const HoursOfOperation = e?.features?.[0]?.properties?.hoursOfOperation;
-            // const OpenToPublic = e?.features?.[0]?.properties?.openToPublic;
-            // const KeyRequired = e?.features?.[0]?.properties?.keyRequired;
-            // const BabyChangingStation = e?.features?.[0]?.properties?.babyChangingStation;
-            // const Cleanliness = e?.features?.[0]?.properties?.cleanliness;
-            // const Safety = e?.features?.[0]?.properties?.safety;
-            // const Rating = e?.features?.[0]?.properties?.rating;
-
+           
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
             // over the copy being pointed to.
@@ -156,12 +133,10 @@ const MapPageComponent = () => {
 
             setPlaceholder(true);
 
-            // Variable to hold all properties and formatting them for display on popup
-            // const popupContent = `<div><strong>${Name}</strong><br><p>${Address} ${City}, ${State} ${ZipCode}</p><p>Gender: ${Gender}</p><p>Type: ${Type}</p><p>Number of Stalls: ${NumberOfStalls}</p><p>Wheelchair Accessible: ${WheelchairAccessibility}</p><p>Hours of Operation: ${HoursOfOperation}</p><p>Open to Public: ${OpenToPublic}</p><p>Key Required: ${KeyRequired}</p><p>Baby Changing Station: ${BabyChangingStation}</p><p>Cleanliness: ${Cleanliness}</p><p>Safety: ${Safety}</p></div>`;
+            setSelectedMarkerData(markerData);
 
-            // Populate the popup and set its coordinates
-            // based on the feature found.
-            // popup.setLngLat(coordinates).setHTML(popupContent).addTo(newMap);
+            setPlaceholder(true);
+            
         });
 
         // When mousing over a marker, style cursor as pointer
@@ -186,7 +161,7 @@ const MapPageComponent = () => {
             'bottom-right'
         );
 
-        // you're already able to zoom in and out using your mouse but this adds a hard button for that as an alternative option
+        // You're already able to zoom in and out using your mouse but this adds a hard button for that as an alternative option
         // also adds the north orientator, full screen mode, and scale reference
         newMap.addControl(new mapboxgl.FullscreenControl());
         newMap.addControl(new mapboxgl.NavigationControl());
@@ -210,10 +185,10 @@ const MapPageComponent = () => {
         }
     }, [map, isOpen, isModalOpen, placeholder, updateMap])
 
-        //Checking if there is a token in local storage
-        if (!checkToken()) {
-            return notFound()
-        }
+    //Checking if there's a token in local storage
+    if (!checkToken()) {
+        return notFound()
+    }
 
     
     return (
@@ -263,11 +238,12 @@ const MapPageComponent = () => {
             {/* The Drawer component */}
             <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
+            {/* The form component */}
             <AddBathroom setUpdateMap={setUpdateMap} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} save={save} setSave={setSave}/>
             
+            {/* The info component */}
             <ShowBathroom selectedMarkerData={selectedMarkerData} placeholder={placeholder} setPlaceholder={setPlaceholder}/>
             
-
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>
                 <div ref={mapContainerRef} className='mt-[56px] h-[calc(100vh-56px)] mobile:mt-16 mobile:h-[calc(100vh-64px)]'></div>

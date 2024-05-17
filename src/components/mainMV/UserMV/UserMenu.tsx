@@ -1,5 +1,5 @@
 import { Logout, Settings } from '@mui/icons-material'
-import { ListItemIcon, Menu, MenuItem } from '@mui/material'
+import { ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
 import { useRouter } from "next/navigation";
 import React from 'react'
 
@@ -29,17 +29,19 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }: UserMenuProps) => {
     onClose={handleCloseUserMenu}
     onClick={handleCloseUserMenu}
     >
-        <MenuItem>
-        <ListItemIcon>
-            <Settings fontSize='small'/>
-        </ListItemIcon>
+        <MenuItem className="flex items-center">
+            <ListItemIcon>
+                <Settings fontSize='small'/>
+            </ListItemIcon>
             Profile
         </MenuItem>
-        <MenuItem onClick={handleLogout}>
-        <ListItemIcon>
-            <Logout fontSize='small'/>
-        </ListItemIcon>
-            Logout
+        <MenuItem onClick={handleLogout} className="flex items-center">
+            <ListItemIcon>
+                <Logout fontSize='small' color="error"/>
+            </ListItemIcon>
+            <Typography color="error">
+                Logout
+            </Typography>
         </MenuItem>
     </Menu>
   )
