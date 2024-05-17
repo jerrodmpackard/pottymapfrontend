@@ -182,9 +182,12 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
         </Box>
 
         {activeStep === steps.length ? (
-          <Box className="flex justify-center itmes-center">
+          <Box className="flex flex-col justify-center itmes-center">
             <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-              Here is a gentle confirmation that your action was successful.
+              Here is a gentle confirmation that your bathroom was added successful.
+            </Alert>
+            <Alert className='mt-4' icon={<CheckIcon fontSize="inherit" />} severity="success">
+              The map will now refresh. Close this modal and use the search box to find your new bathroom.
             </Alert>
           </Box>
 

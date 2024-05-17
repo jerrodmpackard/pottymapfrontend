@@ -95,7 +95,7 @@ const AddDetails = ({ form, handleChange }: { form: any, setForm: any, handleCha
           onChange={handleChange}>
           <MenuItem value=""></MenuItem>
           <MenuItem value="Open to public">Yes</MenuItem>
-          <MenuItem value="Customers only">Cutomers only</MenuItem>
+          <MenuItem value="Customers only">Customers only</MenuItem>
         </Select>
       </FormControl>
     </div>
