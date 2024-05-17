@@ -61,6 +61,7 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
+
     if (activeStep === 0 && isFilledOne) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else if (activeStep === 1 && isFilledTwo) {
@@ -68,6 +69,7 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
     } else if (activeStep === 2 && isFilledThree) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
+
   };
 
   const handleBack = () => {
@@ -212,14 +214,11 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
             color="inherit"
             disabled={activeStep === 0}
             onClick={handleBack}
-            sx={{ mr: 1 }}
+            sx={{ mr: 1, flexGrow: 1 }}
           >
             Back
           </Button>
-          <Box sx={{ flex: '1 1 auto' }} />
-          {/* <Button onClick={handleNext} sx={{ mr: 1 }}>
-            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-          </Button> */}
+        
           {activeStep === steps.length - 1 ? (
 
             <Button variant="contained" onClick={handleSubmit} >Submit</Button>
