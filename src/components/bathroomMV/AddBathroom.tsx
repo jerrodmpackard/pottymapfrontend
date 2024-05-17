@@ -214,10 +214,12 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
             color="inherit"
             disabled={activeStep === 0}
             onClick={handleBack}
-            sx={{ mr: 1, flexGrow: 1 }}
+            sx={{ mr: 1 }}
           >
             Back
           </Button>
+
+          <Box sx={{flexGrow: 1}}></Box>
         
           {activeStep === steps.length - 1 ? (
 
