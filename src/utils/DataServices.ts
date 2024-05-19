@@ -129,3 +129,7 @@ export const getMapDots = async () => {
     const data = await res.json();
     return data;
 }
+
+export const getComments = async () => {
+    
+}
