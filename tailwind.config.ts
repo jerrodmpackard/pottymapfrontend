@@ -21,13 +21,15 @@ const config: Config = {
 
         'sm': '640px',
 
-      'md': '768px',
+        'md': '768px',
 
-      'lg': '1024px',
+        'lg': '1024px',
 
-      'xl': '1280px',
+        'ipadPro': '1025px',
 
-      '2xl': '1536px',
+        'xl': '1280px',
+
+        '2xl': '1536px',
       }
     },
   },
