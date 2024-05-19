@@ -73,6 +73,7 @@ const MapPageComponent = () => {
             container: mapContainerRef.current!,
             center: [-100, 30], //lng, lat
             zoom: 1, //higher the number, the more zoomed in
+            attributionControl: false
         });
 
         //giving newMap a style, this is what is creating the globe

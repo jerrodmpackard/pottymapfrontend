@@ -40,6 +40,7 @@ const GuestPage = () => {
             container: mapContainerRef.current!,
             center: [-100, 30],
             zoom: 1,
+            attributionControl: false
         });
 
         //Givng the Map a Style. The last value of setCongfigPropertycan be 'dawn', 'day', 'dusk', or 'night'
