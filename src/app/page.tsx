@@ -232,8 +232,8 @@ export default function Home() {
       
           {switchBool ? (
             <div>
-              <h2 className="text-center text-4xl text-[#1283C8] ">Welcome to PottyMap</h2>
-              <p className="text-center text-[1.5rem] text-black mt-4">Create an Account</p>
+              <h2 className="loginHeader">Welcome to PottyMap</h2>
+              <p className="loginSubHeader mt-4">Create an Account</p>
               <div className="mt-8 flex justify-center" >
                 <FormControl>
                   <TextField
@@ -314,7 +314,7 @@ export default function Home() {
 
           ) : (
             <div>
-              <h2 className="loginHeader ">Welcome to PottyMap</h2>
+              <h2 className="loginHeader">Welcome to PottyMap</h2>
               <h3 className="loginSubHeader mt-4">Find bathrooms near you</h3>
               <div className="mt-8 flex justify-center">
                 <FormControl>
