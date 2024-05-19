@@ -183,7 +183,8 @@ export default function Home() {
       container: mapContainerRef.current!,
       zoom: 1.8,
       center: [-60, 15],
-      interactive: false
+      interactive: false,
+      attributionControl: false
     });
 
 
@@ -217,8 +218,8 @@ export default function Home() {
 
 
   return (
-    <main className='min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center'>
-      <section className="hidden lg:grid w-full min-h-screen mx-auto py-8 px-8 bg-gray-800 bg-opacity-90 rounded-tr-3xl">
+    <main className='min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center loginMapBG'>
+      <section className="  hidden lg:grid lg:bg-gradient-to-r from-slate-950 w-full min-h-screen mx-auto  py-8 px-8 ">
         <div className="loginMapHeight" ref={mapContainerRef}></div>
         {/* <div>
             <h2 className="text-center text-red-600 text-3xl font-semibold">|* Warning * Warning * Warning * Warn |</h2>
@@ -226,9 +227,8 @@ export default function Home() {
           </div> */}
       </section>
 
-      <section className="w-full grid justify-center px-4">
-
-        <div className="bg-white drop-shadow-xl border-2 mt-20 py-10 px-10 w-full sm:rounded-3xl sm:my-auto rounded-tr-3xl rounded-tl-3xl rounded-br-none rounded-bl-none mx-none md:mx-auto max-w-lg ">
+      <section className="w-full grid justify-center px-4 ">
+        <div className="bg-white drop-shadow-xl border-2  mt-20 py-10 px-10 w-full sm:rounded-3xl sm:my-auto rounded-tr-3xl rounded-tl-3xl rounded-br-none rounded-bl-none mx-none md:mx-auto max-w-lg ">
           <h1 className="text-center text-4xl text-[#1283C8] mt-5">Welcome to Potty Map</h1>
           <p className="flex justify-center text-[24px] text-black mt-4">{switchBool ? 'Create an account' : 'Find bathrooms near you'}</p>
 
