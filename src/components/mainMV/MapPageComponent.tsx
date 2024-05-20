@@ -117,9 +117,6 @@ const MapPageComponent = () => {
         // Setting info modal (ShowBathroom) to appear on click
         newMap.on('click', 'bathrooms', (e: any) => {
 
-            // Change the cursor style as a UI indicator.
-            newMap.getCanvas().style.cursor = 'pointer';
-
             // Copy coordinates array. Use dot notation to access each property of each feature to be passed into popup for display
             const coordinates: any = e?.features?.[0]?.geometry?.coordinates?.slice();
             const markerData = e.features[0].properties;

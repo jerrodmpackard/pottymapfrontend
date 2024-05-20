@@ -1,4 +1,4 @@
-import { FormControl, Button, TextField } from '@mui/material'
+import { FormControl, Button, TextField, InputLabel, Select, MenuItem } from '@mui/material'
 import { AddressAutofill, AddressMinimap, useConfirmAddress, config } from '@mapbox/search-js-react';
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 
@@ -101,72 +101,70 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
 
   return (
 
-    <form ref={formRef} onSubmit={handleLocationSubmit}>
-      <div className='grid grid-cols-2 gap-6 my-4' style={{ zIndex: 2100 }}>
-        <FormControl>
-          <AddressAutofill accessToken={mapToken} onRetrieve={handleRetrieve}>
-            <TextField id="mapbox-autofill" name="address"
-              label="Address"
-              variant="outlined"
-              value={form.address}
-              margin="normal"
-              autoComplete="address-line1"
-              autoSave="true"
-              onChange={handleChange}
-            />
-          </AddressAutofill>
-        </FormControl>
+    <form ref={formRef} onSubmit={handleLocationSubmit} autoComplete='off' className='grid grid-cols-2 gap-6 my-4' style={{ zIndex: 2100 }}>
 
-        <FormControl className='w-full p-2'>
-          <TextField name="city"
-            label="City"
+      <AddressAutofill accessToken={mapToken} onRetrieve={handleRetrieve}>
+      <FormControl fullWidth>
+          <TextField id="mapbox-autofill" name="address"
+            label="Address"
             variant="outlined"
-            margin="normal"
-            value={form.city}
-            autoSave="true"
-            autoComplete="address-level2"
-            onChange={handleChange}
-          />
-        </FormControl>
-
-        <FormControl className='w-full p-2'>
-          <TextField name="state"
-            label="State / Region"
-            variant="outlined"
-            value={form.state}
-            autoComplete="address-level1"
+            value={form.address}
+            // focused
+            autoComplete="address-line1"
             autoSave="true"
             onChange={handleChange}
+            
           />
-        </FormControl>
+      </FormControl>
+      </AddressAutofill>
 
-        <FormControl>
-          <TextField name="zipCode"
-            label="Zip / Postcode"
-            variant="outlined"
-            value={form.zipCode}
-            autoComplete="postal-code"
-            autoSave="true"
-            onChange={handleChange}
-          />
-        </FormControl>
+      <FormControl fullWidth id="city-form-control">
+        <TextField name="city"
+          label="City"
+          variant="outlined"
+          // focused
+          value={form.city}
+          autoSave="true"
+          autoComplete="address-level2"
+          onChange={handleChange}
+        />
+      </FormControl>
 
-        <div id="minimap-container" className="h-64 w-full relative my-2 col-span-2">
-          <AddressMinimap
-            canAdjustMarker={true}
-            satelliteToggle={true}
-            // @ts-ignore
-            feature={feature}
-            show={showMinimap}
-            onSaveMarkerLocation={handleSaveMarkerLocation}
-          />
-        </div>
+      <FormControl fullWidth id="state-form-control">
+        <TextField name="state"
+          label="State / Region"
+          variant="outlined"
+          // focused
+          value={form.state}
+          autoComplete="address-level1"
+          autoSave="true"
+          onChange={handleChange}
+        />
+      </FormControl>
+
+      <FormControl fullWidth id="zip-form-control">
+        <TextField name="zipCode"
+          label="Zip / Postcode"
+          variant="outlined"
+          // focused
+          value={form.zipCode}
+          autoComplete="postal-code"
+          autoSave="true"
+          onChange={handleChange}
+        />
+      </FormControl>
+
+      <div id="minimap-container" className="aspect-[3/1] relative my-2 col-span-2">
+        <AddressMinimap
+          canAdjustMarker={true}
+          satelliteToggle={true}
+          // @ts-ignore
+          feature={feature}
+          show={showMinimap}
+          onSaveMarkerLocation={handleSaveMarkerLocation}
+        />
       </div>
-
-      <div className='hidden'>
-
-      </div>
-
+     
     </form>
 
   )
