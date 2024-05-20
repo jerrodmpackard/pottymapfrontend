@@ -154,7 +154,7 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
         />
       </FormControl>
 
-      <div id="minimap-container" className="aspect-[3/1] relative my-2 col-span-2">
+      <div id="minimap-container" className="aspect-[3/2] mobile:aspect-[3/1] relative my-2 col-span-2">
         <AddressMinimap
           canAdjustMarker={true}
           satelliteToggle={true}
