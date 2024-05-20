@@ -22,6 +22,7 @@ import Sidebar from './SidebarMV/Sidebar'
 import AddBathroom from '../bathroomMV/AddBathroom';
 import MobileDropIcon from './UserMV/MobileDropIcon';
 import ShowBathroom from '../bathroomMV/ShowBathroom';
+import ReportIssue from './ReportMV/ReportIssue';
 
 
 
@@ -41,6 +42,7 @@ const MapPageComponent = () => {
 
     //Saving map dot data to a useState
     const [selectedMarkerData, setSelectedMarkerData] = useState<any>(null);
+
 
     //Turn on and off the autoSave
     const [save, setSave] = useState<boolean>(false);
@@ -237,13 +239,13 @@ const MapPageComponent = () => {
      
 
             {/* The Drawer component */}
-            <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+            {/* <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} /> */}
 
             {/* The form component */}
             <AddBathroom setUpdateMap={setUpdateMap} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} save={save} setSave={setSave}/>
             
             {/* The info component */}
-            <ShowBathroom selectedMarkerData={selectedMarkerData} placeholder={placeholder} setPlaceholder={setPlaceholder}/>
+            <ShowBathroom selectedMarkerData={selectedMarkerData} placeholder={placeholder} setPlaceholder={setPlaceholder} />
             
             {/* Rendering the map below the navbar (Appbar) */}
             <Box>

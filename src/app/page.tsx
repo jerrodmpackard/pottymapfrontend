@@ -188,13 +188,6 @@ export default function Home() {
       attributionControl: false
     });
 
-
-    map.scrollZoom.disable();
-
-    map.on('style.load', () => {
-      // map.setFog({}); // Set the default atmosphere style
-    });
-
     function spinGlobe() {
       const zoom = map.getZoom();
 
