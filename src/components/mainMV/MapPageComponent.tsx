@@ -12,8 +12,11 @@ import mapboxgl from 'mapbox-gl';
 
 
 //Material UI Imports
-import { AppBar, Box, Container, Fab, IconButton, Toolbar, Tooltip, Typography, styled } from '@mui/material'
+import { AppBar, Box, Button, Container, Fab, IconButton, Toolbar, Tooltip, Typography, styled } from '@mui/material'
 import { AddCircleOutline, Menu } from '@mui/icons-material'
+import AddIcon from '@mui/icons-material/Add';
+import { useTheme } from '@mui/material/styles';
+// import { lighten } from '@mui/material/styles/colorManipulator';
 
 
 //Custom Components
@@ -85,8 +88,7 @@ const MapPageComponent = () => {
 
         // Fetching getAllBathroomsAsGeoJSON endpoint to be added to the map as a layer of markers
         const getData = async () => {
-            const mapDots: any = await getMapDots();
-            console.log(mapDots);
+            const mapDots: any = await getMapDots()
             return mapDots;
         }
 
@@ -120,7 +122,6 @@ const MapPageComponent = () => {
             // Copy coordinates array. Use dot notation to access each property of each feature to be passed into popup for display
             const coordinates: any = e?.features?.[0]?.geometry?.coordinates?.slice();
             const markerData = e.features[0].properties;
-            console.log(markerData);
            
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
@@ -218,9 +219,19 @@ const MapPageComponent = () => {
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
                             <Tooltip title="Add a Bathroom">
-                                <IconButton color='inherit' onClick={() => {setIsModalOpen(true); setSave(true)}}>
-                                    <AddCircleOutline />
-                                </IconButton>
+                                <Button color='primary' onClick={() => {setIsModalOpen(true); setSave(true)}}
+                                // startIcon={<AddIcon />}
+                                variant="contained"
+                                className='aspect-square'
+                                sx={{
+                                    width: '30px', 
+                                    height: '30px', 
+                                    minWidth: 'unset', 
+                                    minHeight: 'unset', 
+                                }}
+                                >
+                                    <AddIcon />
+                                </Button>
                             </Tooltip>
                         </Box>
 

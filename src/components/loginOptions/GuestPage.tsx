@@ -51,7 +51,6 @@ const GuestPage = () => {
         // Fetching getAllBathroomsAsGeoJSON endpoint to be added to the map as a layer of markers
         const getData = async () => {
             const mapDots: any = await getMapDots();
-            console.log(mapDots);
             return mapDots;
         }
 

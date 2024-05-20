@@ -3,9 +3,6 @@ import React, { useEffect } from 'react'
 
 const AddDetails = ({ form, handleChange }: { form: any, setForm: any, handleChange: any }) => {
 
-  // useEffect(() => {
-  //   console.log(form)
-  // }, [form])
 
   return (
     <div className='grid grid-cols-2 gap-6 my-4'>
