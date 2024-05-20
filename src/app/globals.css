@@ -58,14 +58,48 @@ body {
   height: auto !important;
 }
 
+#city-form-control {
+  width: 100% !important;
+  height: auto !important;
+}
 
-#city-form-control .MuiInputBase-root,
-#state-form-control .MuiInputBase-root,
+#city-form-control .MuiInputBase-root {
+  width: 100% !important;
+  height: auto !important;
+}
+
+#state-form-control {
+  width: 100% !important;
+  height: auto !important;
+}
+
+#state-form-control .MuiInputBase-root {
+  width: 100% !important;
+  height: auto !important;
+}
+
+#zip-form-control {
+  width: 100% !important;
+  height: auto !important;
+}
+
 #zip-form-control .MuiInputBase-root {
   width: 100% !important;
   height: auto !important;
 }
 
+.MuiFormControl-root:focus-within,
+.MuiInputBase-root:focus-within {
+  outline: none;
+  box-shadow: none; 
+  border-width: initial; 
+}
+
+.MuiFormControl-root,
+.MuiInputBase-root {
+  box-shadow: none !important;
+  border: 1px solid transparent !important; 
+}
 
 .star-icon {
   color: #1ca9c9;
