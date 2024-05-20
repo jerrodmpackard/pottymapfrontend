@@ -49,7 +49,71 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
     console.log(`${e.target.name} now has the value of ${e.target.value}`)
   }
 
-  const isFilledOne = form.address != '' && form.city != '' && form.state != '' && form.zipCode != ''
+  // the regex /^\d+ .*? (?=[^ ]+$)/ mattches a string that starts with one or more digits followed by a space 
+  // then any characters (non-greedily), followed another space and 
+  // finally has one or more non-space characters before the ned of the string
+
+  // Examples that will works
+  // 123 Main Street
+  // 456 Elm St Apt 7
+  // 78 Broadway
+
+  // Examples that will not work
+  // Main Street 123
+  // 123 Main St Apt 
+
+  const addressRegex = /^\d+ .*? (?=[^ ]+$)/;
+
+  const validateAddress = (address: string) => {
+    return addressRegex.test(address) ? '' : 'Invalid address format';
+  };
+
+
+  // the regex /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/ matches any string that has one or more letters 
+  // and may be followed by zero whitepaces or by a hyphen and then more letters
+  
+  // Examples that will work
+  // New York
+  // San Franscico
+  // Los-Angeles
+  // Rio-de-Janeiro
+  // Paris
+  
+  // Examples that will not work
+  // 123City
+  // City1
+  // New York!
+  // San Francisco 123
+
+  const cityRegex = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/;
+
+  const validateCity = (city: string) => {
+    return cityRegex.test(city) ? '' : 'Invalid city name';
+  };
+
+
+  // The regex
+
+  // Examples that will work
+
+  // Examples that will not work
+
+  const stateRegex = /^[A-Za-z]{2}$/;  // this only works for us states
+
+
+
+  // The regex
+
+  // Examples that will work
+
+  // Examples that will not work
+
+  const zipCodeRegex = /^\d{5}(-\d{4})?$/;
+ 
+
+
+  //checking if the inputfields are not empty and if they follow the format
+  const isFilledOne = form.address != '' && addressRegex.test(form.address) && form.city != '' && form.state != '' && form.zipCode != ''
 
   const isFilledTwo = form.name != '' && form.gender != '' && form.type != '' && form.numberOfStalls != '' && form.wheelchairAccessibility != '' && form.hoursOfOperation != '' && form.openToPublic != ''
 

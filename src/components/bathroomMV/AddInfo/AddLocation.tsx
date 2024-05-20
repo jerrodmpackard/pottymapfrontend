@@ -99,7 +99,7 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
 
   return (
 
-    <form ref={formRef} onSubmit={handleLocationSubmit} autoComplete='off' className='grid grid-cols-2 gap-4 my-4' style={{ zIndex: 2100 }}>
+    <form ref={formRef} onSubmit={handleLocationSubmit} autoComplete='off' className='grid grid-cols-2 gap-3 my-4' style={{ zIndex: 2100 }}>
 
       <AddressAutofill accessToken={mapToken} onRetrieve={handleRetrieve}>
       <FormControl fullWidth>
@@ -123,6 +123,7 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
           // focused
           value={form.city}
           autoSave="true"
+          disabled
           autoComplete="address-level2"
           onChange={handleChange}
         />
@@ -135,6 +136,7 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
           variant="outlined"
           // focused
           value={form.state}
+          disabled
           autoComplete="address-level1"
           autoSave="true"
           onChange={handleChange}
@@ -150,6 +152,7 @@ const AddLocation = ({ form, setForm, handleChange }: { form: any, setForm: any,
           value={form.zipCode}
           autoComplete="postal-code"
           autoSave="true"
+          disabled
           onChange={handleChange}
         />
       </FormControl>
