@@ -58,17 +58,12 @@ body {
   height: auto !important;
 }
 
-/* #address-form-control #mapbox-autofill,
-#address-form-control .MuiInputBase-root {
-  width: 100% !important;
-  height: auto !important;
-} */
 
 #city-form-control .MuiInputBase-root,
 #state-form-control .MuiInputBase-root,
 #zip-form-control .MuiInputBase-root {
-  width: 100%;
-  height: auto;
+  width: 100% !important;
+  height: auto !important;
 }
 
 
