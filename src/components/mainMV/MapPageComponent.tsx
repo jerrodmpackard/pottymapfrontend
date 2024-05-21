@@ -247,7 +247,7 @@ const MapPageComponent = () => {
      
 
             {/* The Drawer component */}
-            {/* <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+            <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
             {/* The form component */}
             <AddBathroom setUpdateMap={setUpdateMap} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} save={save} setSave={setSave}/>

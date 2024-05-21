@@ -338,7 +338,7 @@ export default function Home() {
                     value={username}
                     variant="outlined"
                     error={userNameError}
-                    // helperText={userNameError ? userErrMess : ""}
+                    helperText={userNameError ? userErrMess : ""}
                     inputProps={{ minLength: 4 }}
                     onChange={(e) => setUsername(e.target.value)}
                   />

@@ -98,9 +98,11 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
 
   // Examples that will not work
 
-  const stateRegex = /^[A-Za-z]{2}$/;  // this only works for us states
+  const stateRegex = /^[A-Za-z]{2}$/;  // this only works for USA states. Still looking into how valdiate states and regions 
 
-
+  const validateState = (state: string) => {
+    return stateRegex.test(state) ? '' : "Invalid state name"
+  }
 
   // The regex
 
@@ -109,7 +111,12 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
   // Examples that will not work
 
   const zipCodeRegex = /^\d{5}(-\d{4})?$/;
+
+  const zipcodeRgex = (zipCode: string) => {
+    return zipCodeRegex.test(zipCode) ? '' : "Invalid ZipCode name"
+  }
  
+  
 
 
   //checking if the inputfields are not empty and if they follow the format
@@ -122,7 +129,7 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
 
   // Stepper functions
   const steps = ['Location', 'Details', 'Details Cont'];
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState<number>(0);
 
   const handleNext = () => {
 
