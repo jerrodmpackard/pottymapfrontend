@@ -48,6 +48,102 @@ export default function Home() {
 
   const router = useRouter();
 
+  const handleKeydown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (switchBool) {
+
+        if (username === '') {
+          setUserNameError(true);
+          // setUserErrMess("Username length must be at least 4 characters")
+        } else {
+          setUserNameError(false);
+          // setUserErrMess("")
+        }
+
+        if (password === '') {
+          setPasswordError(true);
+          // setPassErrMess("Password length must be at least 4 characters")
+        } else {
+          setUserNameError(false);
+          // setPassErrMess("")
+
+        }
+
+        if (cpassword === '') {
+          setCPasswordError(true);
+          // setCPassErrMess("Passwords do not match")
+        } else {
+          setUserNameError(false);
+          // setCPassErrMess("")
+        }
+
+
+        if (username.length >= 4 && password.length >= 4 && password === cpassword) {
+
+          let userData: IUserInfo = {
+            Username: username,
+            Password: password,
+            ID: 0
+          }
+
+          await createAccount(userData);
+          setSwitchBool(false);
+          setSuccessfulAccount(true);
+
+          setUsername('');
+          setPassword('');
+          setCPassword('');
+          setPasswordError(false);
+          setCPasswordError(false);
+
+        } else {
+          setCPasswordError(true);
+          // alert("Login Failed - Passwords do not match")
+        }
+
+      } else {
+
+        if (username == '') {
+          setUserNameError(true);
+        } else {
+          setUserNameError(false);
+        }
+
+        if (password == '') {
+          setPasswordError(true)
+        } else {
+          setUserNameError(false);
+        }
+
+        if (username && password) {
+
+          let userData: IUserInfo = {
+            Username: username,
+            Password: password,
+            ID: 0
+          }
+
+          let token: IToken = await login(userData);
+
+          console.log(token);
+
+          if (token.token != null) {
+            localStorage.setItem("Token", token.token)
+            getLoggedInUserData(username);
+            setSuccessfulLogin(true);
+
+            setTimeout(() => {
+              router.push('/Pages/MapView');
+            }, 2500);
+          } else {
+            alert("Login Failed - Please ensure you are entering your credentials correctly.");
+          }
+        }
+      }
+    }
+
+  }
+
   const handleSubmit = async () => {
 
     if (switchBool) {
@@ -131,7 +227,10 @@ export default function Home() {
           localStorage.setItem("Token", token.token)
           getLoggedInUserData(username);
           setSuccessfulLogin(true);
-          router.push('/Pages/MapView');
+
+          setTimeout(() => {
+            router.push('/Pages/MapView');
+          }, 2500);
         } else {
           alert("Login Failed - Please ensure you are entering your credentials correctly.");
         }
@@ -219,13 +318,13 @@ export default function Home() {
         </section>
 
         <div className="grid items-center justify-center ipadPro:hidden">
-            <Image src={logo} alt="logo" width={100} height={100} className="aspect-square"/>
+          <Image src={logo} alt="logo" width={100} height={100} className="aspect-square" />
         </div>
         <section className="grid items-center">
-      
+
           {switchBool ? (
             <div>
-              <h2 className="loginHeader">Welcome to PottyMap</h2>
+              <h2 className="loginHeader">Welcome to Potty Map</h2>
               <p className="loginSubHeader mt-4">Create an Account</p>
               <div className="mt-8 flex justify-center" >
                 <FormControl>
@@ -279,6 +378,7 @@ export default function Home() {
                     type={visibleTwo ? "text" : "password"}
                     variant="outlined"
                     error={cpasswordError}
+                    onKeyDown={handleKeydown}
                     inputProps={{ minLength: 4 }}
                     InputProps={{
                       endAdornment: (
@@ -307,7 +407,7 @@ export default function Home() {
 
           ) : (
             <div>
-              <h2 className="loginHeader">Welcome to PottyMap</h2>
+              <h2 className="loginHeader">Welcome to Potty Map</h2>
               <h3 className="loginSubHeader mt-4">Find bathrooms near you</h3>
               <div className="mt-8 flex justify-center">
                 <FormControl>
@@ -337,6 +437,7 @@ export default function Home() {
                     value={password}
                     type={visible ? "text" : "password"}
                     variant="outlined"
+                    onKeyDown={handleKeydown}
                     error={passwordError || passwordErrorTwo}
                     inputProps={{ minLength: 4 }}
                     InputProps={{
@@ -404,7 +505,7 @@ export default function Home() {
           variant="filled"
           sx={{ width: '100%' }}
         >
-          Login Successful
+          Login Successful. You will now be redirected to the map page.
         </Alert>
       </Snackbar>
 

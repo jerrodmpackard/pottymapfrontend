@@ -29,9 +29,9 @@ export const createAccount = async (createdUser: IUserInfo) => {
     console.log(data);
 }
 
-// Post Login
+// Login
 export const login = async (loginUser: IUserInfo) => {
-    const res = await fetch( url + "/User/Login", {
+    const res = await fetch(url + "/User/Login", {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
@@ -47,6 +47,23 @@ export const login = async (loginUser: IUserInfo) => {
     const data: IToken = await res.json();
     return data;
 
+}
+
+// Forgot Password function
+export const ForgotPassword = async (username: string, password: string ) => {
+    const res = await fetch(url + "/User/ForgotPassword/" + username + "/" + password, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': "application/json"
+        }
+    });
+    if(!res.ok){
+        const message = "An error message has occured " + res.status;
+        throw new Error(message);
+    }
+    const data = await res.json();
+    console.log(data);
+    return data;
 }
 
 // Dont Know

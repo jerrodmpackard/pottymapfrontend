@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 
 import { IUserInfo } from "@/Interfaces/Interfaces";
 import { useRouter } from 'next/navigation';
-import { Button, FormControl, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Alert, Button, FormControl, IconButton, InputAdornment, Snackbar, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { ForgotPassword } from '@/utils/DataServices';
 
 
 const ChangePass = () => {
@@ -15,7 +16,10 @@ const ChangePass = () => {
 
   const [switchBool, setSwitchBool] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
-  const [visibleTwo, setVisibleTwo] = useState<boolean>(false)
+  const [visibleTwo, setVisibleTwo] = useState<boolean>(false);
+
+  const [successfulChangePassword, setSuccessfulChangePassword] = useState<boolean>(false);
+
 
   const router = useRouter();
 
@@ -31,11 +35,38 @@ const ChangePass = () => {
     setSwitchBool(true)
   }
 
-  const handleLeave = () => {
+  const handleKeydown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      await ForgotPassword(username, password).then(data => {
+        if (data) {
+          setSuccessfulChangePassword(true);
+  
+          setTimeout(() => {
+            router.push('/');
+            setSwitchBool(false);
+          }, 2500);
+        }
+      });
+    }
+  }
 
-    router.push('/')
-    setSwitchBool(false)
+  const handleLeave = async () => {
+    await ForgotPassword(username, password).then(data => {
+      if (data) {
+        setSuccessfulChangePassword(true);
 
+        setTimeout(() => {
+          router.push('/');
+          setSwitchBool(false);
+        }, 2500);
+      }
+    });
+  }
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
   }
 
   return (
@@ -44,14 +75,14 @@ const ChangePass = () => {
         <h1 className="text-center text-4xl text-[#1283C8] mt-5">Change Password</h1>
         <p className="flex justify-center text-[24px] text-black mt-4">{switchBool ? "Enter new password" : "Enter username below"}</p>
         {switchBool ? (
-            <div className="mt-8 flex justify-center">
-              
-              <FormControl>
-                <TextField
+          <div className="mt-8 flex justify-center">
+
+            <FormControl>
+              <TextField
                 required
                 autoComplete="off"
                 id="password"
-                label="Password"
+                label="New Password"
                 name="password"
                 size="small"
                 value={password}
@@ -69,42 +100,43 @@ const ChangePass = () => {
                   )
                 }}
                 onChange={(e) => setPassword(e.target.value)}
-                />
+              />
 
-                <TextField className="mt-4"
-                  required
-                  autoComplete="off"
-                  id="cpassword"
-                  label="Confirm Password"
-                  name="cpassword"
-                  size="small"
-                  value={cpassword}
-                  type={visibleTwo ? "text" : "password"}
-                  variant="outlined"
-                  // error={cpasswordError}
-                  inputProps={{ minLength: 4 }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={handleEyeClickTwo}>
-                          {visibleTwo ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    )
-                  }}
-                  onChange={(e) => setCPassword(e.target.value)}
+              <TextField className="mt-4"
+                required
+                autoComplete="off"
+                id="cpassword"
+                label="Confirm New Password"
+                name="cpassword"
+                size="small"
+                value={cpassword}
+                type={visibleTwo ? "text" : "password"}
+                onKeyDown={handleKeydown}
+                variant="outlined"
+                // error={cpasswordError}
+                inputProps={{ minLength: 4 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleEyeClickTwo}>
+                        {visibleTwo ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+                onChange={(e) => setCPassword(e.target.value)}
 
-                />
-                <Button variant="contained" className='mt-8' onClick={handleLeave}>
-                  Change
-                </Button>
-              </FormControl>
+              />
+              <Button variant="contained" className='mt-8' onClick={handleLeave}>
+                Change
+              </Button>
+            </FormControl>
 
-            </div>
-          ) : (
-            <div className="mt-8 flex justify-center">
-              <FormControl>
-                <TextField 
+          </div>
+        ) : (
+          <div className="mt-8 flex justify-center">
+            <FormControl>
+              <TextField
                 required
                 autoComplete="off"
                 id="username"
@@ -116,15 +148,26 @@ const ChangePass = () => {
                 // helperText={userNameError ? userErrMess : ""}
                 inputProps={{ minLength: 4 }}
                 onChange={(e) => setUsername(e.target.value)}
-                />
+              />
 
-                <Button variant="contained" className='mt-8' onClick={handleSwitch}>Continue</Button>
-              </FormControl>
-            </div>
-          )
+              <Button variant="contained" className='mt-8' onClick={handleSwitch}>Continue</Button>
+            </FormControl>
+          </div>
+        )
         }
       </div>
-      
+
+      <Snackbar open={successfulChangePassword} autoHideDuration={3500} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Your password has been changed successfully. You will now be redirected to the login page.
+        </Alert>
+      </Snackbar>
+
     </section>
   )
 }
