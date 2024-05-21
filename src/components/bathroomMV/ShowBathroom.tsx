@@ -27,7 +27,6 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
     if (reason === 'clickaway') {
       return;
     }
-
     // setSuccessfulAccount(false);
   };
 
@@ -96,7 +95,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
               alt="toilet background "
               height={200}
               width={900}
-              className="aspect-[4/1] border-4 border-[#B9DEE6] rounded-2xl flex object-cover"
+              className="aspect-[3/2] mobile:aspect-[4/1] border-4 border-[#B9DEE6] rounded-2xl flex object-cover"
             />
           </Tooltip>
         </Box>
@@ -110,7 +109,6 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
               readOnly
               size="large"
               className='ml-1'
-
             // spacing={1}
             />
           </Stack>

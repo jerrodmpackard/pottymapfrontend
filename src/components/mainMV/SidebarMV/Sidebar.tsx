@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Box, Divider, Drawer, IconButton, Typography, styled, Tab, Tabs } from '@mui/material'
 import { ChevronLeft } from '@mui/icons-material'
-
-
+import FavList from './FavList';
+import AllLocationsList from './AllLocationsList';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -70,14 +70,10 @@ const Sidebar = ({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: any }) => 
           </IconButton>
         </DrawerHeader>
         <CustomTabPanel openTab={openTab} index={0}>
-          <Box>
-            Item One
-          </Box>
+          <FavList />
         </CustomTabPanel>
         <CustomTabPanel openTab={openTab} index={1}>
-          <Box>
-            Item Two
-          </Box>
+          <AllLocationsList />
         </CustomTabPanel>
     </Drawer>
   )

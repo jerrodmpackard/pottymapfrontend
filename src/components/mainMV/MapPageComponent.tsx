@@ -198,7 +198,7 @@ const MapPageComponent = () => {
                 <Container maxWidth='lg'>
                     <Toolbar disableGutters>
                         <Box sx={{ mr: 1 }}>
-                            <Tooltip title="Open Favorites">
+                            <Tooltip title="Open Drawer">
                                 <IconButton size='large' color='inherit' onClick={() => setIsOpen(true)}>
                                     <Menu />
                                 </IconButton>
@@ -208,15 +208,15 @@ const MapPageComponent = () => {
                             variant='h6'
                             component='h1'
                             noWrap
-                            sx={{ display: { xs: 'none', sm: 'flex' } }}
+                            sx={{ flexGrow: 1,  display: { xs: 'none', sm: 'flex' } }}
                         >
                             Potty Map
                         </Typography>
 
-                        <Box>
+                        <Tooltip title="Search any place in the world">
                             <Search ref={geocoderContainerRef}></Search>
-                        </Box>
-
+                        </Tooltip>
+                        
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
                             <Tooltip title="Add a Bathroom">
                                 <Button color='primary' onClick={() => {setIsModalOpen(true); setSave(true)}}

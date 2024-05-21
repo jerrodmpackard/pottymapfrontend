@@ -63,7 +63,7 @@ const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu }: UserShareProps) => {
           <ListItemIcon className="mr-1">
             <XIcon size={32} round={true} />
           </ListItemIcon>
-          X (fromerly twitter)
+          X (Formerly Twitter)
         </TwitterShareButton>
       </MenuItem>
       <MenuItem>
@@ -75,14 +75,14 @@ const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu }: UserShareProps) => {
         </FacebookShareButton>
       </MenuItem>
       {/* need the appID */}
-      <MenuItem>
+      {/* <MenuItem>
         <FacebookMessengerShareButton appId="" url={palceholderUrl} className="flex items-center">
           <ListItemIcon className="mr-1">
             <FacebookMessengerIcon size={32} round={true} />
           </ListItemIcon>
           Facebook Messenger
         </FacebookMessengerShareButton>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem>
         <WhatsappShareButton url={palceholderUrl} className="flex items-center">
           <ListItemIcon className="mr-1">
@@ -108,14 +108,14 @@ const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu }: UserShareProps) => {
         </WorkplaceShareButton>
       </MenuItem>
       {/* need an img url for media="" */}
-      <MenuItem>
+      {/* <MenuItem>
         <PinterestShareButton media="" url={palceholderUrl} className="flex items-center">
           <ListItemIcon className="mr-1">
             <PinterestIcon size={32} round={true} />
           </ListItemIcon>
           Pinterest
         </PinterestShareButton>
-      </MenuItem>
+      </MenuItem> */}
     </Menu>
   )
 }
