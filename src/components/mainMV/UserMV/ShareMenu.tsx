@@ -4,20 +4,20 @@ import {
   LinkedinShareButton,
   TwitterShareButton,
   FacebookShareButton,
-  FacebookMessengerShareButton,
+  // FacebookMessengerShareButton,
   WhatsappShareButton,
   EmailShareButton,
   WorkplaceShareButton,
-  PinterestShareButton,
+  // PinterestShareButton,
 
   LinkedinIcon,
   XIcon,
   FacebookIcon,
-  FacebookMessengerIcon,
+  // FacebookMessengerIcon,
   WhatsappIcon,
   EmailIcon,
   WorkplaceIcon,
-  PinterestIcon,
+  // PinterestIcon,
 } from "react-share";
 
 interface UserShareProps {

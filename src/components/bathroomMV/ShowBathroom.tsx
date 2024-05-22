@@ -15,6 +15,7 @@ import { PiHeart, PiPersonLight, PiClockLight, PiKey, PiBuildings, PiDoor, PiShi
 import RateIcon from '../mainMV/UserMV/RateIcon'
 import ShareIcon from '../mainMV/UserMV/ShareIcon'
 import ReportIssue from '../mainMV/ReportMV/ReportIssue'
+import MBathroomActionIcons from '../mainMV/UserMV/ShowBathroomActions/MBathroomActionIcons'
 
 
 
@@ -113,18 +114,23 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
             />
           </Stack>
 
-          <Box>
-            <Tooltip title="Favorite">
-              <IconButton color="error">
-                <PiHeart className='text-3xl' />
-              </IconButton>
-            </Tooltip>
+          <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+            <Box>
+              <Tooltip title="Favorite">
+                <IconButton color="error">
+                  <PiHeart className='text-3xl' />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            <RateIcon />
+
+            <ShareIcon />
           </Box>
 
-          <RateIcon />
-
-          <ShareIcon />
-
+          <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
+            <MBathroomActionIcons />
+          </Box>
         </Stack>
 
 
