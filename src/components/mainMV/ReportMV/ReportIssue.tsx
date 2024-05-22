@@ -137,7 +137,7 @@ const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportCh
                     <InputLabel>Priority Level</InputLabel>
                     <Select name="priority"
                         label="Priority Level"
-                        value={reportForm.priority}
+                        value={reportForm.priorityLevel}
                         autoWidth
                         onChange={handleReportChange}
                     >
@@ -160,7 +160,7 @@ const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportCh
                         placeholder="Enter description of issue ..."
                         onChange={handleReportChange}
                         inputProps={{
-                            maxlength: CHARACTER_LIMIT
+                            maxLength: CHARACTER_LIMIT
                         }}
                         helperText={`${reportForm.message.length}/${CHARACTER_LIMIT}`}
                     />

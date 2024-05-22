@@ -62,7 +62,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
       maxWidth='sm'
       style={{ zIndex: 101 }}
     >
-      <DialogTitle sx={{ m: 0, p: 2 }}>
+      <DialogTitle sx={{ m: 0, padding: 2, paddingRight: 5 }} className='truncate'>
         {selectedMarkerData?.name}
       </DialogTitle>
       <IconButton
