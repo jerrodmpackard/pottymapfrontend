@@ -46,7 +46,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }))
 
-const Sidebar = ({ isOpen, setIsOpen, map }: { isOpen: boolean, setIsOpen: any, map: mapboxgl.Map | null }) => {
+const Sidebar = ({ isOpen, setIsOpen, map, setPlaceholder }: { isOpen: boolean, setIsOpen: any, map: mapboxgl.Map | null, setPlaceholder:any }) => {
 
   const [openTab, setOpenTab] = useState<number>(0)
 
@@ -75,7 +75,7 @@ const Sidebar = ({ isOpen, setIsOpen, map }: { isOpen: boolean, setIsOpen: any, 
             <FavList />
           </CustomTabPanel>
           <CustomTabPanel openTab={openTab} index={1}>
-            <AllLocationsList map={map} />
+            <AllLocationsList map={map} setPlaceholder={setPlaceholder}/>
           </CustomTabPanel>
         </Box>
     </Drawer>

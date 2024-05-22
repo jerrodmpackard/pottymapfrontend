@@ -1,5 +1,5 @@
 import { getMapDots } from '@/utils/DataServices';
-import { Box, Button, List, ListItem, ListItemText, TextField, Tooltip } from '@mui/material'
+import { Box, Button, FormControl, List, ListItem, ListItemText, ListSubheader, TextField, Tooltip, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl';
 
@@ -12,7 +12,7 @@ interface MapDots {
   features: Bathroom[];
 }
 
-const AllLocationsList = ({ map }: { map: mapboxgl.Map | null }) => {
+const AllLocationsList = ({ map, setPlaceholder }: { map: mapboxgl.Map | null, setPlaceholder:any }) => {
 
   const [filter, setFilter] = useState('');
   const [bathrooms, setBathrooms] = useState<Bathroom[]>([]);
@@ -64,36 +64,57 @@ const AllLocationsList = ({ map }: { map: mapboxgl.Map | null }) => {
         zoom: 15,
       });
     }
+    setPlaceholder(false)
   };
 
 
   return (
     <Box>
-      <TextField type="text"
-        placeholder="Filter by Name"
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
+      <FormControl fullWidth>
+        <TextField type="text"
+          label="Filter by name"
+          placeholder="Enter a bathroom name"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
+      </FormControl>
 
-      />
 
-      <Box>
-      <List sx={{ width: '295px'}}>
+
+
+      <List
+        sx={{ width: '100%', maxWidth: 295, bgcolor: 'background.paper' }}
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        className="truncate"
+        subheader={
+          <ListSubheader component="div" id="nested-list-subheader">
+            Results
+          </ListSubheader>
+        }
+      >
         {filteredBathrooms.map((bathroom, index) => (
           <Tooltip key={index} title={bathroom.name}>
             <ListItem
               onClick={() => handleBathroomClick(bathroom.coordinates)}
-              style={{ cursor: 'pointer' }}
-              >
+              
+              sx={{
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
+                },
+                paddingRight: 5
+              }}
+            >
               <ListItemText
                 primary={bathroom.name}
-                className="truncate"
-                
+
               />
             </ListItem>
           </Tooltip>
         ))}
       </List>
-      </Box>
+
     </Box>
   )
 }
