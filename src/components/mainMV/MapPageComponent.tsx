@@ -25,7 +25,7 @@ import Sidebar from './SidebarMV/Sidebar'
 import AddBathroom from '../bathroomMV/AddBathroom';
 import MobileDropIcon from './UserMV/MobileDropIcon';
 import ShowBathroom from '../bathroomMV/ShowBathroom';
-import ReportIssue from './ReportMV/ReportIssue';
+
 
 
 
@@ -247,7 +247,7 @@ const MapPageComponent = () => {
      
 
             {/* The Drawer component */}
-            <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+            <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} map={map}  />
 
             {/* The form component */}
             <AddBathroom setUpdateMap={setUpdateMap} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} save={save} setSave={setSave}/>
