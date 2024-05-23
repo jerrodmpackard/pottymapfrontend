@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { notFound } from 'next/navigation'
 
 //Interface Imports
-import { checkToken, getMapDots } from '@/utils/DataServices';
+import { checkToken, getMapDots, getLoggedInUserData } from '@/utils/DataServices';
+import { IUserData } from '@/Interfaces/Interfaces';
 
 //Mapbox GL Js Imports
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -49,6 +50,11 @@ const MapPageComponent = () => {
 
     //Turn on and off the autoSave
     const [save, setSave] = useState<boolean>(false);
+
+    // Getting user ID
+    const [loginData, setLoginData] = useState<any>(null);
+
+
 
     //Styling for the searchbox container 
     const Search = styled('div')(({ theme }) => ({
@@ -122,6 +128,7 @@ const MapPageComponent = () => {
             // Copy coordinates array. Use dot notation to access each property of each feature to be passed into popup for display
             const coordinates: any = e?.features?.[0]?.geometry?.coordinates?.slice();
             const markerData = e.features[0].properties;
+            console.log(e.features);
            
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears

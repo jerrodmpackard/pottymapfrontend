@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createAccount, getLoggedInUserData, login } from "@/utils/DataServices";
-import { IToken } from "@/Interfaces/Interfaces";
+import { IToken, IUserData } from "@/Interfaces/Interfaces";
 import { IUserInfo } from "@/Interfaces/Interfaces";
 import { Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, Stack, TextField, Button, Snackbar, Alert } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -23,6 +23,7 @@ export default function Home() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [cpassword, setCPassword] = useState<string>("");
+  const [loginData, setLoginData] = useState<any>();
 
   const [userNameError, setUserNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -129,7 +130,8 @@ export default function Home() {
 
           if (token.token != null) {
             localStorage.setItem("Token", token.token)
-            getLoggedInUserData(username);
+            const loginData = await getLoggedInUserData(username);
+            localStorage.setItem("Username", JSON.stringify(loginData));
             setSuccessfulLogin(true);
 
             setTimeout(() => {

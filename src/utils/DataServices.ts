@@ -69,13 +69,14 @@ export const ForgotPassword = async (username: string, password: string ) => {
 // Dont Know
 export const getLoggedInUserData = async (username: string) => {
     const res = await fetch(url + '/User/GetUserByUsername/' + username);
-    const data = await res.json();
-    userData = data;
+    const data: IUserData = await res.json();
+    console.log(data);
+    return data;
 }
 
-export const loggedinData = () => {
-    return userData;
-}
+// export const loggedinData = () => {
+//     return userData;
+// }
 
 //This function helps to see if our user is logged in
 export const checkToken = () => {
