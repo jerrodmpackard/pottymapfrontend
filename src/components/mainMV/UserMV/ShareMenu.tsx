@@ -20,13 +20,14 @@ import {
   // PinterestIcon,
 } from "react-share";
 
+import Head from 'next/head'
+
 interface UserShareProps {
   anchorShareMenu: HTMLElement | null;
   setAnchorShareMenu: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
-  selectedMarkerData: any
 }
 
-const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu, selectedMarkerData }: UserShareProps) => {
+const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu }: UserShareProps) => {
 
   const handleCloseShareMenu = () => {
     setAnchorShareMenu(null)
@@ -52,11 +53,7 @@ const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu, selectedMarkerData }: 
     >
       <MenuItem disabled={true}>Share to</MenuItem>
       <MenuItem>
-        <LinkedinShareButton url={palceholderUrl} 
-        title='Bathroom information'
-        summary={`Name of bathroom is ${selectedMarkerData?.name}`}
-
-        className="flex items-center">
+        <LinkedinShareButton url={palceholderUrl} className="flex items-center">
           <ListItemIcon className="mr-1">
             <LinkedinIcon size={32} round={true} />
           </ListItemIcon>

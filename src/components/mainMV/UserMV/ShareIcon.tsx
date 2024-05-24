@@ -3,7 +3,7 @@ import { Box, IconButton, Tooltip } from '@mui/material'
 import { GrShare } from 'react-icons/gr'
 import ShareMenu from './ShareMenu';
 
-const ShareIcon = ({selectedMarkerData} : {selectedMarkerData: any}) => {
+const ShareIcon = () => {
 
     const [anchorShareMenu, setAnchorShareMenu] = useState<HTMLElement | null>(null);
 
@@ -14,7 +14,7 @@ const ShareIcon = ({selectedMarkerData} : {selectedMarkerData: any}) => {
                     <GrShare className='text-2xl' />
                 </IconButton>
             </Tooltip>
-            <ShareMenu anchorShareMenu={anchorShareMenu} setAnchorShareMenu={setAnchorShareMenu} selectedMarkerData={selectedMarkerData}/>
+            <ShareMenu anchorShareMenu={anchorShareMenu} setAnchorShareMenu={setAnchorShareMenu} />
         </Box>
     )
 }
