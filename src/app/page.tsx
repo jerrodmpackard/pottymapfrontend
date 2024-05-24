@@ -103,6 +103,9 @@ export default function Home() {
       map.easeTo({ center, duration: 1000, easing: (n) => n });
 
     }
+    map.on('moveend', () => {
+      spinGlobe();
+    });
 
     spinGlobe();
 
