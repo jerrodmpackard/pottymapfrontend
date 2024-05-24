@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Box, ListItemIcon, ListItemText, Menu, MenuItem, Rating, Stack, Typography } from '@mui/material';
+import { Box, Collapse, ListItemIcon, ListItemText, Menu, MenuItem, Rating, Stack, Tooltip, Typography } from '@mui/material';
 import { PiStar, PiStarDuotone } from 'react-icons/pi';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 
 interface MBAPropsTwo {
@@ -8,6 +9,8 @@ interface MBAPropsTwo {
     // setAnchorRateMenuTwo: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
     value: number | null;
     setValue: any;
+    open: boolean;
+    setOpen: any
 }
 
 const labels: { [index: string]: string } = {
@@ -28,7 +31,7 @@ function getLabelText(value: number) {
 }
 
 
-const RateTwo = ({value, setValue}: MBAPropsTwo) => {
+const RateTwo = ({ value, setValue, open, setOpen }: MBAPropsTwo) => {
 
     // const handleCloseRateMenuTwo = () => {
     //     setAnchorRateMenuTwo
@@ -38,13 +41,29 @@ const RateTwo = ({value, setValue}: MBAPropsTwo) => {
     const [hover, setHover] = useState(-1);
 
 
-  return (
+
+    return (
         <>
-            <MenuItem sx={{paddingTop: 2 }} className="flex items-center">
-                {/* <Stack direction="column">
+            <MenuItem sx={{ paddingTop: 2 }} className="flex items-center" onClick={() => setOpen(!open)}>
+               
+            <Tooltip title={value === null || value < 0.5 ? "Rate Bathroom" : "View your rating"}>
+                <>
+                    <ListItemIcon>
+                        {value === null || value < 0.5 ? (
+                            <PiStar className='text-yellow-600 text-3xl' />
+                        ) : (
+                            <PiStarDuotone className='star-icon text-3xl' />
+                        )}
+                    </ListItemIcon>
                     <Typography className="ml-2">Rate Bathroom</Typography>
-                    <Stack direction="row">    
-                        <Rating name="rating bathroom" precision={0.5} 
+                    {open ? <ExpandLess className="ml-2"/> : <ExpandMore  className="ml-2"/>}
+                </>
+            </Tooltip>
+            </MenuItem>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <MenuItem>
+                    <Stack direction="row">
+                        <Rating name="rating bathroom" precision={0.5}
                             value={value}
                             getLabelText={getLabelText}
                             onChange={(e, newValue) => {
@@ -55,24 +74,13 @@ const RateTwo = ({value, setValue}: MBAPropsTwo) => {
                             }}
                         />
                         {value !== null && (
-                            <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+                            <Box sx={{ ml: 1 }}>{labels[hover !== -1 ? hover : value]}</Box>
                         )}
                     </Stack>
-                </Stack> */}
-                <ListItemIcon>
-                    {value === null || value < 0.5 ? (
-                        <PiStar className='text-yellow-600 text-3xl' />
-                    ) : (
-                        <PiStarDuotone className='star-icon text-3xl' />
-                    )}
-                </ListItemIcon>
-                <ListItemText primary="Rate" />
-                {open ? <ExpandLess /> : <ExpandMore />}
-            </MenuItem>
-            <Collas
+                </MenuItem>
+            </Collapse>
         </>
-        
-  )
+    )
 }
 
 export default RateTwo

@@ -15,11 +15,17 @@ const MBathroomActionMenu = ({ mBAMenu, setMBAMenu }: MBAProps) => {
     setMBAMenu(null)
   }
 
-  // const [anchorRateMenuTwo, setAnchorRateMenuTwo] = useState<HTMLElement | null>(null);
+  //opens the share modal
   const [isShareOpen, setIsShareOpen] = useState<boolean>(false)
-  const [liked, setLiked] = useState<boolean>(false)
-  const [value, setValue] = useState<number | null>(0);
 
+  //adds to favorites
+  const [liked, setLiked] = useState<boolean>(false)
+
+
+  //rating
+  const [value, setValue] = useState<number | null>(0);
+  const [open, setOpen] = useState<boolean>(false)
+ 
   const handleHeartClick = () => {
     setLiked(!liked)
   }
@@ -33,21 +39,22 @@ const MBathroomActionMenu = ({ mBAMenu, setMBAMenu }: MBAProps) => {
         onClose={handleCloseBAMenu}
         // onClick={handleCloseBAMenu}
       >
-        {/* <Divider/> */}
-        <Tooltip title={value === null || value < 0.5 ? "Rate Bathroom" : "View your rating"}>
-          <RateTwo value={value} setValue={setValue}/>
-        </Tooltip>
-        <Divider/>
+        
+        
         <MenuItem onClick={handleHeartClick}>
           <ListItemIcon>
-            {liked ? <PiHeartDuotone className="text-2xl" /> : <PiHeart className="text-2xl" /> }
+            {liked ? <PiHeartDuotone className="ml-1 text-3xl" /> : <PiHeart className="ml-1 text-3xl" /> }
           </ListItemIcon>
             {liked? "In favorites" : "Add to favorites"}  
         </MenuItem>
 
+        
+        <RateTwo value={value} setValue={setValue} open={open} setOpen={setOpen} />
+        
+
         <MenuItem onClick={() => {setIsShareOpen(true)}}>
           <ListItemIcon>
-            <GrShare className="text-md"/>
+            <GrShare className="text-2xl ml-2"/>
           </ListItemIcon>
           Share
         </MenuItem>
