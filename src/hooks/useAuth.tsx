@@ -150,6 +150,6 @@ const useAuth = () => {
         setSuccessfulLogin,
         handleSubmit,
     }
-}
+} 
 
 export default useAuth

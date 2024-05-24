@@ -32,7 +32,6 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
   };
 
 
-
   const handleCommentClick = () => {
 
   }
@@ -123,7 +122,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
               </Tooltip>
             </Box>
             <RateIcon />
-            <ShareIcon />
+            <ShareIcon selectedMarkerData={selectedMarkerData} />
           </Box>
 
           <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>

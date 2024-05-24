@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 
 //Interface Imports
 import { checkToken, getMapDots, getLoggedInUserData } from '@/utils/DataServices';
-import { IUserData } from '@/Interfaces/Interfaces';
+
 
 //Mapbox GL Js Imports
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';

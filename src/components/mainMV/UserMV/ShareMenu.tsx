@@ -23,9 +23,10 @@ import {
 interface UserShareProps {
   anchorShareMenu: HTMLElement | null;
   setAnchorShareMenu: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+  selectedMarkerData: any
 }
 
-const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu }: UserShareProps) => {
+const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu, selectedMarkerData }: UserShareProps) => {
 
   const handleCloseShareMenu = () => {
     setAnchorShareMenu(null)
@@ -51,7 +52,11 @@ const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu }: UserShareProps) => {
     >
       <MenuItem disabled={true}>Share to</MenuItem>
       <MenuItem>
-        <LinkedinShareButton url={palceholderUrl} className="flex items-center">
+        <LinkedinShareButton url={palceholderUrl} 
+        title='Bathroom information'
+        summary={`Name of bathroom is ${selectedMarkerData?.name}`}
+
+        className="flex items-center">
           <ListItemIcon className="mr-1">
             <LinkedinIcon size={32} round={true} />
           </ListItemIcon>
@@ -67,7 +72,7 @@ const ShareMenu = ({ anchorShareMenu, setAnchorShareMenu }: UserShareProps) => {
         </TwitterShareButton>
       </MenuItem>
       <MenuItem>
-        <FacebookShareButton url={palceholderUrl} className="flex items-center">
+        <FacebookShareButton url={palceholderUrl} hashtag='PottyMap' className="flex items-center">
           <ListItemIcon className="mr-1">
             <FacebookIcon size={32} round={true} />
           </ListItemIcon>
