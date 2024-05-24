@@ -2,11 +2,13 @@ import Head from "next/head"
 import holderImg from "@/assets/Kids_Free_Hand_Drawing_of_Toilet_Paper_Rolls_Seamless_Background_Pattern_generated.jpg"
 // import type { GetDerivedStateFromProps } from "next";
 
-export default function ShowBathroomShare({selectedMarkerData} : {selectedMarkerData: any}){
+export default async function ShowBathroomShare({selectedMarkerData} : {selectedMarkerData: any}){
 
     const shareUrl = "https://pottymap.vercel.app/";
     const title = `Location Preview for ${selectedMarkerData?.name}`;
     const description = "Checkout this awesome bathroom on Potty Map";
+
+    console.log(selectedMarkerData)
 
     return(
         <>
@@ -32,14 +34,14 @@ export default function ShowBathroomShare({selectedMarkerData} : {selectedMarker
                 <meta name="twitter:url" content={shareUrl} />
 
             </Head>
-            <main className="container mx-auto mt-12 flex min-h-screen justify-center">
+            {/* <main className="container mx-auto mt-12 flex min-h-screen bg-white justify-center">
                 <img
                     alt="bathroom map location"
                     title="bathroom map location"
                     className="mb-12 h-96 w-96 rounded-3xl"
                     src={holderImg.src}
                 />
-            </main>
+            </main> */}
         </>
     )
 }
