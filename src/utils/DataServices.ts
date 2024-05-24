@@ -1,4 +1,5 @@
-import { IBathrooms, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
+import { IAddFavSpot, IAddFavorite, IBathrooms, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
+import { Bathroom } from "@mui/icons-material";
 
 
 const url = "https://pottymapwebapi.azurewebsites.net"
@@ -57,6 +58,7 @@ export const ForgotPassword = async (username: string, password: string ) => {
             'Content-Type': "application/json"
         }
     });
+    
     if(!res.ok){
         if (res.status === 401) {
             throw new Error('Incorrect username')
@@ -148,4 +150,100 @@ export const getMapDots = async () => {
 
 export const getComments = async () => {
     
+}
+
+
+export const  addFavorites = async (bathroom: IAddFavorite) => {
+    const res = await fetch(url + '/FavoriteBathroom/AddFavorite', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(bathroom)
+
+    });
+
+    if(res.ok){
+
+    } else {
+
+    }
+   
+}
+
+export const getFavorites = async (userId: number) => {
+    const res = await fetch(url + `/FavoriteBathroom/GetFavoritesByUserID/${userId}`)
+    const data = await res.json();
+    return data;
+}
+
+export const removeFavorites = async (userId: number, bathroomId:number) => {
+    const res = await fetch(url + `/FavoriteBathroom/RemoveFavorite/${userId}/${bathroomId}`)
+    const data = await res.json();
+    return data;
+}
+
+
+export const addFavoritePottySpot = async (bathroom: IAddFavSpot) => {
+    const res = await fetch(url + '/FavoritePottySpot/AddFavoritePottySpot', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(bathroom)
+
+    });
+
+    if(res.ok){
+
+    } else {
+
+    }
+}
+
+export const getFavSpotByUserId = async (userId: number) => {
+    const res = await fetch(url + `/FavoritePottySpot/GetFavoritePottySpotsByUserId/${userId}`)
+    const data = await res.json();
+    return data;
+}
+
+export const getPublishedFavSpotsByUserID = async (id: number) => {
+    const res = await fetch(url + `FavoritePottySpot/GetFavoritePottySpotsById/${id}`)
+    const data = await res.json();
+    return data;
+}
+
+export const updateFavPottySpot = async (bathroom: IAddFavSpot) => {
+    const res = await fetch(url + '/FavoritePottySpot/UpdateFavoritePottySpot', {
+        method: "PUT",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(bathroom)
+
+    });
+
+    if(res.ok){
+
+    } else {
+
+    }
+    
+}
+
+export const removeFavPottySpot = async (bathroom: IAddFavSpot) => {
+    const res = await fetch(url + '/FavoritePottySpot/DeleteFavoritePottySpot', {
+        method: "DELETE",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(bathroom)
+
+    });
+
+    if(res.ok){
+
+    } else {
+
+    }
 }

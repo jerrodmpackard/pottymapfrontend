@@ -40,3 +40,19 @@ export interface IUserData {
     userId: number
     publisherName: string
 }
+
+export interface IAddFavorite {
+    id: number,
+    userId: number,
+    bathroomId: number
+}
+
+export interface IAddFavSpot {
+    id: number,
+    userID: number,
+    publishedName: string,
+    title: string,
+    description: string,
+    isPublished: boolean,
+    isDeleted: boolean
+}
