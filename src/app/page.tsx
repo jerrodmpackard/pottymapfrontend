@@ -26,10 +26,6 @@ import {
 } from "@mui/material";
 
 
-//The page.tsx inside of our app is our default home page.
-
-//This will be our Login page and our create Account page.
-
 export default function Home() {
 
   const router = useRouter();

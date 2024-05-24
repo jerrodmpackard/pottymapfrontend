@@ -3,9 +3,12 @@ import React, { useState } from 'react'
 import { Alert, Button, FormControl, IconButton, InputAdornment, Snackbar, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import useAuthTwo from '@/hooks/useAuthTwo';
+import { useRouter } from 'next/navigation';
 
 
 const ChangePass = () => {
+
+  const router = useRouter();
 
   const {
     username,
@@ -36,6 +39,8 @@ const ChangePass = () => {
     }
     setSuccessfulChangePassword(false)
   }
+
+  const handleGoBack = () => { router.push('/') }
 
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleTwo, setVisibleTwo] = useState<boolean>(false);
@@ -104,7 +109,7 @@ const ChangePass = () => {
                 }}
                 onChange={(e) => setCPassword(e.target.value)}
                 onKeyDown={handleKeydown}
-                />
+              />
               <Button variant="contained" className='mt-8' onClick={handleSubmitTwo}>
                 Change
               </Button>
@@ -129,12 +134,20 @@ const ChangePass = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
 
-              <Button variant="contained" className='mt-8' onClick={handleContinueClick}>Continue</Button>
+              <Button variant="contained" className='mt-6' onClick={handleContinueClick}>Continue</Button>
+
+              <div className='flex-group mt-4'>
+                <h1>Go back?</h1>
+                <Button variant="text" color="primary" onClick={handleGoBack}>
+                  Return to Login
+                </Button>
+              </div>
             </FormControl>
           </div>
         )
         }
       </div>
+
 
       <Snackbar open={successfulChangePassword} autoHideDuration={3500} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <Alert
