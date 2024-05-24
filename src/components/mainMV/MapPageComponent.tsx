@@ -137,14 +137,12 @@ const MapPageComponent = () => {
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
             }
 
+            
             setSelectedMarkerData(markerData);
-
-            setPlaceholder(true);
-
-            setSelectedMarkerData(markerData);
-
+            
             setPlaceholder(true);
             
+            setIsOpen(false)
         });
 
         // When mousing over a marker, style cursor as pointer
@@ -187,7 +185,7 @@ const MapPageComponent = () => {
             const geocoder = new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
                 mapboxgl: mapboxgl,
-                placeholder: 'Search for a location',
+                placeholder: 'Search for a location...',
             });
             geocoderContainerRef.current.appendChild(geocoder.onAdd(map));
         }
@@ -226,7 +224,7 @@ const MapPageComponent = () => {
                         
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
                             <Tooltip title="Add a Bathroom">
-                                <Button color='primary' onClick={() => {setIsModalOpen(true); setSave(true)}}
+                                <Button color='primary' onClick={() => {setIsModalOpen(true); setSave(true) ; setIsOpen(false)}}
                                 // startIcon={<AddIcon />}
                                 variant="contained"
                                 className='aspect-square'
@@ -245,8 +243,8 @@ const MapPageComponent = () => {
                         <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
                             <UserIcons />
                         </Box>
-                        <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-                            <MobileDropIcon isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+                        <Box sx={{ display: { xs: 'flex', sm: 'none' } }} onClick={() => {setIsOpen(false)}}>
+                            <MobileDropIcon isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
                         </Box>
                     </Toolbar>
                 </Container>

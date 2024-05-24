@@ -1,6 +1,7 @@
-import { Box, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Box, Divider, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import React, { useState } from 'react'
-import { PiStar, PiStarDuotone } from 'react-icons/pi'
+import { PiHeart, PiHeartDuotone } from "react-icons/pi";
+import { GrShare } from 'react-icons/gr'
 import RateTwo from './RateTwo';
 
 interface MBAProps {
@@ -14,32 +15,47 @@ const MBathroomActionMenu = ({ mBAMenu, setMBAMenu }: MBAProps) => {
     setMBAMenu(null)
   }
 
-  const [anchorRateMenuTwo, setAnchorRateMenuTwo] = useState<HTMLElement | null>(null);
-  
+  // const [anchorRateMenuTwo, setAnchorRateMenuTwo] = useState<HTMLElement | null>(null);
+  const [isShareOpen, setIsShareOpen] = useState<boolean>(false)
+  const [liked, setLiked] = useState<boolean>(false)
   const [value, setValue] = useState<number | null>(0);
+
+  const handleHeartClick = () => {
+    setLiked(!liked)
+  }
 
 
   return (
-    <Menu
-      anchorEl={mBAMenu}
-      open={Boolean(mBAMenu)}
-      onClose={handleCloseBAMenu}
-      onClick={handleCloseBAMenu}
-    >
-      <Tooltip title={value === null || value < 0.5 ? "Rate Bathroom" : "View your rating"}>
-        <RateTwo value={value} setValue={setValue}/>
-      </Tooltip>
+    <>
+      <Menu
+        anchorEl={mBAMenu}
+        open={Boolean(mBAMenu)}
+        onClose={handleCloseBAMenu}
+        // onClick={handleCloseBAMenu}
+      >
+        {/* <Divider/> */}
+        <Tooltip title={value === null || value < 0.5 ? "Rate Bathroom" : "View your rating"}>
+          <RateTwo value={value} setValue={setValue}/>
+        </Tooltip>
+        <Divider/>
+        <MenuItem onClick={handleHeartClick}>
+          <ListItemIcon>
+            {liked ? <PiHeartDuotone className="text-2xl" /> : <PiHeart className="text-2xl" /> }
+          </ListItemIcon>
+            {liked? "In favorites" : "Add to favorites"}  
+        </MenuItem>
 
-      <MenuItem >
-        
-        Favorite
-      </MenuItem>
+        <MenuItem onClick={() => {setIsShareOpen(true)}}>
+          <ListItemIcon>
+            <GrShare className="text-md"/>
+          </ListItemIcon>
+          Share
+        </MenuItem>
+      </Menu>
+      <Box>
 
-      <MenuItem >
-        
-        Share
-      </MenuItem>
-    </Menu>
+      </Box>
+    </>
   )
 }
 

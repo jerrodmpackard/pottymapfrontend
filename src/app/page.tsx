@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createAccount, getLoggedInUserData, login } from "@/utils/DataServices";
-import { IToken, IUserData } from "@/Interfaces/Interfaces";
-import { IUserInfo } from "@/Interfaces/Interfaces";
+import { IToken, IUserInfo  } from "@/Interfaces/Interfaces";
 import { Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, Stack, TextField, Button, Snackbar, Alert } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import mapboxgl from 'mapbox-gl';

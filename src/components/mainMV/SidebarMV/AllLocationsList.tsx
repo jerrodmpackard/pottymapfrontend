@@ -79,14 +79,11 @@ const AllLocationsList = ({ map, setPlaceholder }: { map: mapboxgl.Map | null, s
         />
       </FormControl>
 
-
-
-
       <List
         sx={{ width: '100%', maxWidth: 295, bgcolor: 'background.paper' }}
         component="nav"
         aria-labelledby="nested-list-subheader"
-        className="truncate"
+        
         subheader={
           <ListSubheader component="div" id="nested-list-subheader">
             Results
@@ -106,10 +103,10 @@ const AllLocationsList = ({ map, setPlaceholder }: { map: mapboxgl.Map | null, s
                 paddingRight: 5
               }}
             >
-              <ListItemText
+              {/* <ListItemText
                 primary={bathroom.name}
-
-              />
+              /> */}
+              <Typography noWrap>{bathroom.name}</Typography>
             </ListItem>
           </Tooltip>
         ))}

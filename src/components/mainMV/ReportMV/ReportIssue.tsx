@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 
 const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportChange, selectedMarkerData }: { reportForm: any, setReportForm: any, isReportOpen: any, setIsReportOpen: any, handleReportChange: any, selectedMarkerData: any }) => {
 
-    const title = `What is the issue with  "${selectedMarkerData?.name}"`
+    const title = `Report an issue with  "${selectedMarkerData?.name}"`
 
     const fulladdy = `${selectedMarkerData?.address}, ${selectedMarkerData?.city}, ${selectedMarkerData?.state}, ${selectedMarkerData?.zipCode}`
 
@@ -38,7 +38,7 @@ const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportCh
             open={isReportOpen}
             maxWidth="xs"
         >
-            <DialogTitle sx={{ m: 0, p: 2 }}>
+            <DialogTitle sx={{ m: 0, padding: 2, paddingRight: 5 }} className='truncate'>
                 {title}
             </DialogTitle>
             <IconButton
@@ -52,7 +52,7 @@ const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportCh
             >
                 <Close />
             </IconButton>
-            <DialogContent dividers className="grid grid-cols-1 sm:grid-cols-2 gap-5 my-4 mx-2 ">
+            <DialogContent dividers className="grid grid-cols-1 sm:grid-cols-2 gap-5 my-2 mx-2 ">
 
                 <FormControl fullWidth className='col-span-2'>
                     <TextField name="fullAddress"

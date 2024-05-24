@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Box, Menu, MenuItem, Rating, Stack, Typography } from '@mui/material';
+import { Box, ListItemIcon, ListItemText, Menu, MenuItem, Rating, Stack, Typography } from '@mui/material';
+import { PiStar, PiStarDuotone } from 'react-icons/pi';
 
 
 interface MBAPropsTwo {
@@ -38,14 +39,9 @@ const RateTwo = ({value, setValue}: MBAPropsTwo) => {
 
 
   return (
-    // <Menu
-    //         anchorEl={anchorRateMenuTwo}
-    //         open={Boolean(anchorRateMenuTwo)}
-    //         onClose={handleCloseRateMenuTwo}
-    //         onClick={handleCloseRateMenuTwo}
-    //     >
-            <MenuItem>
-                <Stack direction="column">
+        <>
+            <MenuItem sx={{paddingTop: 2 }} className="flex items-center">
+                {/* <Stack direction="column">
                     <Typography className="ml-2">Rate Bathroom</Typography>
                     <Stack direction="row">    
                         <Rating name="rating bathroom" precision={0.5} 
@@ -62,10 +58,20 @@ const RateTwo = ({value, setValue}: MBAPropsTwo) => {
                             <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
                         )}
                     </Stack>
-                </Stack>
-                
+                </Stack> */}
+                <ListItemIcon>
+                    {value === null || value < 0.5 ? (
+                        <PiStar className='text-yellow-600 text-3xl' />
+                    ) : (
+                        <PiStarDuotone className='star-icon text-3xl' />
+                    )}
+                </ListItemIcon>
+                <ListItemText primary="Rate" />
+                {open ? <ExpandLess /> : <ExpandMore />}
             </MenuItem>
-        // </Menu>
+            <Collas
+        </>
+        
   )
 }
 

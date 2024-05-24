@@ -101,7 +101,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
           </Tooltip>
         </Box>
 
-        <Stack direction="row" className="mt-1" >
+        <Stack direction="row" className="mt-1 flex items-center" >
 
           <Stack direction="row" sx={{ flexGrow: 1 }}>
             <h2 className="text-xl font-semibold">Rating</h2>
@@ -122,9 +122,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
                 </IconButton>
               </Tooltip>
             </Box>
-
             <RateIcon />
-
             <ShareIcon />
           </Box>
 
