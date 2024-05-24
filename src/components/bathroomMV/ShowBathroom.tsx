@@ -203,7 +203,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
         <ReportIssue selectedMarkerData={selectedMarkerData} isReportOpen={isReportOpen} setIsReportOpen={setIsReportOpen} reportForm={reportForm} setReportForm={setReportForm} handleReportChange={handleReportChange}  />
 
       </Dialog>
-      <ShowBathroomShare selectedMarkerData={selectedMarkerData}/>
+      {/* <ShowBathroomShare selectedMarkerData={selectedMarkerData}/> */}
     </>
   )
 }
