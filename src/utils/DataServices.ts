@@ -3,10 +3,8 @@ import { IBathrooms, IToken, IUserData, IUserInfo } from "@/Interfaces/Interface
 
 const url = "https://pottymapwebapi.azurewebsites.net"
 
-let userData: IUserData
 
-
-export const createAccount = async (createdUser: IUserInfo) => {
+export const createAccount = async (loginUser: IUserInfo) => {
     //we are using this fetch to make a POST Requst
     //We have to set the method to POST
     //we set the content type to application/ json to specifiy our json data format
@@ -16,17 +14,16 @@ export const createAccount = async (createdUser: IUserInfo) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(createdUser)
+        body:JSON.stringify(loginUser)
     });
-    //we need to check if the post was succesful
 
     if(!res.ok){
-        const message = "An error has occured " + res.status;
-        throw new Error(message);
+        if (res.status === 409){
+            throw new Error('Username already exists')
+        } else {
+            throw new Error(`An error has occured: ${res.status}`)
+        }
     }
-
-    const data = await res.json();
-    console.log(data);
 }
 
 // Login
@@ -40,8 +37,11 @@ export const login = async (loginUser: IUserInfo) => {
     });
 
     if(!res.ok){
-        const message = "An Error has occured " + res.status;
-        throw new Error(message);
+        if (res.status === 401) {
+            throw new Error('Incorrect username or password')
+        } else {
+            throw new Error(`An error has occured: ${res.status}`)
+        }
     }
 
     const data: IToken = await res.json();
@@ -62,7 +62,7 @@ export const ForgotPassword = async (username: string, password: string ) => {
         throw new Error(message);
     }
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
@@ -70,13 +70,10 @@ export const ForgotPassword = async (username: string, password: string ) => {
 export const getLoggedInUserData = async (username: string) => {
     const res = await fetch(url + '/User/GetUserByUsername/' + username);
     const data: IUserData = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
-// export const loggedinData = () => {
-//     return userData;
-// }
 
 //This function helps to see if our user is logged in
 export const checkToken = () => {

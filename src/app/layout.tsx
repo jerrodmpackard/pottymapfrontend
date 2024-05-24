@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ContextProvider from "@/context/ContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,14 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      {/* <script src='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js'></script> */}
-      <link href='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css' rel='stylesheet' />
+        <link href='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css' rel='stylesheet' />
       </head>
       <body className={inter.className}>
-        <ContextProvider>
-          {children}
-        </ContextProvider>
-        </body>
+        {children}
+      </body>
     </html>
   );
 }

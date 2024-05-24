@@ -2,13 +2,29 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createAccount, getLoggedInUserData, login } from "@/utils/DataServices";
-import { IToken, IUserInfo  } from "@/Interfaces/Interfaces";
-import { Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, Stack, TextField, Button, Snackbar, Alert } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import mapboxgl from 'mapbox-gl';
-import logo from "../app/favicon.ico"
+import useAuth from "@/hooks/useAuth";
 import Image from "next/image";
+import logo from "../app/favicon.ico"
+import mapboxgl from 'mapbox-gl';
+
+import {
+  Visibility,
+  VisibilityOff
+} from "@mui/icons-material";
+
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Button,
+  Snackbar,
+  Alert
+} from "@mui/material";
+
 
 //By default next js components our server side (Server side components cannot have useStates in them)
 //'use client' turns the component into client component.
@@ -19,231 +35,36 @@ import Image from "next/image";
 
 export default function Home() {
 
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [cpassword, setCPassword] = useState<string>("");
-  const [loginData, setLoginData] = useState<any>();
-
-  const [userNameError, setUserNameError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordErrorTwo, setPasswordErrorTwo] = useState(false);
-  const [cpasswordError, setCPasswordError] = useState(false);
-
-  const [switchBool, setSwitchBool] = useState<boolean>(false);
-  const [visible, setVisible] = useState<boolean>(false);
-  const [visibleTwo, setVisibleTwo] = useState<boolean>(false)
-  const [marked, setMarked] = useState<boolean>(false);
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [successfulAccount, setSuccessfulAccount] = useState<boolean>(false);
-  const [successfulLogin, setSuccessfulLogin] = useState<boolean>(false);
-
-  // const usernameErrorMessage = "Username length must be at least 4 characters";
-  // const passwordErrorMessage = "Password length must be at least 4 characters";
-  // const cpasswordErrorMessage = "Passwords do not match";
-
-  const [userErrMess, setUserErrMess] = useState<string>("");
-  const [passErrMess, setPassErrMess] = useState<string>("");
-  const [cpassErrMess, setCPassErrMess] = useState<string>("");
-
   const router = useRouter();
 
+  const {
+    username,
+    setUsername,
+    password,
+    setPassword,
+    cpassword,
+    setCPassword,
+    userNameError,
+    passwordError,
+    cpasswordError,
+    switchBool,
+    setSwitchBool,
+    successfulAccount,
+    setSuccessfulAccount,
+    successfulLogin,
+    setSuccessfulLogin,
+    handleSubmit,
+
+  } = useAuth()
+
   const handleKeydown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      if (switchBool) {
-
-        if (username === '') {
-          setUserNameError(true);
-          // setUserErrMess("Username length must be at least 4 characters")
-        } else {
-          setUserNameError(false);
-          // setUserErrMess("")
-        }
-
-        if (password === '') {
-          setPasswordError(true);
-          // setPassErrMess("Password length must be at least 4 characters")
-        } else {
-          setUserNameError(false);
-          // setPassErrMess("")
-
-        }
-
-        if (cpassword === '') {
-          setCPasswordError(true);
-          // setCPassErrMess("Passwords do not match")
-        } else {
-          setUserNameError(false);
-          // setCPassErrMess("")
-        }
-
-
-        if (username.length >= 4 && password.length >= 4 && password === cpassword) {
-
-          let userData: IUserInfo = {
-            Username: username,
-            Password: password,
-            ID: 0
-          }
-
-          await createAccount(userData);
-          setSwitchBool(false);
-          setSuccessfulAccount(true);
-
-          setUsername('');
-          setPassword('');
-          setCPassword('');
-          setPasswordError(false);
-          setCPasswordError(false);
-
-        } else {
-          setCPasswordError(true);
-          // alert("Login Failed - Passwords do not match")
-        }
-
-      } else {
-
-        if (username == '') {
-          setUserNameError(true);
-        } else {
-          setUserNameError(false);
-        }
-
-        if (password == '') {
-          setPasswordError(true)
-        } else {
-          setUserNameError(false);
-        }
-
-        if (username && password) {
-
-          let userData: IUserInfo = {
-            Username: username,
-            Password: password,
-            ID: 0
-          }
-
-          let token: IToken = await login(userData);
-
-          console.log(token);
-
-          if (token.token != null) {
-            localStorage.setItem("Token", token.token)
-            const loginData = await getLoggedInUserData(username);
-            localStorage.setItem("Username", JSON.stringify(loginData));
-            setSuccessfulLogin(true);
-
-            setTimeout(() => {
-              router.push('/Pages/MapView');
-            }, 2500);
-          } else {
-            alert("Login Failed - Please ensure you are entering your credentials correctly.");
-          }
-        }
-      }
-    }
-
-  }
-
-  const handleSubmit = async () => {
-
-    if (switchBool) {
-
-      if (username === '') {
-        setUserNameError(true);
-        // setUserErrMess("Username length must be at least 4 characters")
-      } else {
-        setUserNameError(false);
-        // setUserErrMess("")
-      }
-
-      if (password === '') {
-        setPasswordError(true);
-        // setPassErrMess("Password length must be at least 4 characters")
-      } else {
-        setUserNameError(false);
-        // setPassErrMess("")
-
-      }
-
-      if (cpassword === '') {
-        setCPasswordError(true);
-        // setCPassErrMess("Passwords do not match")
-      } else {
-        setUserNameError(false);
-        // setCPassErrMess("")
-      }
-
-
-      if (username.length >= 4 && password.length >= 4 && password === cpassword) {
-
-        let userData: IUserInfo = {
-          Username: username,
-          Password: password,
-          ID: 0
-        }
-
-        await createAccount(userData);
-        setSwitchBool(false);
-        setSuccessfulAccount(true);
-
-        setUsername('');
-        setPassword('');
-        setCPassword('');
-        setPasswordError(false);
-        setCPasswordError(false);
-
-      } else {
-        setCPasswordError(true);
-        // alert("Login Failed - Passwords do not match")
-      }
-
-    } else {
-
-      if (username == '') {
-        setUserNameError(true);
-      } else {
-        setUserNameError(false);
-      }
-
-      if (password == '') {
-        setPasswordError(true)
-      } else {
-        setUserNameError(false);
-      }
-
-      if (username && password) {
-
-        let userData: IUserInfo = {
-          Username: username,
-          Password: password,
-          ID: 0
-        }
-
-        let token: IToken = await login(userData);
-
-        console.log(token);
-
-        if (token.token != null) {
-          localStorage.setItem("Token", token.token)
-          getLoggedInUserData(username);
-          setSuccessfulLogin(true);
-
-          setTimeout(() => {
-            router.push('/Pages/MapView');
-          }, 2500);
-        } else {
-          alert("Login Failed - Please ensure you are entering your credentials correctly.");
-        }
-      }
-    }
+    if (e.key === 'Enter') handleSubmit();
   }
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setSuccessfulAccount(false);
   };
 
@@ -251,30 +72,21 @@ export default function Home() {
     if (reason === 'clickaway') {
       return;
     }
-
     setSuccessfulLogin(false);
   };
 
-  const handleEyeClick = () => {
-    setVisible(!visible)
-  }
+  const [visible, setVisible] = useState(false)
+  const [visibleTwo, setVisibleTwo] = useState(false)
 
-  const handleEyeClickTwo = () => {
-    setVisibleTwo(!visibleTwo)
-  }
+  const handleEyeClick = () => { setVisible(!visible) }
 
-  const handleSwitch = () => {
-    setSwitchBool(!switchBool)
-  }
+  const handleEyeClickTwo = () => { setVisibleTwo(!visibleTwo) }
 
-  const handleGuest = () => {
-    router.push('/Pages/GuestView');
-  }
+  const handleSwitch = () => { setSwitchBool(!switchBool) }
 
-  const handleChangePass = () => {
-    router.push('/Pages/ResetPass')
-  }
+  const handleGuest = () => { router.push('/Pages/GuestView') }
 
+  const handleChangePass = () => { router.push('/Pages/ResetPass') }
 
   const mapContainerRef = useRef<HTMLDivElement>(null)
 
@@ -311,6 +123,7 @@ export default function Home() {
   }, [])
 
 
+
   return (
     <main className='min-h-screen grid items-center justify-center ipadPro:p-4 ipadPro:items-stretch ipadPro:justify-stretch'>
       <section className="grid grid-cols-1 ipadPro:grid-cols-2 m-4 p-4 bg-gradient-to-r from-blue-50 to-slate-50 border-2 border-[#b9dee6] rounded-3xl">
@@ -338,10 +151,11 @@ export default function Home() {
                     size="small"
                     value={username}
                     variant="outlined"
-                    error={userNameError}
-                    helperText={userNameError ? userErrMess : ""}
+                    error={!!userNameError}
+                    helperText={userNameError}
                     inputProps={{ minLength: 4 }}
                     onChange={(e) => setUsername(e.target.value)}
+                    onKeyDown={handleKeydown}
                   />
 
                   <TextField className="mt-4"
@@ -354,7 +168,8 @@ export default function Home() {
                     value={password}
                     type={visible ? "text" : "password"}
                     variant="outlined"
-                    error={passwordError}
+                    error={!!passwordError} // the `!!` is used to convert a value to a boolean in JS, the more you know lol
+                    helperText={passwordError}
                     inputProps={{ minLength: 4 }}
                     InputProps={{
                       endAdornment: (
@@ -366,6 +181,7 @@ export default function Home() {
                       )
                     }}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={handleKeydown}
                   />
 
                   <TextField className="mt-4"
@@ -378,8 +194,8 @@ export default function Home() {
                     value={cpassword}
                     type={visibleTwo ? "text" : "password"}
                     variant="outlined"
-                    error={cpasswordError}
-                    onKeyDown={handleKeydown}
+                    error={!!cpasswordError}
+                    helperText={cpasswordError}
                     inputProps={{ minLength: 4 }}
                     InputProps={{
                       endAdornment: (
@@ -391,7 +207,7 @@ export default function Home() {
                       )
                     }}
                     onChange={(e) => setCPassword(e.target.value)}
-
+                    onKeyDown={handleKeydown}
                   />
 
                   <Button className="mt-4" variant="contained" color="secondary" onClick={handleSubmit}>Create Account</Button>
@@ -422,10 +238,11 @@ export default function Home() {
                     size="small"
                     value={username}
                     variant="outlined"
-                    error={userNameError}
+                    error={!!userNameError}
                     helperText={userNameError}
                     inputProps={{ minLength: 4 }}
                     onChange={(e) => setUsername(e.target.value)}
+                    onKeyDown={handleKeydown}
                   />
 
                   <TextField className="mt-4"
@@ -438,8 +255,8 @@ export default function Home() {
                     value={password}
                     type={visible ? "text" : "password"}
                     variant="outlined"
-                    onKeyDown={handleKeydown}
-                    error={passwordError || passwordErrorTwo}
+                    error={!!passwordError}
+                    helperText={passwordError}
                     inputProps={{ minLength: 4 }}
                     InputProps={{
                       endAdornment: (
@@ -451,6 +268,7 @@ export default function Home() {
                       )
                     }}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={handleKeydown}
                   />
 
                   <div className="mt-2 flex-group">
@@ -509,7 +327,6 @@ export default function Home() {
           Login Successful. You will now be redirected to the map page.
         </Alert>
       </Snackbar>
-
 
     </main>
   )
