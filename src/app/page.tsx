@@ -26,9 +26,6 @@ import {
 } from "@mui/material";
 
 
-//By default next js components our server side (Server side components cannot have useStates in them)
-//'use client' turns the component into client component.
-
 //The page.tsx inside of our app is our default home page.
 
 //This will be our Login page and our create Account page.
@@ -55,7 +52,7 @@ export default function Home() {
     setSuccessfulLogin,
     handleSubmit,
 
-  } = useAuth()
+  } = useAuth();
 
   const handleKeydown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') handleSubmit();
@@ -101,22 +98,15 @@ export default function Home() {
     });
 
     function spinGlobe() {
-      const zoom = map.getZoom();
 
       let distancePerSecond = 2;
 
       const center = map.getCenter();
       center.lng -= distancePerSecond;
       // Smoothly animate the map over one second.
-      // When this animation is complete, it calls a 'moveend' event.
       map.easeTo({ center, duration: 1000, easing: (n) => n });
 
     }
-
-    // When animation is complete, start spinning if there is no ongoing interaction
-    map.on('moveend', () => {
-      spinGlobe();
-    });
 
     spinGlobe();
 
@@ -205,7 +195,7 @@ export default function Home() {
                           </IconButton>
                         </InputAdornment>
                       )
-                    }}
+                     }}
                     onChange={(e) => setCPassword(e.target.value)}
                     onKeyDown={handleKeydown}
                   />

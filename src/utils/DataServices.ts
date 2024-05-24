@@ -58,19 +58,22 @@ export const ForgotPassword = async (username: string, password: string ) => {
         }
     });
     if(!res.ok){
-        const message = "An error message has occured " + res.status;
-        throw new Error(message);
+        if (res.status === 401) {
+            throw new Error('Incorrect username')
+        } else if(res.status === 409) {
+            throw new Error('Password already exists')
+        } else {
+            throw new Error(`An error has occured: ${res.status}`)
+        }
     }
     const data = await res.json();
-    // console.log(data);
     return data;
 }
 
-// Dont Know
+
 export const getLoggedInUserData = async (username: string) => {
     const res = await fetch(url + '/User/GetUserByUsername/' + username);
     const data: IUserData = await res.json();
-    // console.log(data);
     return data;
 }
 
@@ -87,10 +90,6 @@ export const checkToken = () => {
     return result
 }
 
-
-// Dashboard Fetches
-
-// Dont Know
 export const getUserItemsByUserId = async (userId: number) => {
     const res = await fetch(url + '/User' + userId);
     const data = await res.json();
@@ -144,6 +143,8 @@ export const getMapDots = async () => {
     const data = await res.json();
     return data;
 }
+
+
 
 export const getComments = async () => {
     

@@ -1,73 +1,49 @@
 import React, { useState } from 'react'
 
-import { IUserInfo } from "@/Interfaces/Interfaces";
-import { useRouter } from 'next/navigation';
 import { Alert, Button, FormControl, IconButton, InputAdornment, Snackbar, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { ForgotPassword } from '@/utils/DataServices';
+import useAuthTwo from '@/hooks/useAuthTwo';
 
 
 const ChangePass = () => {
 
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [cpassword, setCPassword] = useState<string>("");
+  const {
+    username,
+    setUsername,
+    password,
+    setPassword,
+    cpassword,
+    setCPassword,
+    userNameError,
+    passwordError,
+    cpasswordError,
+    switchBool,
+    handleContinueClick,
+    successfulChangePassword,
+    setSuccessfulChangePassword,
+    handleSubmitTwo,
 
+  } = useAuthTwo();
 
-  const [switchBool, setSwitchBool] = useState<boolean>(false);
-  const [visible, setVisible] = useState<boolean>(false);
-  const [visibleTwo, setVisibleTwo] = useState<boolean>(false);
-
-  const [successfulChangePassword, setSuccessfulChangePassword] = useState<boolean>(false);
-
-
-  const router = useRouter();
-
-  const handleEyeClick = () => {
-    setVisible(!visible)
-  }
-
-  const handleEyeClickTwo = () => {
-    setVisibleTwo(!visibleTwo)
-  }
-
-  const handleSwitch = () => {
-    setSwitchBool(true)
-  }
 
   const handleKeydown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      await ForgotPassword(username, password).then(data => {
-        if (data) {
-          setSuccessfulChangePassword(true);
-  
-          setTimeout(() => {
-            router.push('/');
-            setSwitchBool(false);
-          }, 2500);
-        }
-      });
-    }
-  }
-
-  const handleLeave = async () => {
-    await ForgotPassword(username, password).then(data => {
-      if (data) {
-        setSuccessfulChangePassword(true);
-
-        setTimeout(() => {
-          router.push('/');
-          setSwitchBool(false);
-        }, 2500);
-      }
-    });
+    if (e.key === 'Enter') handleSubmitTwo();
   }
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
+    setSuccessfulChangePassword(false)
   }
+
+  const [visible, setVisible] = useState<boolean>(false);
+  const [visibleTwo, setVisibleTwo] = useState<boolean>(false);
+
+  const handleEyeClick = () => { setVisible(!visible) }
+
+  const handleEyeClickTwo = () => { setVisibleTwo(!visibleTwo) }
+
 
   return (
     <section className='min-h-screen grid items-center justify-center'>
@@ -88,7 +64,8 @@ const ChangePass = () => {
                 value={password}
                 type={visible ? "text" : "password"}
                 variant="outlined"
-                // error={passwordError || passwordErrorTwo}
+                error={!!passwordError}
+                helperText={passwordError}
                 inputProps={{ minLength: 4 }}
                 InputProps={{
                   endAdornment: (
@@ -100,6 +77,7 @@ const ChangePass = () => {
                   )
                 }}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeydown}
               />
 
               <TextField className="mt-4"
@@ -111,9 +89,9 @@ const ChangePass = () => {
                 size="small"
                 value={cpassword}
                 type={visibleTwo ? "text" : "password"}
-                onKeyDown={handleKeydown}
                 variant="outlined"
-                // error={cpasswordError}
+                error={!!cpasswordError}
+                helperText={cpasswordError}
                 inputProps={{ minLength: 4 }}
                 InputProps={{
                   endAdornment: (
@@ -125,9 +103,9 @@ const ChangePass = () => {
                   )
                 }}
                 onChange={(e) => setCPassword(e.target.value)}
-
-              />
-              <Button variant="contained" className='mt-8' onClick={handleLeave}>
+                onKeyDown={handleKeydown}
+                />
+              <Button variant="contained" className='mt-8' onClick={handleSubmitTwo}>
                 Change
               </Button>
             </FormControl>
@@ -142,15 +120,16 @@ const ChangePass = () => {
                 id="username"
                 name="name"
                 label="Username"
+                size="small"
                 value={username}
                 variant="outlined"
-                //error={userNameError}
-                // helperText={userNameError ? userErrMess : ""}
+                error={!!userNameError}
+                helperText={userNameError}
                 inputProps={{ minLength: 4 }}
                 onChange={(e) => setUsername(e.target.value)}
               />
 
-              <Button variant="contained" className='mt-8' onClick={handleSwitch}>Continue</Button>
+              <Button variant="contained" className='mt-8' onClick={handleContinueClick}>Continue</Button>
             </FormControl>
           </div>
         )
