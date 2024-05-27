@@ -20,6 +20,11 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }: UserMenuProps) => {
     const handleLogout = () => {
         router.push("/")
         localStorage.removeItem("Token")
+        localStorage.removeItem("Username")
+    }
+
+    const handleProfile = () => {
+        router.push('/Pages/ProfileView')
     }
     
   return (
