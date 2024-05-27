@@ -93,6 +93,7 @@ const useAuth = () => {
 
                     localStorage.setItem("Token", token.token)
                     const loginData = await getLoggedInUserData(username);
+                    setUsername(username)
                     localStorage.setItem("Username", JSON.stringify(loginData));
 
                     setSuccessfulLogin(true);

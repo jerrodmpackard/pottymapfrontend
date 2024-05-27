@@ -34,7 +34,7 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }: UserMenuProps) => {
     onClose={handleCloseUserMenu}
     onClick={handleCloseUserMenu}
     >
-        <MenuItem className="flex items-center">
+        <MenuItem onClick={handleProfile} className="flex items-center">
             <ListItemIcon>
                 <Settings fontSize='small'/>
             </ListItemIcon>

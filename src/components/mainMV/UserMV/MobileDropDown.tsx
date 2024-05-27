@@ -25,7 +25,12 @@ const MobileDropDown = ({mobileDropDown, setMobileDropDown, isModalOpen, setIsMo
 
     const handleLogout = () => {
         router.push("/");
-        localStorage.clear();
+        localStorage.removeItem("Token")
+        localStorage.removeItem("Username")
+    }
+
+    const handleProfile = () => {
+        router.push('/Pages/ProfileView')
     }
     
   return (
@@ -35,7 +40,7 @@ const MobileDropDown = ({mobileDropDown, setMobileDropDown, isModalOpen, setIsMo
     onClose={handleCloseUserMenu}
     onClick={handleCloseUserMenu}
     >
-        <MenuItem>
+        <MenuItem onClick={handleProfile}>
         <ListItemIcon>
             <Settings fontSize='small'/>
         </ListItemIcon>
@@ -49,7 +54,7 @@ const MobileDropDown = ({mobileDropDown, setMobileDropDown, isModalOpen, setIsMo
             Add a Bathroom
         </MenuItem>
 
-        <MenuItem onClick={handleLogout}>
+        <MenuItem onClick={handleLogout} color="error">
         <ListItemIcon>
             <Logout fontSize='small'/>
         </ListItemIcon>
