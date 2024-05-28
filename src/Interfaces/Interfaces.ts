@@ -60,8 +60,8 @@ export interface IAddFavSpot {
 export interface IRating {
     id: number
     userId: number
-    bathroomId: number
-    rating: number
+    BathroomId: number
+    rating: number 
 }
 
 export interface IReport {

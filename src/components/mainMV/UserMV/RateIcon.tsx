@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { PiStar, PiStarDuotone } from 'react-icons/pi'
 import RateMenu from './RateMenu';
 
-const RateIcon = () => {
+const RateIcon = ({selectedMarkerData} : {selectedMarkerData: any}) => {
 
     const [anchorRateMenu, setAnchorRateMenu] = useState<HTMLElement | null>(null);
     const [value, setValue] = useState<number | null>(0);
@@ -19,7 +19,7 @@ const RateIcon = () => {
                     )}
                 </IconButton>
             </Tooltip>
-            <RateMenu anchorRateMenu={anchorRateMenu} setAnchorRateMenu={setAnchorRateMenu} value={value} setValue={setValue}/>
+            <RateMenu anchorRateMenu={anchorRateMenu} setAnchorRateMenu={setAnchorRateMenu} value={value} setValue={setValue} selectedMarkerData={selectedMarkerData}/>
         </Box>
     )
 }

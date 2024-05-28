@@ -148,7 +148,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
                   </IconButton>
                 </Tooltip>
               </Box>
-              <RateIcon />
+              <RateIcon selectedMarkerData={selectedMarkerData}/>
               <ShareIcon />
             </Box>
 
