@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Menu, MenuItem, Rating, Stack, Typography } from '@mui/material';
 import { IRating } from '@/Interfaces/Interfaces';
-import { AddRating } from '@/utils/DataServices';
+import { AddRating, GetRatingByBathroomID } from '@/utils/DataServices';
 
 
 interface UserRateProps {
@@ -10,6 +10,8 @@ interface UserRateProps {
     value: number | null;
     setValue: any;
     selectedMarkerData: any;
+    updateRating: any;
+    setUpdateRating: any;
 }
 
 const labels: { [index: string]: string } = {
@@ -29,11 +31,12 @@ function getLabelText(value: number) {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
 
-const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selectedMarkerData }: UserRateProps) => {
+const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selectedMarkerData, updateRating, setUpdateRating }: UserRateProps) => {
 
     const handleCloseRateMenu = async () => {
         await handleRate(); // Call handleRate when menu is closed
         setAnchorRateMenu(null);
+        setUpdateRating(false);
     }
 
     const [hover, setHover] = useState(-1);
@@ -80,12 +83,16 @@ const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selected
         } else {
             try {
                 await AddRating(rating);
+                setUpdateRating(true);
             } catch (error) {
                 console.error('Error occured while adding rating', error)
                 alert("Your rating was not added. Please try again.")
             }
         }
     }
+
+
+ 
 
     return (
         <Menu

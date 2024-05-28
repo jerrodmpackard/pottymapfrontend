@@ -290,6 +290,10 @@ export const AddRating = async (rating: IRating) => {
 export const GetRatingByBathroomID = async (bathroomId: number) => {
     const res = await fetch(url + `/Ratings/GetAverageRating/${bathroomId}`);
     const data = await res.json();
+    // if(!res.ok){
+    //     const message = "An Error has Occured " + res.status;
+    //     throw new Error(message);
+    // }
     return data;
 }
 

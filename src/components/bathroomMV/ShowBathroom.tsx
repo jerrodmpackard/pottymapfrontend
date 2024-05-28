@@ -18,7 +18,7 @@ import ReportIssue from '../mainMV/ReportMV/ReportIssue'
 import MBathroomActionIcons from '../mainMV/UserMV/ShowBathroomActions/MBathroomActionIcons'
 import ShowBathroomShare from './ShowBathroomShare'
 import { IRating, IReport } from '@/Interfaces/Interfaces'
-import { GetRatingByBathroomID } from '@/utils/DataServices'
+import { GetRatingByBathroomID, getMapDots } from '@/utils/DataServices'
 
 
 
@@ -71,13 +71,23 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
     }
   }, []);
 
+  const [updateRating, setUpdateRating] = useState<boolean>(false);
 
+  const [updatedRating, setUpdatedRating] = useState<number>(0);
 
   // Getting Rating
   useEffect(() => {
-    const res = GetRatingByBathroomID(selectedMarkerData?.id);
+    const getRating = async () => {
+      if (updatedRating != null || updatedRating != 0) {
+        setUpdatedRating(await GetRatingByBathroomID(selectedMarkerData?.id));
+      }
+      else {
+        setUpdatedRating(0);
+      }
+    }
 
-  }, [])
+    getRating();
+  }, [updateRating, selectedMarkerData])
 
 
   return (
@@ -132,7 +142,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
             <Stack direction="row" sx={{ flexGrow: 1 }}>
               <h2 className="text-xl font-semibold">Rating</h2>
               <Rating name="This bathrooms rating"
-                value={selectedMarkerData?.rating} precision={0.5}
+                value={updatedRating} precision={0.5}
                 readOnly
                 size="large"
                 className='ml-1'
@@ -148,7 +158,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
                   </IconButton>
                 </Tooltip>
               </Box>
-              <RateIcon selectedMarkerData={selectedMarkerData}/>
+              <RateIcon selectedMarkerData={selectedMarkerData} updateRating={updateRating} setUpdateRating={setUpdateRating} />
               <ShareIcon />
             </Box>
 
