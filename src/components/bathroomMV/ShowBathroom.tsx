@@ -17,8 +17,8 @@ import ShareIcon from '../mainMV/UserMV/ShareIcon'
 import ReportIssue from '../mainMV/ReportMV/ReportIssue'
 import MBathroomActionIcons from '../mainMV/UserMV/ShowBathroomActions/MBathroomActionIcons'
 import ShowBathroomShare from './ShowBathroomShare'
-import { IRating, IReport } from '@/Interfaces/Interfaces'
-import { GetRatingByBathroomID, getMapDots } from '@/utils/DataServices'
+import { IAddFavorite, IBathrooms, IRating, IReport } from '@/Interfaces/Interfaces'
+import { GetRatingByBathroomID, addFavorites, getFavoritesByUserID, getMapDots, removeFavorites } from '@/utils/DataServices'
 
 
 
@@ -90,6 +90,35 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
   }, [updateRating, selectedMarkerData])
 
 
+  // Favorites
+  const [inFav, setInFav] = useState<boolean>(false);
+
+  const handleAddFavorite = async () => {
+    try {
+      const favorites: IBathrooms[] = await getFavoritesByUserID(userId);
+      const isAlreadyFavorited = favorites.some(fav => fav.id === selectedMarkerData?.id);
+
+      if (isAlreadyFavorited) {
+        setInFav(false);
+        await removeFavorites(userId, selectedMarkerData?.id);
+        console.log("removing ")
+        return;
+      }
+
+      const favoriteData: IAddFavorite = {
+        id: 0, 
+        userId: userId,
+        bathroomId: selectedMarkerData?.id,
+      };
+      await addFavorites(favoriteData);
+      console.log("addomg")
+      
+    } catch (error) {
+      console.error('Error occurred while adding favorite', error);
+    }
+  }
+
+
   return (
     <>
       <Dialog
@@ -153,7 +182,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
             <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
               <Box>
                 <Tooltip title="Favorite">
-                  <IconButton color="error">
+                  <IconButton color={inFav? "success" : "error"} onClick={handleAddFavorite}>
                     <PiHeart className='text-3xl' />
                   </IconButton>
                 </Tooltip>

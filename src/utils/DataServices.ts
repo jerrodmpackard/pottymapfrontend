@@ -181,10 +181,19 @@ export const  addFavorites = async (bathroom: IAddFavorite) => {
 
 }
 
-export const getFavorites = async (userId: number) => {
-    const res = await fetch(url + `/FavoriteBathroom/GetFavoritesByUserID/${userId}`)
-    const data = await res.json();
-    return data;
+export const getFavoritesByUserID = async (userId: number): Promise<IBathrooms[]> => {
+    const res = await fetch(url + `/FavoriteBathroom/GetFavoritesByUserID/${userId}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': "application/json"
+        }
+    });
+
+    if (res.ok) {
+        return await res.json();
+    } else {
+        throw new Error('Failed to fetch favorites');
+    }
 }
 
 export const removeFavorites = async (userId: number, bathroomId:number) => {

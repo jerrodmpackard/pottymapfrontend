@@ -46,6 +46,11 @@ export interface IAddFavorite {
     userId: number,
     bathroomId: number
 }
+export interface IFavorite {
+    id: number,
+    userId: number,
+    bathroomId: number
+}
 
 export interface IAddFavSpot {
     id: number,
