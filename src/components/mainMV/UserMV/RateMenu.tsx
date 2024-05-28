@@ -31,22 +31,23 @@ function getLabelText(value: number) {
 
 const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selectedMarkerData }: UserRateProps) => {
 
-    const handleCloseRateMenu = () => {
-        setAnchorRateMenu(null)
+    const handleCloseRateMenu = async () => {
+        await handleRate(); // Call handleRate when menu is closed
+        setAnchorRateMenu(null);
     }
 
     const [hover, setHover] = useState(-1);
 
     const [userNam, setUserNam] = useState<string>("");
     const [userId, setUserId] = useState<number>(0);
-  
+
     useEffect(() => {
-      const holder = localStorage.getItem("Username");
-      if (holder) {
-        const parsedHolder = JSON.parse(holder);
-        setUserNam(parsedHolder.publisherName);
-        setUserId(parsedHolder.userId)
-      }
+        const holder = localStorage.getItem("Username");
+        if (holder) {
+            const parsedHolder = JSON.parse(holder);
+            setUserNam(parsedHolder.publisherName);
+            setUserId(parsedHolder.userId)
+        }
     }, []);
 
 
@@ -58,27 +59,27 @@ const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selected
         rating: 0
     });
 
-    const handleRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setRating({
-          ...rating,
-          [e.target.name]: e.target.value,
-          userId: userId,
-          BathroomId: selectedMarkerData?.id,
-        })
-      }
 
-      
-    const handleRate = async (e: React.FormEvent) => {
-        e.preventDefault();
+    useEffect(() => {
+        console.log(rating);
+        setRating((prevRating) => ({
+            ...prevRating,
+            userId: userId,
+            BathroomId: selectedMarkerData?.id || 0,
+            rating: value ?? 0
+        }));
+    }, [userId, selectedMarkerData, value]);
+
+
+    const handleRate = async () => {
+        console.log(rating);
 
         if (value === null || value < 0.5) {
-            console.log("not rated yet")
+            console.log("not rated yet");
+            console.log(value);
         } else {
             try {
-                const res = AddRating(rating);
-                console.log("Response:", res);
-               
-    
+                await AddRating(rating);
             } catch (error) {
                 console.error('Error occured while adding rating', error)
                 alert("Your rating was not added. Please try again.")
@@ -91,7 +92,6 @@ const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selected
             anchorEl={anchorRateMenu}
             open={Boolean(anchorRateMenu)}
             onClose={handleCloseRateMenu}
-            onClick={handleCloseRateMenu}
         >
             <MenuItem>
                 <Stack direction="column">
@@ -102,15 +102,14 @@ const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selected
                             getLabelText={getLabelText}
                             onChange={(e, newValue) => {
                                 setValue(newValue);
-                                setRating({
-                                    ...rating,
-                                    rating : value ?? 0
-                                })
+                                setRating((prevRating) => ({
+                                    ...prevRating,
+                                    rating: newValue ?? 0
+                                }));
                             }}
                             onChangeActive={(e, newHover) => {
                                 setHover(newHover)
                             }}
-                            onClick={handleRate}
                         />
                         {value !== null && (
                             <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
