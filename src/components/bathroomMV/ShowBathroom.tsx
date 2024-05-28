@@ -97,21 +97,25 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
     try {
       const favorites: IBathrooms[] = await getFavoritesByUserID(userId);
       const isAlreadyFavorited = favorites.some(fav => fav.id === selectedMarkerData?.id);
+      console.log(isAlreadyFavorited);
 
       if (isAlreadyFavorited) {
         setInFav(false);
         await removeFavorites(userId, selectedMarkerData?.id);
         console.log("removing ")
         return;
+      } else {
+        const favoriteData: IAddFavorite = {
+          id: 0, 
+          userId: userId,
+          bathroomId: selectedMarkerData?.id,
+        };
+
+        await addFavorites(favoriteData);
+        setInFav(true);
+        console.log("addomg");
       }
 
-      const favoriteData: IAddFavorite = {
-        id: 0, 
-        userId: userId,
-        bathroomId: selectedMarkerData?.id,
-      };
-      await addFavorites(favoriteData);
-      console.log("addomg")
       
     } catch (error) {
       console.error('Error occurred while adding favorite', error);

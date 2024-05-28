@@ -473,3 +473,38 @@ export const RemoveComment = async (commentId: number) => {
     const data = await promise.json();
     return data;
 }
+
+
+
+export const saveToLocalStorage = (bathroom: string) => {
+    let favorites = getLocalStorage();
+
+    if (!favorites.includes(bathroom)) {
+        favorites.push(bathroom);
+    }
+
+    localStorage.setItem("Favorites", JSON.stringify(favorites));
+
+}
+
+export const getLocalStorage = () => {
+    let localStorageData = localStorage.getItem("Favorites");
+
+    if(localStorageData == null){
+        return [];
+    }
+
+    return JSON.parse(localStorageData);
+
+}
+
+export const removeFromLocalStorage = (bathroom: string) => {
+    let favorites = getLocalStorage();
+
+    let namedIndex = favorites.indexOf(bathroom);
+
+    favorites.splice(namedIndex, 1);
+
+    localStorage.setItem("Favorites", JSON.stringify(favorites));
+
+}
