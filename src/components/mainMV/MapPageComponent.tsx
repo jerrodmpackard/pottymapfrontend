@@ -26,6 +26,7 @@ import Sidebar from './SidebarMV/Sidebar'
 import AddBathroom from '../bathroomMV/AddBathroom';
 import MobileDropIcon from './UserMV/MobileDropIcon';
 import ShowBathroom from '../bathroomMV/ShowBathroom';
+import { IGeoJSON } from '@/Interfaces/Interfaces';
 
 
 
@@ -45,7 +46,7 @@ const MapPageComponent = () => {
     const [placeholder, setPlaceholder] = useState<boolean>(false);
 
     //Saving map dot data to a useState
-    const [selectedMarkerData, setSelectedMarkerData] = useState<any>(null);
+    const [selectedMarkerData, setSelectedMarkerData] = useState<IGeoJSON>();
 
 
     //Turn on and off the autoSave
@@ -129,7 +130,7 @@ const MapPageComponent = () => {
             const coordinates: any = e?.features?.[0]?.geometry?.coordinates?.slice();
             const markerData = e.features[0].properties;
             console.log(e.features);
-           
+            
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
             // over the copy being pointed to.

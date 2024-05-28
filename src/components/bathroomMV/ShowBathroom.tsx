@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 //Material UI Imports
 import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Button, Alert, IconButton, Stack, Rating, Tooltip, Snackbar } from '@mui/material'
@@ -17,6 +17,8 @@ import ShareIcon from '../mainMV/UserMV/ShareIcon'
 import ReportIssue from '../mainMV/ReportMV/ReportIssue'
 import MBathroomActionIcons from '../mainMV/UserMV/ShowBathroomActions/MBathroomActionIcons'
 import ShowBathroomShare from './ShowBathroomShare'
+import { IRating, IReport } from '@/Interfaces/Interfaces'
+import { GetRatingByBathroomID } from '@/utils/DataServices'
 
 
 
@@ -55,6 +57,81 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
       [e.target.name]: e.target.value,
     })
   }
+
+
+  const [userNam, setUserNam] = useState<string>("");
+  const [userId, setUserId] = useState<number>(0);
+
+  useEffect(() => {
+    const holder = localStorage.getItem("Username");
+    if (holder) {
+      const parsedHolder = JSON.parse(holder);
+      setUserNam(parsedHolder.publisherName);
+      setUserId(parsedHolder.userId)
+    }
+  }, []);
+
+
+
+  // Getting Rating
+  useEffect(() => {
+    const res = GetRatingByBathroomID(selectedMarkerData?.id);
+
+  }, [])
+
+
+
+// Adding new Rating
+  const [rating, setRating] = useState<IRating>({
+    id: 0,
+    userId: userId,
+    bathroomId: selectedMarkerData?.id,
+    rating: 0
+  });
+
+  useEffect(() => {
+    // if(selectedMarkerData.length > 0) {
+    console.log(selectedMarkerData);
+    // }
+  }, [selectedMarkerData])
+
+  const handleRate = async (e: React.FormEvent) => {
+    // e.preventDefault();
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // try {
+    //   const res = addBathroom(form);
+    //   console.log("Response:", res);
+    //   setUpdateMap(true);
+
+    // } catch (error) {
+    //   console.error('Error occured while adding bathroom', error);
+    //   alert("Your bathroom was not added. Please try again.")
+    // }
+  }
+
+
+
+  // Adding new Report
+  const [report, setReport] = useState<IReport>({
+    id: 0,
+    userId: 0,
+    BathroomId: 0,
+    issue: '',
+    priorityLevel: '',
+    description: '',
+    isResolved: false,
+  });
+
+
+  useEffect(() => {
+    setReport({
+      ...report,
+      userId: userId,
+      BathroomId: selectedMarkerData?.id,
+      // issue: ,
+
+    })
+  }, [userId, selectedMarkerData]) // enter values being changed into dependency array
 
   return (
     <>
@@ -185,7 +262,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
           <Box sx={{ flexGrow: 1 }}>
             <Button color="secondary" variant="contained">Leave a comment</Button>
           </Box>
-            <Button color="error" variant="outlined" onClick={() => setIsReportOpen(true)}>Report</Button>
+          <Button color="error" variant="outlined" onClick={() => setIsReportOpen(true)}>Report</Button>
         </DialogActions>
 
         {/* <Snackbar open={successfulLogin} autoHideDuration={3500} onClose={handleCloseTwo} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
@@ -200,7 +277,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
             </Snackbar> */}
 
         {/* The report component */}
-        <ReportIssue selectedMarkerData={selectedMarkerData} isReportOpen={isReportOpen} setIsReportOpen={setIsReportOpen} reportForm={reportForm} setReportForm={setReportForm} handleReportChange={handleReportChange}  />
+        <ReportIssue selectedMarkerData={selectedMarkerData} isReportOpen={isReportOpen} setIsReportOpen={setIsReportOpen} reportForm={reportForm} setReportForm={setReportForm} handleReportChange={handleReportChange} />
 
       </Dialog>
       {/* <ShowBathroomShare selectedMarkerData={selectedMarkerData}/> */}

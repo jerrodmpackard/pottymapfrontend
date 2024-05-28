@@ -1,8 +1,13 @@
-import { IAddFavSpot, IAddFavorite, IBathrooms, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
+import { IAddFavSpot, IAddFavorite, IBathrooms, IRating, IReport, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces"
 import { Bathroom } from "@mui/icons-material";
 
 
 const url = "https://pottymapwebapi.azurewebsites.net"
+
+
+
+// *************** USER ENDPOINTS ***************
+
 
 
 export const createAccount = async (loginUser: IUserInfo) => {
@@ -98,6 +103,12 @@ export const getUserItemsByUserId = async (userId: number) => {
     return data;
 }
 
+
+
+// *************** BATHROOM ENDPOINTS ***************
+
+
+
 export const addBathroom = async (bathroom: IBathrooms) => {
     const res = await fetch( url + '/Bathroom/AddBathroom', {
         method: "POST",
@@ -148,9 +159,8 @@ export const getMapDots = async () => {
 
 
 
-export const getComments = async () => {
-    
-}
+// *************** FAVORITES ENDPOINTS ***************
+
 
 
 export const  addFavorites = async (bathroom: IAddFavorite) => {
@@ -168,7 +178,7 @@ export const  addFavorites = async (bathroom: IAddFavorite) => {
     } else {
 
     }
-   
+
 }
 
 export const getFavorites = async (userId: number) => {
@@ -182,6 +192,11 @@ export const removeFavorites = async (userId: number, bathroomId:number) => {
     const data = await res.json();
     return data;
 }
+
+
+
+// *************** FAVORITE POTTY SPOTS ENDPOINTS ***************
+
 
 
 export const addFavoritePottySpot = async (bathroom: IAddFavSpot) => {
@@ -246,4 +261,202 @@ export const removeFavPottySpot = async (bathroom: IAddFavSpot) => {
     } else {
 
     }
+}
+
+
+
+// *************** RATINGS ENDPOINTS ***************
+
+
+
+export const AddRating = async (rating: IRating) => {
+    const res = await fetch(url + '/Ratings/AddRating', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(rating)
+
+    });
+
+    if(res.ok){
+
+    } else {
+
+    }
+}
+
+
+export const GetRatingByBathroomID = async (bathroomId: number) => {
+    const res = await fetch(url + `/Ratings/GetAverageRating/${bathroomId}`);
+    const data = await res.json();
+    return data;
+}
+
+
+
+// *************** REPORT ENDPOINTS ***************
+
+
+
+export const AddNewReport = async (report: IReport) => {
+    const res = await fetch(url + '/Report/AddNewReport', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(report)
+
+    });
+
+    if(res.ok){
+
+    } else {
+
+    }
+}
+
+
+export const GetAllReports = async () => {
+    const res = await fetch(url + '/Report/GetAllReports');
+    const data = await res.json();
+    return data;
+}
+
+
+export const GetUnresolvedReports = async () => {
+    const res = await fetch(url + '/Report/GetUnresolvedReports');
+    const data = await res.json();
+    return data;
+}
+
+
+export const GetReportsByUserID = async (userId: number) => {
+    const res = await fetch(url + `/Report/GetReportsByUserId/${userId}`);
+    const data = await res.json();
+    return data;
+}
+
+
+export const GetReportsByID = async (Id: number) => {
+    const res = await fetch(url + `/Report/GetReportsById/${Id}`);
+    const data = await res.json();
+    return data;
+}
+
+
+export const UpdateReport = async (report: IReport) => {
+    const res = await fetch(url + '/Report/UpdateReport', {
+        method: "PUT",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(report)
+
+    });
+
+    if(res.ok){
+
+    } else {
+
+    }
+}
+
+
+export const ResolveReport = async (report: IReport) => {
+    const res = await fetch(url + '/Report/ResolveReport', {
+        method: "DELETE",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body:JSON.stringify(report)
+
+    });
+
+    if(res.ok){
+
+    } else {
+
+    }
+}
+
+
+
+// *************** COMMENTS ENDPOINTS ***************
+
+
+
+export const AddCommentToBathroom = async (bathroomId: number | null, userId: number, comment: string) => {
+    const res = await fetch(url + `Comment/AddCommentForPost/${bathroomId}/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment)
+    });
+
+    if (!res.ok) {
+        const message = 'An error has occured: ' + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.text();
+    return data;
+}
+
+
+export const AddReplyToComment = async (commentId: number, userId: number, reply: string) => {
+    const res = await fetch(url + `Comment/AddReplyForComment/${commentId}/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reply)
+    });
+    if (!res.ok) {
+        const message = 'An error has occured: ' + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.text();
+    return data;
+}
+
+
+// Get comment by ID
+export const GetCommentByID = async (commentId: number)=> {
+    const promise = await fetch(url + 'Comment/GetCommentById/' + commentId);
+    const data = await promise.json();
+    return data;
+}
+
+
+// Get top level comments
+export const GetCommentsByBathroomID = async (bathroomId: number) => {
+    const promise = await fetch(url + 'Comment/GetPostReplies/' + bathroomId);
+    const data = await promise.json();
+    return data;
+}
+
+
+// Get replies to comments
+export const GetRepliesFromComment = async (commentId: number) => {
+    const promise = await fetch(url + 'Comment/GetRepliesFromComment/' + commentId);
+    const data = await promise.json();
+    return data;
+}
+
+
+// Update comment
+export const UpdateComment = async (commentId: number) => {
+    const promise = await fetch(url + 'Comment/UpdateReplyFromBathroom/' + commentId);
+    const data = await promise.json();
+    return data;
+}
+
+// Remove comment
+export const RemoveComment = async (commentId: number) => {
+    const promise = await fetch(url + 'Comment/DeleteComment/' + commentId);
+    const data = await promise.json();
+    return data;
 }

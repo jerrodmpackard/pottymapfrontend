@@ -44,7 +44,7 @@ const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue }: UserRa
             <MenuItem>
                 <Stack direction="column">
                     <Typography className="ml-2">Rate Bathroom</Typography>
-                    <Stack direction="row">    
+                    <Stack direction="column">    
                         <Rating name="rating bathroom" precision={0.5} 
                             value={value}
                             getLabelText={getLabelText}
