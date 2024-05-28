@@ -78,16 +78,16 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
   // Getting Rating
   useEffect(() => {
     const getRating = async () => {
-      if (updatedRating != null || updatedRating != 0) {
+      if (updatedRating > 0.5) {
         setUpdatedRating(await GetRatingByBathroomID(selectedMarkerData?.id));
       }
       else {
-        setUpdatedRating(0);
+        setUpdatedRating(selectedMarkerData?.rating);
       }
     }
 
     getRating();
-  }, [updateRating, selectedMarkerData])
+  }, [updateRating, selectedMarkerData, placeholder])
 
 
   // Favorites
