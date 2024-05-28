@@ -1,9 +1,10 @@
+import { AddNewReport } from '@/utils/DataServices';
 import { Close } from '@mui/icons-material';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, IconButton, InputLabel, Menu, MenuItem, Select, TextField } from '@mui/material';
 import React, { useState } from 'react'
 
 
-const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportChange, selectedMarkerData }: { reportForm: any, setReportForm: any, isReportOpen: any, setIsReportOpen: any, handleReportChange: any, selectedMarkerData: any }) => {
+const ReportIssue = ({ reportForm, setReportForm, isReportOpen, setIsReportOpen, handleReportChange, selectedMarkerData }: { reportForm: any, setReportForm: any, isReportOpen: any, setIsReportOpen: any, handleReportChange: any, selectedMarkerData: any }) => {
 
     const title = `Report an issue with  "${selectedMarkerData?.name}"`
 
@@ -32,6 +33,36 @@ const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportCh
         setAnchorEl(null);
     };
 
+    const filled = reportForm.issue != "" && reportForm.priorityLevel != "" && reportForm.description != ""
+
+    const handleReportSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (filled) {
+            try {
+                const res = AddNewReport(reportForm);
+                console.log("Response:", res);
+                alert("Report was added successfully")
+                setIsReportOpen(false)
+                setReportForm({
+                    id: 0,
+                    userId: 0,
+                    BathroomId: 0,
+                    issue: '',
+                    priorityLevel: '',
+                    description: '',
+                    isResolved: false,
+                })
+
+            } catch (error) {
+                console.error('Error occured while adding report', error);
+                alert("Your report was not added. Please try again.")
+            }
+        } else {
+            alert("Please fill out all required fields")
+        }
+    }
+
     return (
         <Dialog
             fullWidth={true}
@@ -48,7 +79,17 @@ const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportCh
                     right: 8,
                     color: (theme) => theme.palette.grey[500]
                 }}
-                onClick={() => setIsReportOpen(false)}
+                onClick={() => {setIsReportOpen(false);
+                    setReportForm({
+                        id: 0,
+                        userId: 0,
+                        BathroomId: 0,
+                        issue: '',
+                        priorityLevel: '',
+                        description: '',
+                        isResolved: false,
+                    })
+                }}
             >
                 <Close />
             </IconButton>
@@ -124,35 +165,35 @@ const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportCh
                     <Select name="issue"
                         label="Issue"
                         value={reportForm.issue}
-                        autoWidth
                         onChange={handleReportChange}
+                        autoWidth
                     >
                         <MenuItem value="Bathroom doesn&apos;t exist">Not a real bathroom</MenuItem>
-                        <MenuItem value="Permenatly closed">Bathroom permenatly closed</MenuItem>
+                        <MenuItem value="Permanently closed">Bathroom permanently closed</MenuItem>
                         <MenuItem value="Inaccurate Info">Inaccurate Information</MenuItem>
                     </Select>
                 </FormControl>
 
                 <FormControl focused>
                     <InputLabel>Priority Level</InputLabel>
-                    <Select name="priority"
+                    <Select name="priorityLevel"
                         label="Priority Level"
                         value={reportForm.priorityLevel}
                         autoWidth
                         onChange={handleReportChange}
                     >
-                        <MenuItem value="1">Low</MenuItem>
-                        <MenuItem value="2">Medium</MenuItem>
-                        <MenuItem value="3">High</MenuItem>
-                        <MenuItem value="4">Critical</MenuItem>
+                        <MenuItem value="Low">Low</MenuItem>
+                        <MenuItem value="Medium">Medium</MenuItem>
+                        <MenuItem value="High">High</MenuItem>
+                        <MenuItem value="Critical">Critical</MenuItem>
 
                     </Select>
                 </FormControl>
 
                 <FormControl className="col-span-2" fullWidth>
-                    <TextField name="message"
+                    <TextField name="description"
                         label="Description"
-                        value={reportForm.message}
+                        value={reportForm.description}
                         variant="outlined"
                         focused
                         multiline
@@ -162,13 +203,13 @@ const ReportIssue = ({ reportForm, isReportOpen, setIsReportOpen, handleReportCh
                         inputProps={{
                             maxLength: CHARACTER_LIMIT
                         }}
-                        helperText={`${reportForm.message.length}/${CHARACTER_LIMIT}`}
+                        helperText={`${reportForm.description.length}/${CHARACTER_LIMIT}`}
                     />
                 </FormControl>
             </DialogContent>
 
             <DialogActions>
-                <Button color="error" variant="contained">Submit</Button>
+                <Button color="error" variant="contained" onClick={handleReportSubmit}>Submit</Button>
             </DialogActions>
         </Dialog>
     )

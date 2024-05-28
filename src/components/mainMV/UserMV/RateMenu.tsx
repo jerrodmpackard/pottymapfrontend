@@ -34,6 +34,31 @@ const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue }: UserRa
 
     const [hover, setHover] = useState(-1);
 
+
+    // Adding new Rating
+//   const [rating, setRating] = useState<IRating>({
+//     id: 0,
+//     userId: userId,
+//     bathroomId: selectedMarkerData?.id,
+//     rating: 0
+//   });
+
+
+
+  const handleRate = async (e: React.FormEvent) => {
+    // e.preventDefault();
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // try {
+    //   const res = addBathroom(form);
+    //   console.log("Response:", res);
+    //   setUpdateMap(true);
+
+    // } catch (error) {
+    //   console.error('Error occured while adding bathroom', error);
+    //   alert("Your bathroom was not added. Please try again.")
+    // }
+  }
+
     return (
         <Menu
             anchorEl={anchorRateMenu}

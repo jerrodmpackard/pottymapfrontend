@@ -24,9 +24,6 @@ import { GetRatingByBathroomID } from '@/utils/DataServices'
 
 const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { placeholder: boolean, setPlaceholder: any, selectedMarkerData: any }) => {
 
-  const [commentButton, setCommentButton] = useState<boolean>(false);
-  const [reportButton, setReportButton] = useState<boolean>(false);
-
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
@@ -39,22 +36,25 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
 
   }
 
-  //Opening Report modal
+  //Report
   const [isReportOpen, setIsReportOpen] = useState<boolean>(false)
 
-  const [reportForm, setReportForm] = useState({
+  const [reportForm, setReportForm] = useState<IReport>({
     id: 0,
-    issue: "",
-    priorityLevel: "",
-    name: selectedMarkerData?.name,
-    fullAddress: selectedMarkerData?.address,
-    message: "",
+    userId: 0,
+    BathroomId: 0,
+    issue: '',
+    priorityLevel: '',
+    description: '',
+    isResolved: false,
   })
 
   const handleReportChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReportForm({
       ...reportForm,
       [e.target.name]: e.target.value,
+      userId: userId,
+      BathroomId: selectedMarkerData?.id,
     })
   }
 
@@ -80,59 +80,6 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
   }, [])
 
 
-
-// Adding new Rating
-  const [rating, setRating] = useState<IRating>({
-    id: 0,
-    userId: userId,
-    bathroomId: selectedMarkerData?.id,
-    rating: 0
-  });
-
-  useEffect(() => {
-    // if(selectedMarkerData.length > 0) {
-    console.log(selectedMarkerData);
-    // }
-  }, [selectedMarkerData])
-
-  const handleRate = async (e: React.FormEvent) => {
-    // e.preventDefault();
-    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    // try {
-    //   const res = addBathroom(form);
-    //   console.log("Response:", res);
-    //   setUpdateMap(true);
-
-    // } catch (error) {
-    //   console.error('Error occured while adding bathroom', error);
-    //   alert("Your bathroom was not added. Please try again.")
-    // }
-  }
-
-
-
-  // Adding new Report
-  const [report, setReport] = useState<IReport>({
-    id: 0,
-    userId: 0,
-    BathroomId: 0,
-    issue: '',
-    priorityLevel: '',
-    description: '',
-    isResolved: false,
-  });
-
-
-  useEffect(() => {
-    setReport({
-      ...report,
-      userId: userId,
-      BathroomId: selectedMarkerData?.id,
-      // issue: ,
-
-    })
-  }, [userId, selectedMarkerData]) // enter values being changed into dependency array
-
   return (
     <>
       <Dialog
@@ -155,11 +102,12 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
             setPlaceholder(false);
             setReportForm({
               id: 0,
-              issue: "",
-              priorityLevel: "",
-              name: selectedMarkerData?.name,
-              fullAddress: selectedMarkerData?.address,
-              message: "",
+              userId: 0,
+              BathroomId: 0,
+              issue: '',
+              priorityLevel: '',
+              description: '',
+              isResolved: false,
             })
           }}
         >
