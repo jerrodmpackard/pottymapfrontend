@@ -28,14 +28,17 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
         setFavorites(await getFavoritesByUserID(userId));
       }
     }
-
     getData();
   }, [userId, isOpen])
 
 
   // Removing favorites
   const handleRemoveFavorite = async (userId: number, bathroomId: number) => {
+
     await removeFavorites(userId, bathroomId);
+
+    setFavorites(await getFavoritesByUserID(userId));
+
   }
 
 
