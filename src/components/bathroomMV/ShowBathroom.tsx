@@ -91,13 +91,12 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
   const [inFav, setInFav] = useState<boolean>(false)
 
   
+  const checkIfInFav = async () => {
+    const favorites: IBathrooms[] = await getFavoritesByUserID(userId);
+    const isAlreadyFavorited = favorites.some(fav => fav.id === selectedMarkerData?.id);
+    setInFav(isAlreadyFavorited)
+  }
   useEffect(() => {
-
-    const checkIfInFav = async () => {
-      const favorites: IBathrooms[] = await getFavoritesByUserID(userId);
-      const isAlreadyFavorited = favorites.some(fav => fav.id === selectedMarkerData?.id);
-      setInFav(isAlreadyFavorited)
-    }
 
     checkIfInFav()
 
@@ -110,7 +109,8 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
   
       if (inFav) {
         await removeFavorites(userId, selectedMarkerData?.id);
-        console.log("removing ")
+        checkIfInFav();
+        console.log("removing ");
         return;
       } else {
         const favoriteData: IAddFavorite = {
@@ -120,6 +120,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
         };
 
         await addFavorites(favoriteData);
+        checkIfInFav();
         console.log("adding");
       }
       

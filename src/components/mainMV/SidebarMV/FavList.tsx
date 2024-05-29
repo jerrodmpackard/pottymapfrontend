@@ -10,6 +10,8 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
   const [userId, setUserId] = useState<number>(0);
   const [favorites, setFavorites] = useState<IBathrooms[]>([]);
 
+
+  // Getting user ID
   useEffect(() => {
     const holder = localStorage.getItem("Username");
     if (holder) {
@@ -19,6 +21,7 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
   }, []);
 
 
+  // Getting user favorites
   useEffect(() => {
     const getData = async () => {
       if (userId !== 0) {
@@ -29,10 +32,14 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
     getData();
   }, [userId, isOpen])
 
+
+  // Removing favorites
   const handleRemoveFavorite = async (userId: number, bathroomId: number) => {
     await removeFavorites(userId, bathroomId);
   }
 
+
+  // Fly to function when clicking a bathroom name in favorites list
   const handleBathroomClick = (coordinates: [number, number]) => {
     if (map) {
       map.flyTo({
@@ -55,32 +62,32 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
         }
 
         return (
-          
-            <ListItem
-              key={index}
-              onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])}
-              sx={{
-                width: '100%',
-                maxWidth: 295,
-                cursor: 'pointer',
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
-                },
-              }}
 
-              secondaryAction={
-                <Tooltip title="delete" >
-                   <IconButton edge="end" aria-label="delete" onClick={() => { handleRemoveFavorite(userId, bathroom.id);}}>
-                      <DeleteIcon  />
-                    </IconButton>
-                </Tooltip>
-              }
-            >
-              <Tooltip title={bathroom.name}>
-                <Typography noWrap >{bathroom.name}</Typography>
+          <ListItem
+            key={index}
+
+            sx={{
+              width: '100%',
+              maxWidth: 295,
+              cursor: 'pointer',
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
+              },
+            }}
+
+            secondaryAction={
+              <Tooltip title="delete" >
+                <IconButton edge="end" aria-label="delete" onClick={() => { handleRemoveFavorite(userId, bathroom.id); }}>
+                  <DeleteIcon />
+                </IconButton>
               </Tooltip>
-            </ListItem>
-          
+            }
+          >
+            <Tooltip title={bathroom.name}>
+              <Typography noWrap onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])} >{bathroom.name}</Typography>
+            </Tooltip>
+          </ListItem>
+
         )
       })}
     </div>
