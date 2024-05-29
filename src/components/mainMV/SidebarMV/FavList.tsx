@@ -1,12 +1,14 @@
 import { IAddFavorite, IBathrooms } from '@/Interfaces/Interfaces';
 import { getFavoritesByUserID, removeFavorites } from '@/utils/DataServices';
-import { ListItem, Tooltip, Typography } from '@mui/material';
+import { CenterFocusStrongOutlined } from '@mui/icons-material';
+import { IconButton, ListItem, Tooltip, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { PiTrash } from "react-icons/pi";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const FavList = ({ map }: { map: mapboxgl.Map | null }) => {
 
   const [userId, setUserId] = useState<number>(0);
+  const [favorites, setFavorites] = useState<IBathrooms[]>([]);
 
   useEffect(() => {
     const holder = localStorage.getItem("Username");
@@ -16,7 +18,6 @@ const FavList = ({ map }: { map: mapboxgl.Map | null }) => {
     }
   }, []);
 
-  const [favorites, setFavorites] = useState<IBathrooms[]>();
 
   useEffect(() => {
     const getData = async () => {
@@ -45,29 +46,40 @@ const FavList = ({ map }: { map: mapboxgl.Map | null }) => {
 
   return (
     <div>
-      {favorites?.map((bathroom, idx) => {
-        return (
-          <Tooltip key={idx} title={bathroom.name}>
-            <ListItem
-              onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])}
+      {favorites?.map((bathroom, index) => {
+        if (!bathroom) {
+          return (
+            <Typography>No Favorites</Typography>
+          );
+        }
 
+        return (
+          
+            <ListItem
+              key={index}
+              onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])}
               sx={{
+                width: '100%',
+                maxWidth: 295,
                 cursor: 'pointer',
                 '&:hover': {
                   backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
                 },
-                paddingRight: 5
               }}
-            >
-              <PiTrash className='mr-3' onClick={() => {
-                console.log(userId);
-                console.log(bathroom.id);
-                handleRemoveFavorite(userId, bathroom.id);
+
+              secondaryAction={
+                <Tooltip title="delete" >
+                   <IconButton edge="end" aria-label="delete" onClick={() => { handleRemoveFavorite(userId, bathroom.id);}}>
+                      <DeleteIcon  />
+                    </IconButton>
+                </Tooltip>
               }
-              } />
-              <Typography noWrap>{bathroom.name}</Typography>
+            >
+              <Tooltip title={bathroom.name}>
+                <Typography noWrap >{bathroom.name}</Typography>
+              </Tooltip>
             </ListItem>
-          </Tooltip>
+          
         )
       })}
     </div>

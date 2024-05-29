@@ -172,11 +172,15 @@ export const addFavorites = async (bathroom: IAddFavorite) => {
         body: JSON.stringify(bathroom)
 
     });
+    console.log("hello")
 
-    if (res.ok) {
+    // if (res.ok) {
 
-    } else {
+    // } else {
 
+    // }
+    if(!res.ok){
+        throw new Error(`An error has occured: ${res.status}`)
     }
 
 }
@@ -189,11 +193,14 @@ export const getFavoritesByUserID = async (userId: number): Promise<IBathrooms[]
         }
     });
 
-    if (res.ok) {
-        return await res.json();
-    } else {
-        throw new Error('Failed to fetch favorites');
+    if(!res.ok){
+        throw new Error(`An error has occured: ${res.status}`)
     }
+    
+    const data = await res.json();
+    console.log("i ran")
+    return data;
+    
 }
 
 export const removeFavorites = async (userId: number, bathroomId: number) => {
@@ -203,6 +210,8 @@ export const removeFavorites = async (userId: number, bathroomId: number) => {
             'Content-Type': 'application/json',
         },
     });
+
+    console.log("trying to remove")
 
     // Check if the response status is OK (200-299)
     if (!res.ok) {

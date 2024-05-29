@@ -22,7 +22,7 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
       >
       {openTab === index && (
-        <Box sx={{ p: 3 }}>
+        <Box>
           {children}
         </Box>
       )}
@@ -70,7 +70,7 @@ const Sidebar = ({ isOpen, setIsOpen, map, setPlaceholder, selectedMarkerData }:
           </IconButton>
         </DrawerHeader>
 
-        <Box>
+        <Box sx={{ p:3 }}>
           <CustomTabPanel openTab={openTab} index={0}>
             <FavList map={map} />
           </CustomTabPanel>

@@ -9,14 +9,13 @@ import Image from 'next/image'
 import bgImg from '../../assets/Kids_Free_Hand_Drawing_of_Toilet_Paper_Rolls_Seamless_Background_Pattern_generated.jpg'
 
 //Icon Imports
-import { PiHeart, PiPersonLight, PiClockLight, PiKey, PiBuildings, PiDoor, PiShieldCheck, PiWheelchair, PiBabyLight, PiSprayBottleLight } from "react-icons/pi";
+import { PiHeart, PiPersonLight, PiClockLight, PiKey, PiBuildings, PiDoor, PiShieldCheck, PiWheelchair, PiBabyLight, PiSprayBottleLight, PiHeartFill } from "react-icons/pi";
 
 //Custom Components Imports
 import RateIcon from '../mainMV/UserMV/RateIcon'
 import ShareIcon from '../mainMV/UserMV/ShareIcon'
 import ReportIssue from '../mainMV/ReportMV/ReportIssue'
 import MBathroomActionIcons from '../mainMV/UserMV/ShowBathroomActions/MBathroomActionIcons'
-import ShowBathroomShare from './ShowBathroomShare'
 import { IAddFavorite, IBathrooms, IRating, IReport } from '@/Interfaces/Interfaces'
 import { GetRatingByBathroomID, addFavorites, getFavoritesByUserID, getMapDots, removeFavorites } from '@/utils/DataServices'
 
@@ -24,17 +23,17 @@ import { GetRatingByBathroomID, addFavorites, getFavoritesByUserID, getMapDots, 
 
 const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { placeholder: boolean, setPlaceholder: any, selectedMarkerData: any }) => {
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  // const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
     // setSuccessfulAccount(false);
-  };
+  // };
 
 
-  const handleCommentClick = () => {
+  // const handleCommentClick = () => {
 
-  }
+  // }
 
   //Report
   const [isReportOpen, setIsReportOpen] = useState<boolean>(false)
@@ -89,19 +88,27 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
     getRating();
   }, [updateRating, selectedMarkerData, placeholder])
 
+  const [inFav, setInFav] = useState<boolean>(false)
 
-  // Favorites
-  const [inFav, setInFav] = useState<boolean>(false);
+  
+  useEffect(() => {
 
-  const handleAddFavorite = async () => {
-    try {
+    const checkIfInFav = async () => {
       const favorites: IBathrooms[] = await getFavoritesByUserID(userId);
-      console.log(favorites);
       const isAlreadyFavorited = favorites.some(fav => fav.id === selectedMarkerData?.id);
-      console.log(isAlreadyFavorited);
+      setInFav(isAlreadyFavorited)
+    }
 
-      if (isAlreadyFavorited) {
-        setInFav(false);
+    checkIfInFav()
+
+  }, [selectedMarkerData])
+  
+  
+  const handleAddFavorite = async () => {
+    
+    try {
+  
+      if (inFav) {
         await removeFavorites(userId, selectedMarkerData?.id);
         console.log("removing ")
         return;
@@ -113,14 +120,13 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
         };
 
         await addFavorites(favoriteData);
-        setInFav(true);
-        console.log("addomg");
+        console.log("adding");
       }
-
       
     } catch (error) {
       console.error('Error occurred while adding favorite', error);
     }
+    
   }
 
 
@@ -152,7 +158,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
               priorityLevel: '',
               description: '',
               isResolved: false,
-            })
+            });
           }}
         >
           <Close />
@@ -187,8 +193,8 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
             <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
               <Box>
                 <Tooltip title="Favorite">
-                  <IconButton color={inFav? "success" : "error"} onClick={handleAddFavorite}>
-                    <PiHeart className='text-3xl' />
+                  <IconButton  onClick={handleAddFavorite}>
+                    {inFav ? ( <PiHeartFill className='text-3xl text-red-600' /> ) : (  <PiHeart className='text-3xl text-red-600' />) }
                   </IconButton>
                 </Tooltip>
               </Box>
@@ -272,7 +278,6 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
         <ReportIssue selectedMarkerData={selectedMarkerData} isReportOpen={isReportOpen} setIsReportOpen={setIsReportOpen} reportForm={reportForm} setReportForm={setReportForm} handleReportChange={handleReportChange} />
 
       </Dialog>
-      {/* <ShowBathroomShare selectedMarkerData={selectedMarkerData}/> */}
     </>
   )
 }
