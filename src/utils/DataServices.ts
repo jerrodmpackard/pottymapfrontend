@@ -172,15 +172,13 @@ export const addFavorites = async (bathroom: IAddFavorite) => {
         body: JSON.stringify(bathroom)
 
     });
-    console.log("hello")
-
-    // if (res.ok) {
-
-    // } else {
-
-    // }
+    
     if(!res.ok){
-        throw new Error(`An error has occured: ${res.status}`)
+        if(res.status === 500){
+            throw new Error('Failed to Add')
+        } else {
+            throw new Error(`An error has occured: ${res.status}`)
+        }
     }
 
 }
