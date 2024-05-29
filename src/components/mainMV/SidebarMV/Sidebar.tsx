@@ -72,10 +72,10 @@ const Sidebar = ({ isOpen, setIsOpen, map, setPlaceholder, selectedMarkerData }:
 
         <Box sx={{ p:3 }}>
           <CustomTabPanel openTab={openTab} index={0}>
-            <FavList map={map} />
+            <FavList map={map} isOpen={isOpen} setIsOpen={setIsOpen} />
           </CustomTabPanel>
           <CustomTabPanel openTab={openTab} index={1}>
-            <AllLocationsList map={map} setPlaceholder={setPlaceholder}/>
+            <AllLocationsList map={map} setPlaceholder={setPlaceholder} setIsOpen={setIsOpen}/>
           </CustomTabPanel>
         </Box>
     </Drawer>

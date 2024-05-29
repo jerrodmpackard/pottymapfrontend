@@ -5,7 +5,7 @@ import { IconButton, ListItem, Tooltip, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const FavList = ({ map }: { map: mapboxgl.Map | null }) => {
+const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen: any, setIsOpen: any }) => {
 
   const [userId, setUserId] = useState<number>(0);
   const [favorites, setFavorites] = useState<IBathrooms[]>([]);
@@ -27,7 +27,7 @@ const FavList = ({ map }: { map: mapboxgl.Map | null }) => {
     }
 
     getData();
-  }, [userId])
+  }, [userId, isOpen])
 
   const handleRemoveFavorite = async (userId: number, bathroomId: number) => {
     await removeFavorites(userId, bathroomId);
@@ -39,6 +39,7 @@ const FavList = ({ map }: { map: mapboxgl.Map | null }) => {
         center: coordinates,
         zoom: 15,
       });
+      setIsOpen(false)
     }
     // setPlaceholder(false)
   };

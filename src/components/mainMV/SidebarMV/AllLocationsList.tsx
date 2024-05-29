@@ -12,7 +12,7 @@ interface MapDots {
   features: Bathroom[];
 }
 
-const AllLocationsList = ({ map, setPlaceholder }: { map: mapboxgl.Map | null, setPlaceholder:any }) => {
+const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Map | null, setPlaceholder:any, setIsOpen: any }) => {
 
   const [filter, setFilter] = useState('');
   const [bathrooms, setBathrooms] = useState<Bathroom[]>([]);
@@ -63,6 +63,7 @@ const AllLocationsList = ({ map, setPlaceholder }: { map: mapboxgl.Map | null, s
         center: coordinates,
         zoom: 15,
       });
+      setIsOpen(false)
     }
     setPlaceholder(false)
   };
