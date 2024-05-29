@@ -20,11 +20,11 @@ export const createAccount = async (loginUser: IUserInfo) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(loginUser)
+        body: JSON.stringify(loginUser)
     });
 
-    if(!res.ok){
-        if (res.status === 409){
+    if (!res.ok) {
+        if (res.status === 409) {
             throw new Error('Username already exists')
         } else {
             throw new Error(`An error has occured: ${res.status}`)
@@ -39,10 +39,10 @@ export const login = async (loginUser: IUserInfo) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(loginUser)
+        body: JSON.stringify(loginUser)
     });
 
-    if(!res.ok){
+    if (!res.ok) {
         if (res.status === 401) {
             throw new Error('Incorrect username or password')
         } else {
@@ -56,18 +56,18 @@ export const login = async (loginUser: IUserInfo) => {
 }
 
 // Forgot Password function
-export const ForgotPassword = async (username: string, password: string ) => {
+export const ForgotPassword = async (username: string, password: string) => {
     const res = await fetch(url + "/User/ForgotPassword/" + username + "/" + password, {
         method: 'PUT',
         headers: {
             'Content-Type': "application/json"
         }
     });
-    
-    if(!res.ok){
+
+    if (!res.ok) {
         if (res.status === 401) {
             throw new Error('Incorrect username')
-        } else if(res.status === 409) {
+        } else if (res.status === 409) {
             throw new Error('Password already exists')
         } else {
             throw new Error(`An error has occured: ${res.status}`)
@@ -91,7 +91,7 @@ export const checkToken = () => {
 
     let lsData = localStorage.getItem("Token");
 
-    if(lsData !=null){
+    if (lsData != null) {
         result = true
     }
     return result
@@ -110,15 +110,15 @@ export const getUserItemsByUserId = async (userId: number) => {
 
 
 export const addBathroom = async (bathroom: IBathrooms) => {
-    const res = await fetch( url + '/Bathroom/AddBathroom', {
+    const res = await fetch(url + '/Bathroom/AddBathroom', {
         method: "POST",
-        headers:{
+        headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(bathroom)
+        body: JSON.stringify(bathroom)
     });
 
-    if(!res.ok){
+    if (!res.ok) {
         const message = "An Error has Occured " + res.status;
         throw new Error(message);
     }
@@ -128,15 +128,15 @@ export const addBathroom = async (bathroom: IBathrooms) => {
 }
 
 export const updateBathroom = async (bathroom: IBathrooms) => {
-    const res = await fetch( url + '/Bathroom/UpdateBathroom', {
+    const res = await fetch(url + '/Bathroom/UpdateBathroom', {
         method: "PUT",
-        headers:{
+        headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(bathroom)
+        body: JSON.stringify(bathroom)
     });
 
-    if(!res.ok){
+    if (!res.ok) {
         const message = "An Error has Occured " + res.status;
         throw new Error(message);
     }
@@ -163,17 +163,17 @@ export const getMapDots = async () => {
 
 
 
-export const  addFavorites = async (bathroom: IAddFavorite) => {
+export const addFavorites = async (bathroom: IAddFavorite) => {
     const res = await fetch(url + '/FavoriteBathroom/AddFavorite', {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(bathroom)
+        body: JSON.stringify(bathroom)
 
     });
 
-    if(res.ok){
+    if (res.ok) {
 
     } else {
 
@@ -196,11 +196,35 @@ export const getFavoritesByUserID = async (userId: number): Promise<IBathrooms[]
     }
 }
 
-export const removeFavorites = async (userId: number, bathroomId:number) => {
-    const res = await fetch(url + `/FavoriteBathroom/RemoveFavorite/${userId}/${bathroomId}`)
-    const data = await res.json();
-    return data;
+export const removeFavorites = async (userId: number, bathroomId: number) => {
+    const res = await fetch(url + `/FavoriteBathroom/RemoveFavorite/${userId}/${bathroomId}`, {
+        method: 'DELETE', // Use the DELETE method for removing resources
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    // Check if the response status is OK (200-299)
+    if (!res.ok) {
+        throw new Error('Failed to remove favorite');
+    }
+
+    // Handle cases where there is no content (204 No Content)
+    if (res.status === 204) {
+        return { message: 'Favorite removed successfully' }; // or any other appropriate value
+    }
+
+    // Try to parse the JSON response if there is content
+    const contentType = res.headers.get('Content-Type');
+    if (contentType && contentType.includes('application/json')) {
+        const data = await res.json();
+        return data;
+    }
+
+    // If no JSON content, return a default success message
+    return { message: 'Favorite removed successfully' };
 }
+
 
 
 
@@ -214,11 +238,11 @@ export const addFavoritePottySpot = async (bathroom: IAddFavSpot) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(bathroom)
+        body: JSON.stringify(bathroom)
 
     });
 
-    if(res.ok){
+    if (res.ok) {
 
     } else {
 
@@ -243,16 +267,16 @@ export const updateFavPottySpot = async (bathroom: IAddFavSpot) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(bathroom)
+        body: JSON.stringify(bathroom)
 
     });
 
-    if(res.ok){
+    if (res.ok) {
 
     } else {
 
     }
-    
+
 }
 
 export const removeFavPottySpot = async (bathroom: IAddFavSpot) => {
@@ -261,11 +285,11 @@ export const removeFavPottySpot = async (bathroom: IAddFavSpot) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(bathroom)
+        body: JSON.stringify(bathroom)
 
     });
 
-    if(res.ok){
+    if (res.ok) {
 
     } else {
 
@@ -284,11 +308,11 @@ export const AddRating = async (rating: IRating) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(rating)
+        body: JSON.stringify(rating)
 
     });
 
-    if(res.ok){
+    if (res.ok) {
 
     } else {
 
@@ -318,11 +342,11 @@ export const AddNewReport = async (report: IReport) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(report)
+        body: JSON.stringify(report)
 
     });
 
-    if(res.ok){
+    if (res.ok) {
 
     } else {
 
@@ -364,11 +388,11 @@ export const UpdateReport = async (report: IReport) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(report)
+        body: JSON.stringify(report)
 
     });
 
-    if(res.ok){
+    if (res.ok) {
 
     } else {
 
@@ -382,11 +406,11 @@ export const ResolveReport = async (report: IReport) => {
         headers: {
             'Content-Type': "application/json"
         },
-        body:JSON.stringify(report)
+        body: JSON.stringify(report)
 
     });
 
-    if(res.ok){
+    if (res.ok) {
 
     } else {
 
@@ -437,7 +461,7 @@ export const AddReplyToComment = async (commentId: number, userId: number, reply
 
 
 // Get comment by ID
-export const GetCommentByID = async (commentId: number)=> {
+export const GetCommentByID = async (commentId: number) => {
     const promise = await fetch(url + 'Comment/GetCommentById/' + commentId);
     const data = await promise.json();
     return data;
@@ -490,7 +514,7 @@ export const saveToLocalStorage = (bathroom: string) => {
 export const getLocalStorage = () => {
     let localStorageData = localStorage.getItem("Favorites");
 
-    if(localStorageData == null){
+    if (localStorageData == null) {
         return [];
     }
 

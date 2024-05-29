@@ -96,6 +96,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
   const handleAddFavorite = async () => {
     try {
       const favorites: IBathrooms[] = await getFavoritesByUserID(userId);
+      console.log(favorites);
       const isAlreadyFavorited = favorites.some(fav => fav.id === selectedMarkerData?.id);
       console.log(isAlreadyFavorited);
 

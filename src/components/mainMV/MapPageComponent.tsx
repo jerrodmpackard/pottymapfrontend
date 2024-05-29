@@ -250,10 +250,10 @@ const MapPageComponent = () => {
                     </Toolbar>
                 </Container>
             </AppBar>
-     
+
 
             {/* The Drawer component */}
-            <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} map={map} setPlaceholder={setPlaceholder} selectedMarkerData={selectedMarkerData} />
+            <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} map={map} setPlaceholder={setPlaceholder} selectedMarkerData={selectedMarkerData}  />
 
             {/* The form component */}
             <AddBathroom setUpdateMap={setUpdateMap} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} save={save} setSave={setSave}/>
