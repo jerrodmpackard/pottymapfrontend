@@ -85,14 +85,14 @@ const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selected
                 await AddRating(rating);
                 setUpdateRating(true);
             } catch (error) {
-                console.error('Error occured while adding rating', error)
-                alert("Your rating was not added. Please try again.")
+                console.error('Error occured while adding rating', error);
+                alert("Your rating was not added. Please try again.");
             }
         }
     }
 
 
- 
+
 
     return (
         <Menu

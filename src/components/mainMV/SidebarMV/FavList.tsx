@@ -15,7 +15,7 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
     const holder = localStorage.getItem("Username");
     if (holder) {
       const parsedHolder = JSON.parse(holder);
-      setUserId(parsedHolder.userId)
+      setUserId(parsedHolder.userId);
     }
   }, []);
 
@@ -37,8 +37,8 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
     await removeFavorites(userId, bathroomId);
 
     setFavorites(await getFavoritesByUserID(userId));
-
   }
+  console.log(favorites);
 
 
   // Fly to function when clicking a bathroom name in favorites list
@@ -48,17 +48,16 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
         center: coordinates,
         zoom: 15,
       });
-      setIsOpen(false)
+      setIsOpen(false);
     }
-    // setPlaceholder(false)
   };
 
 
   return (
     <>
-     {favorites.length > 0 ? (
+      {favorites.length > 0 ? (
         favorites.map((bathroom, index) => (
-          <Box sx={{ width: '100%', maxWidth: 295 }}>
+          <Box key={index} sx={{ width: '100%', maxWidth: 295 }}>
             <ListItem
               key={index}
               sx={{
@@ -76,7 +75,7 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
               }
             >
               <Tooltip title={bathroom.name}>
-                <Typography noWrap onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])}>
+                <Typography key={index} noWrap onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])}>
                   {bathroom.name}
                 </Typography>
               </Tooltip>
@@ -85,7 +84,8 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
         ))
       ) : (
         <Box sx={{ width: '100%', maxWidth: 295 }}>
-          <Typography className='text-pretty'>No Favorites. Add some bathrooms to favorites and see them populate</Typography>
+          <Typography className='text-pretty pb-3'>No favorites to display.</Typography>
+          <Typography className='text-pretty'>Add some bathrooms to favorites to see them populate here.</Typography>
         </Box>
       )}
     </>

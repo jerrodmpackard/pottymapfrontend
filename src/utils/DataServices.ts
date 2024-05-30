@@ -196,7 +196,6 @@ export const getFavoritesByUserID = async (userId: number): Promise<IBathrooms[]
     }
     
     const data = await res.json();
-    console.log("i ran")
     return data;
     
 }
@@ -209,7 +208,6 @@ export const removeFavorites = async (userId: number, bathroomId: number) => {
         },
     });
 
-    console.log("trying to remove")
 
     // Check if the response status is OK (200-299)
     if (!res.ok) {

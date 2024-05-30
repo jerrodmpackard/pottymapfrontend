@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 
 const ReportIssue = ({ reportForm, setReportForm, isReportOpen, setIsReportOpen, handleReportChange, selectedMarkerData }: { reportForm: any, setReportForm: any, isReportOpen: any, setIsReportOpen: any, handleReportChange: any, selectedMarkerData: any }) => {
 
-    const title = `Report an issue with  "${selectedMarkerData?.name}"`
+    const title = `Report an issue with  ${selectedMarkerData?.name}`
 
     const fulladdy = `${selectedMarkerData?.address}, ${selectedMarkerData?.city}, ${selectedMarkerData?.state}, ${selectedMarkerData?.zipCode}`
 
@@ -143,6 +143,7 @@ const ReportIssue = ({ reportForm, setReportForm, isReportOpen, setIsReportOpen,
                             vertical: 'top',
                             horizontal: 'center',
                         }}
+                        sx={{ width: '300px' }}
                     >
                         {bathroomDetails.map((detail) => (
                             <MenuItem

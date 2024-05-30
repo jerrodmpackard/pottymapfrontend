@@ -1,6 +1,6 @@
 import { Box, IconButton, Tooltip } from '@mui/material'
 import React, { useState } from 'react'
-import { PiStar, PiStarDuotone } from 'react-icons/pi'
+import { PiStar, PiStarFill } from 'react-icons/pi'
 import RateMenu from './RateMenu';
 
 const RateIcon = ({selectedMarkerData, updateRating, setUpdateRating} : {selectedMarkerData: any, updateRating: any, setUpdateRating: any}) => {
@@ -13,9 +13,9 @@ const RateIcon = ({selectedMarkerData, updateRating, setUpdateRating} : {selecte
             <Tooltip title={value === null || value < 0.5 ? "Rate Bathroom" : "View your rating"}>
                 <IconButton onClick={(e) => setAnchorRateMenu(e.currentTarget)}>
                     {value === null || value < 0.5 ? (
-                        <PiStar className='text-yellow-600 text-3xl' />
+                        <PiStar className='text-yellow-400 text-3xl' />
                     ) : (
-                        <PiStarDuotone className='star-icon text-3xl' />
+                        <PiStarFill className='text-yellow-400 text-3xl' />
                     )}
                 </IconButton>
             </Tooltip>

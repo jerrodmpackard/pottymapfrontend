@@ -90,7 +90,7 @@ const ProfilePage = () => {
                 <div className='hidden md:flex md:grow md:invisible '>hi</div>
 
                 <Tooltip title="Edit profile" >
-                  <Fab color="primary" size="small" aria-label="edit" className="absolute bottom-4 right-4">
+                  <Fab color="primary" size="small" aria-label="edit" className="col-span-2 absolute bottom-4 right-4">
                     <EditIcon />
                   </Fab>
                 </Tooltip>

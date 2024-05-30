@@ -111,7 +111,6 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
       if (inFav) {
         await removeFavorites(userId, selectedMarkerData?.id);
         checkIfInFav();
-        console.log("removing ");
         return;
       } else {
         const favoriteData: IAddFavorite = {
@@ -122,7 +121,6 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
 
         await addFavorites(favoriteData);
         checkIfInFav();
-        console.log("adding");
       }
       
     } catch (error) {
@@ -214,46 +212,46 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
             <h2 className='text-lg font-semibold mt-2'>General Information</h2>
             <div className='mx-2 mt-2 flex item-center'>
               <PiPersonLight className='text-2xl' />
-              <p className="ml-1">{selectedMarkerData?.gender}</p>
+              <p className="ml-1 truncate">{selectedMarkerData?.gender}</p>
             </div>
 
             <div className='mx-2 mt-2 flex item-center'>
               <PiClockLight className='text-2xl' />
-              <p className="ml-1">{selectedMarkerData?.hoursOfOperation}</p>
+              <p className="ml-1 truncate">{selectedMarkerData?.hoursOfOperation}</p>
             </div>
 
             <div className='mx-2 mt-2 flex item-center'>
               <PiKey className='text-2xl' />
-              <p className="ml-1">{selectedMarkerData?.keyRequired}</p>
+              <p className="ml-1 truncate">{selectedMarkerData?.keyRequired}</p>
             </div>
 
             <div className='mx-2 mt-2 flex item-center'>
               <PiBuildings className='text-2xl' />
-              <p className="ml-1">{selectedMarkerData?.openToPublic}</p>
+              <p className="ml-1 truncate">{selectedMarkerData?.openToPublic}</p>
             </div>
 
             <div className='mx-2 mt-2 flex item-center'>
               <PiDoor className='text-2xl' />
-              <p className="ml-1">{selectedMarkerData?.numberOfStalls} stalls</p>
+              <p className="ml-1 truncate">{selectedMarkerData?.numberOfStalls} stalls</p>
             </div>
 
             <div className='mx-2 mt-2 flex item-center'>
               <PiShieldCheck className='text-2xl' />
-              <p className="ml-1">{selectedMarkerData?.safety}</p>
+              <p className="ml-1 truncate">{selectedMarkerData?.safety}</p>
             </div>
 
             <h2 className='text-lg mt-4 font-semibold'>Amenities</h2>
             <div className='mx-2 mt-2 flex item-center'>
               <PiWheelchair className='text-2xl' />
-              <p className="ml-1">{selectedMarkerData?.wheelchairAccessibility}</p>
+              <p className="ml-1 truncate">{selectedMarkerData?.wheelchairAccessibility}</p>
             </div>
             < div className='mx-2 mt-2 flex item-center'>
               <PiBabyLight className='text-2xl' />
-              <p className="ml-1">{selectedMarkerData?.babyChangingStation}</p>
+              <p className="ml-1 truncate">{selectedMarkerData?.babyChangingStation}</p>
             </div>
             <div className='mx-2 mt-2 flex item-center'>
               <PiSprayBottleLight className='text-2xl' />
-              <p className="ml-1">{selectedMarkerData?.cleanliness}</p>
+              <p className="ml-1 truncate">{selectedMarkerData?.cleanliness}</p>
             </div>
           </Box>
         </DialogContent>
