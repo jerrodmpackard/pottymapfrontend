@@ -7,17 +7,7 @@ import mapboxgl from 'mapbox-gl';
 import { PiHeartFill, PiHeart } from 'react-icons/pi';
 import { IAddFavorite, IBathrooms } from '@/Interfaces/Interfaces';
 
-// type Bathroom = {
-//   name: string;
-//   coordinates: [number, number];
-// };
-
-// interface MapDots {
-//   features: Bathroom[];
-// }
-
 const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Map | null, setPlaceholder: any, setIsOpen: any }) => {
-
   const [filter, setFilter] = useState('');
   const [bathrooms, setBathrooms] = useState<IBathrooms[]>([]);
   const [filteredBathrooms, setFilteredBathrooms] = useState<IBathrooms[]>([]);
@@ -49,7 +39,8 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
       const bathroomsData = mapDots.features.map((feature: any) => ({
         id: feature.properties.id,
         name: feature.properties.name,
-        coordinates: feature.geometry.coordinates,
+        latitude: feature.geometry.coordinates[1],
+        longitude: feature.geometry.coordinates[0],
       }));
       setBathrooms(bathroomsData);
       setFilteredBathrooms(bathroomsData);
@@ -66,7 +57,7 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
 
       setFilteredBathrooms(filtered);
 
-      if (map) {
+      if (map && map.isStyleLoaded()) {
         if (filtered.length) {
           map.setFilter('bathrooms', [
             'match',
@@ -84,13 +75,18 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
 
   const handleBathroomClick = (coordinates: [number, number]) => {
     if (map) {
-      map.flyTo({
-        center: coordinates,
-        zoom: 15,
-      });
-      setIsOpen(false);
+      const [lng, lat] = coordinates;
+      if (!isNaN(lng) && !isNaN(lat)) {
+        map.flyTo({
+          center: coordinates,
+          zoom: 15,
+        });
+        setIsOpen(false);
+        setPlaceholder(false);
+      } else {
+        console.error("Invalid coordinates:", coordinates);
+      }
     }
-    setPlaceholder(false);
   };
 
   const handleFavorites = async (bathroom: IBathrooms) => {
@@ -137,36 +133,40 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
         sx={{ width: '100%', maxWidth: 295, height: '100%', maxHeight: 600, bgcolor: 'background.paper', p:1 }}
         className="overflow-y-scroll overflow-hidden"
       >
-        {filteredBathrooms.map((bathroom, index) => {
-          const isInFavorites = favorites.some(fav => fav.id === bathroom.id);
-          
-          return (
-            <ListItem
-              key={index}
-              sx={{
-                cursor: 'pointer',
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
-                },
-              }}
-              secondaryAction={
-                <Tooltip title={isInFavorites ? "In favorites" : "Add to favorites"}>
-                  <IconButton edge="end" onClick={() => handleFavorites(bathroom)}>
-                    {isInFavorites ? (
-                      <PiHeartFill className='text-3xl text-red-600' />
-                    ) : (
-                      <PiHeart className='text-3xl text-red-600' />
-                    )}
-                  </IconButton>
+        {filteredBathrooms.length === 0 ? (
+          <Typography>No Favorites</Typography>
+        ) : (
+          filteredBathrooms.map((bathroom, index) => {
+            const isInFavorites = favorites.some(fav => fav.id === bathroom.id);
+            
+            return (
+              <ListItem
+                key={index}
+                sx={{
+                  cursor: 'pointer',
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
+                  },
+                }}
+                secondaryAction={
+                  <Tooltip title={isInFavorites ? "In favorites" : "Add to favorites"}>
+                    <IconButton edge="end" onClick={() => handleFavorites(bathroom)}>
+                      {isInFavorites ? (
+                        <PiHeartFill className='text-3xl text-red-600' />
+                      ) : (
+                        <PiHeart className='text-3xl text-red-600' />
+                      )}
+                    </IconButton>
+                  </Tooltip>
+                }
+              >
+                <Tooltip title={bathroom.name}>
+                  <Typography noWrap onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])}>{bathroom.name}</Typography>
                 </Tooltip>
-              }
-            >
-              <Tooltip title={bathroom.name}>
-                <Typography noWrap onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])}>{bathroom.name}</Typography>
-              </Tooltip>
-            </ListItem>
-          );
-        })}
+              </ListItem>
+            );
+          })
+        )}
       </List>
     </>
   );
