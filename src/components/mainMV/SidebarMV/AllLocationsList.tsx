@@ -1,37 +1,61 @@
-import { getMapDots } from '@/utils/DataServices';
-import { Box, IconButton, FormControl, List, ListItem, ListSubheader, TextField, Tooltip, Typography } from '@mui/material'
+import { addFavorites, getFavoritesByUserID, getMapDots, removeFavorites } from '@/utils/DataServices';
+import { Box, IconButton, FormControl, List, ListItem, ListSubheader, Tooltip, TextField, Typography } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
+import { PiHeartFill, PiHeart } from 'react-icons/pi';
+import { IAddFavorite, IBathrooms } from '@/Interfaces/Interfaces';
 
-type Bathroom = {
-  name: string;
-  coordinates: [number, number];
-};
+// type Bathroom = {
+//   name: string;
+//   coordinates: [number, number];
+// };
 
-interface MapDots {
-  features: Bathroom[];
-}
+// interface MapDots {
+//   features: Bathroom[];
+// }
 
 const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Map | null, setPlaceholder: any, setIsOpen: any }) => {
 
   const [filter, setFilter] = useState('');
-  const [bathrooms, setBathrooms] = useState<Bathroom[]>([]);
-  const [filteredBathrooms, setFilteredBathrooms] = useState<Bathroom[]>([]);
+  const [bathrooms, setBathrooms] = useState<IBathrooms[]>([]);
+  const [filteredBathrooms, setFilteredBathrooms] = useState<IBathrooms[]>([]);
+  const [favorites, setFavorites] = useState<IBathrooms[]>([]);
+  const [userId, setUserId] = useState<number>(0);
+
+  // Getting user ID
+  useEffect(() => {
+    const holder = localStorage.getItem("Username");
+    if (holder) {
+      const parsedHolder = JSON.parse(holder);
+      setUserId(parsedHolder.userId);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      if (userId !== 0) {
+        const userFavorites = await getFavoritesByUserID(userId);
+        setFavorites(userFavorites);
+      }
+    };
+    fetchFavorites();
+  }, [userId]);
 
   useEffect(() => {
     const getData = async () => {
-      const mapDots: MapDots = await getMapDots()
+      const mapDots = await getMapDots();
       const bathroomsData = mapDots.features.map((feature: any) => ({
+        id: feature.properties.id,
         name: feature.properties.name,
         coordinates: feature.geometry.coordinates,
       }));
-      setBathrooms(bathroomsData)
-      setFilteredBathrooms(bathroomsData)
-    }
-    getData()
-  }, [])
+      setBathrooms(bathroomsData);
+      setFilteredBathrooms(bathroomsData);
+    };
+    getData();
+  }, []);
 
   useEffect(() => {
     if (bathrooms.length > 0) {
@@ -58,18 +82,41 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
     }
   }, [filter, bathrooms, map]);
 
-
   const handleBathroomClick = (coordinates: [number, number]) => {
     if (map) {
       map.flyTo({
         center: coordinates,
         zoom: 15,
       });
-      setIsOpen(false)
+      setIsOpen(false);
     }
-    setPlaceholder(false)
+    setPlaceholder(false);
   };
 
+  const handleFavorites = async (bathroom: IBathrooms) => {
+    try {
+      const isAlreadyFavorited = favorites.some(fav => fav.id === bathroom.id);
+
+      if (isAlreadyFavorited) {
+        await removeFavorites(userId, bathroom.id);
+        setFavorites(prevFavorites => prevFavorites.filter(fav => fav.id !== bathroom.id));
+        console.log("Removing from favorites");
+      } else {
+        const favoriteData: IAddFavorite = {
+          id: 0, 
+          userId: userId,
+          bathroomId: bathroom.id,
+        };
+
+        await addFavorites(favoriteData);
+        setFavorites(prevFavorites => [...prevFavorites, bathroom]);
+        console.log("Adding to favorites");
+      }
+      
+    } catch (error) {
+      console.error('Error occurred while handling favorite', error);
+    }
+  };
 
   return (
     <>
@@ -90,25 +137,39 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
         sx={{ width: '100%', maxWidth: 295, height: '100%', maxHeight: 600, bgcolor: 'background.paper', p:1 }}
         className="overflow-y-scroll overflow-hidden"
       >
-        {filteredBathrooms.map((bathroom, index) => (
-          <Tooltip key={index} title={bathroom.name}>
+        {filteredBathrooms.map((bathroom, index) => {
+          const isInFavorites = favorites.some(fav => fav.id === bathroom.id);
+          
+          return (
             <ListItem
-              onClick={() => handleBathroomClick(bathroom.coordinates)}
+              key={index}
               sx={{
                 cursor: 'pointer',
                 '&:hover': {
                   backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
                 },
               }}
+              secondaryAction={
+                <Tooltip title={isInFavorites ? "In favorites" : "Add to favorites"}>
+                  <IconButton edge="end" onClick={() => handleFavorites(bathroom)}>
+                    {isInFavorites ? (
+                      <PiHeartFill className='text-3xl text-red-600' />
+                    ) : (
+                      <PiHeart className='text-3xl text-red-600' />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              }
             >
-
-              <Typography noWrap >{bathroom.name}</Typography>
+              <Tooltip title={bathroom.name}>
+                <Typography noWrap onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])}>{bathroom.name}</Typography>
+              </Tooltip>
             </ListItem>
-          </Tooltip>
-        ))}
+          );
+        })}
       </List>
     </>
-  )
-}
+  );
+};
 
-export default AllLocationsList
+export default AllLocationsList;

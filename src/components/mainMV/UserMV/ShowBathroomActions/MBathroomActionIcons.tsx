@@ -4,7 +4,7 @@ import { Box, IconButton, Tooltip} from '@mui/material';
 import { MoreVert } from '@mui/icons-material'
 
 
-const MBathroomActionIcons = () => {
+const MBathroomActionIcons = ({inFav, handleAddFavorite} : { inFav: boolean, handleAddFavorite: any }) => {
 
     const [mBAMenu, setMBAMenu] = useState<HTMLElement | null>(null);
 
@@ -15,7 +15,7 @@ const MBathroomActionIcons = () => {
                 <MoreVert />
             </IconButton>
         </Tooltip>
-        <MBathroomActionMenu mBAMenu={mBAMenu} setMBAMenu={setMBAMenu}/>
+        <MBathroomActionMenu mBAMenu={mBAMenu} setMBAMenu={setMBAMenu} inFav={inFav} handleAddFavorite={handleAddFavorite}/>
     </Box>
   )
 }

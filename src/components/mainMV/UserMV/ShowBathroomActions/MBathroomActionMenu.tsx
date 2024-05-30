@@ -1,15 +1,17 @@
 import { Box, Divider, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import React, { useState } from 'react'
-import { PiHeart, PiHeartDuotone } from "react-icons/pi";
+import { PiHeart, PiHeartDuotone, PiHeartFill } from "react-icons/pi";
 import { GrShare } from 'react-icons/gr'
 import RateTwo from './RateTwo';
 
 interface MBAProps {
   mBAMenu: HTMLElement | null;
   setMBAMenu: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+  inFav: boolean;
+  handleAddFavorite: any;
 }
 
-const MBathroomActionMenu = ({ mBAMenu, setMBAMenu }: MBAProps) => {
+const MBathroomActionMenu = ({ mBAMenu, setMBAMenu, inFav, handleAddFavorite }: MBAProps) => {
 
   const handleCloseBAMenu = () => {
     setMBAMenu(null)
@@ -17,18 +19,12 @@ const MBathroomActionMenu = ({ mBAMenu, setMBAMenu }: MBAProps) => {
 
   //opens the share modal
   const [isShareOpen, setIsShareOpen] = useState<boolean>(false)
-
-  //adds to favorites
-  const [liked, setLiked] = useState<boolean>(false)
-
+ 
 
   //rating
   const [value, setValue] = useState<number | null>(0);
   const [open, setOpen] = useState<boolean>(false)
  
-  const handleHeartClick = () => {
-    setLiked(!liked)
-  }
 
 
   return (
@@ -41,11 +37,11 @@ const MBathroomActionMenu = ({ mBAMenu, setMBAMenu }: MBAProps) => {
       >
         
         
-        <MenuItem onClick={handleHeartClick}>
+        <MenuItem onClick={handleAddFavorite}>
           <ListItemIcon>
-            {liked ? <PiHeartDuotone className="ml-1 text-3xl" /> : <PiHeart className="ml-1 text-3xl" /> }
+            {inFav ? (<PiHeartFill className='text-3xl text-red-600 ml-1' />) : (<PiHeart className='text-3xl text-red-600 ml-1' />)}
           </ListItemIcon>
-            {liked? "In favorites" : "Add to favorites"}  
+            {inFav ? "In favorites" : "Add to favorites"}  
         </MenuItem>
 
         

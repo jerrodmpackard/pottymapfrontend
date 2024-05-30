@@ -96,6 +96,7 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
     const isAlreadyFavorited = favorites.some(fav => fav.id === selectedMarkerData?.id);
     setInFav(isAlreadyFavorited)
   }
+
   useEffect(() => {
 
     checkIfInFav()
@@ -193,18 +194,18 @@ const ShowBathroom = ({ placeholder, setPlaceholder, selectedMarkerData }: { pla
 
             <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
               <Box>
-                <Tooltip title="Favorite">
+                <Tooltip title={inFav ? "In favorites" : "Add to favorites"}>
                   <IconButton  onClick={handleAddFavorite}>
                     {inFav ? ( <PiHeartFill className='text-3xl text-red-600' /> ) : (  <PiHeart className='text-3xl text-red-600' />) }
                   </IconButton>
                 </Tooltip>
               </Box>
-              <RateIcon selectedMarkerData={selectedMarkerData} updateRating={updateRating} setUpdateRating={setUpdateRating} />
+                <RateIcon selectedMarkerData={selectedMarkerData} updateRating={updateRating} setUpdateRating={setUpdateRating} />
               <ShareIcon />
             </Box>
 
             <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
-              <MBathroomActionIcons />
+              <MBathroomActionIcons inFav={inFav} handleAddFavorite={handleAddFavorite}/>
             </Box>
           </Stack>
 
