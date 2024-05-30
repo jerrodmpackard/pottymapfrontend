@@ -1,5 +1,7 @@
 import { getMapDots } from '@/utils/DataServices';
-import { Box, Button, FormControl, List, ListItem, ListItemText, ListSubheader, TextField, Tooltip, Typography } from '@mui/material'
+import { Box, IconButton, FormControl, List, ListItem, ListSubheader, TextField, Tooltip, Typography } from '@mui/material'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import React, { useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl';
 
@@ -12,7 +14,7 @@ interface MapDots {
   features: Bathroom[];
 }
 
-const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Map | null, setPlaceholder:any, setIsOpen: any }) => {
+const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Map | null, setPlaceholder: any, setIsOpen: any }) => {
 
   const [filter, setFilter] = useState('');
   const [bathrooms, setBathrooms] = useState<Bathroom[]>([]);
@@ -70,8 +72,8 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
 
 
   return (
-    <Box>
-      <FormControl fullWidth>
+    <>
+      <FormControl fullWidth sx={{ paddingTop: 1 }}>
         <TextField type="text"
           label="Filter by name"
           placeholder="Enter a bathroom name"
@@ -80,40 +82,32 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
         />
       </FormControl>
 
+      <Typography>
+        Results
+      </Typography>
+
       <List
-        sx={{ width: '100%', maxWidth: 295, bgcolor: 'background.paper' }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Results
-          </ListSubheader>
-        }
+        sx={{ width: '100%', maxWidth: 295, height: '100%', maxHeight: 600, bgcolor: 'background.paper', p:1 }}
+        className="overflow-y-scroll overflow-hidden"
       >
         {filteredBathrooms.map((bathroom, index) => (
           <Tooltip key={index} title={bathroom.name}>
             <ListItem
               onClick={() => handleBathroomClick(bathroom.coordinates)}
-              
               sx={{
                 cursor: 'pointer',
                 '&:hover': {
                   backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
                 },
-                paddingRight: 5
               }}
             >
-              {/* <ListItemText
-                primary={bathroom.name}
-              /> */}
-              <Typography noWrap>{bathroom.name}</Typography>
+
+              <Typography noWrap >{bathroom.name}</Typography>
             </ListItem>
           </Tooltip>
         ))}
       </List>
-
-    </Box>
+    </>
   )
 }
 

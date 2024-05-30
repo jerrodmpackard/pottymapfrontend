@@ -1,7 +1,6 @@
-import { IAddFavorite, IBathrooms } from '@/Interfaces/Interfaces';
+import { IBathrooms } from '@/Interfaces/Interfaces';
 import { getFavoritesByUserID, removeFavorites } from '@/utils/DataServices';
-import { CenterFocusStrongOutlined } from '@mui/icons-material';
-import { IconButton, ListItem, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, ListItem, Tooltip, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -56,44 +55,40 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
 
 
   return (
-    <div>
-      {favorites?.map((bathroom, index) => {
-        if (!bathroom) {
-          return (
-            <Typography>No Favorites</Typography>
-          );
-        }
-
-        return (
-
-          <ListItem
-            key={index}
-
-            sx={{
-              width: '100%',
-              maxWidth: 295,
-              cursor: 'pointer',
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
-              },
-            }}
-
-            secondaryAction={
-              <Tooltip title="delete" >
-                <IconButton edge="end" aria-label="delete" onClick={() => { handleRemoveFavorite(userId, bathroom.id); }}>
-                  <DeleteIcon />
-                </IconButton>
+    <>
+     {favorites.length > 0 ? (
+        favorites.map((bathroom, index) => (
+          <Box sx={{ width: '100%', maxWidth: 295 }}>
+            <ListItem
+              key={index}
+              sx={{
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.1)', // Change to desired hover color
+                },
+              }}
+              secondaryAction={
+                <Tooltip title="delete">
+                  <IconButton edge="end" onClick={() => handleRemoveFavorite(userId, bathroom.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              }
+            >
+              <Tooltip title={bathroom.name}>
+                <Typography noWrap onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])}>
+                  {bathroom.name}
+                </Typography>
               </Tooltip>
-            }
-          >
-            <Tooltip title={bathroom.name}>
-              <Typography noWrap onClick={() => handleBathroomClick([bathroom.longitude, bathroom.latitude])} >{bathroom.name}</Typography>
-            </Tooltip>
-          </ListItem>
-
-        )
-      })}
-    </div>
+            </ListItem>
+          </Box>
+        ))
+      ) : (
+        <Box sx={{ width: '100%', maxWidth: 295 }}>
+          <Typography className='text-pretty'>No Favorites. Add some bathrooms to favorites and see them populate</Typography>
+        </Box>
+      )}
+    </>
   )
 }
 

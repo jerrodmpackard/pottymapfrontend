@@ -44,6 +44,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   width: 'fit content',
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
+  position: 'sticky',
+  top: 0,
+  backgroundColor: theme.palette.background.default,
+  zIndex: 101,
 }))
 
 const Sidebar = ({ isOpen, setIsOpen, map, setPlaceholder, selectedMarkerData }: { isOpen: boolean, setIsOpen: any, map: mapboxgl.Map | null, setPlaceholder:any, selectedMarkerData: any }) => {
