@@ -64,7 +64,6 @@ const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selected
 
 
     useEffect(() => {
-        console.log(rating);
         setRating((prevRating) => ({
             ...prevRating,
             userId: userId,
@@ -75,11 +74,8 @@ const RateMenu = ({ anchorRateMenu, setAnchorRateMenu, value, setValue, selected
 
 
     const handleRate = async () => {
-        console.log(rating);
 
         if (value === null || value < 0.5) {
-            console.log("not rated yet");
-            console.log(value);
         } else {
             try {
                 await AddRating(rating);

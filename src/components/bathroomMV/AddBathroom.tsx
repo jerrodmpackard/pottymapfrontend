@@ -46,7 +46,6 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
       [e.target.name]: e.target.value,
 
     })
-    console.log(`${e.target.name} now has the value of ${e.target.value}`)
   }
 
   //checking if the inputfields are not empty 
@@ -107,7 +106,6 @@ const AddBathroom = ({ isModalOpen, setIsModalOpen, save, setSave, setUpdateMap 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     try {
       const res = addBathroom(form);
-      console.log("Response:", res);
       setUpdateMap(true);
 
     } catch (error) {

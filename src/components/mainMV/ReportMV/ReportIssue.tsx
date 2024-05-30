@@ -43,7 +43,6 @@ const ReportIssue = ({ reportForm, setReportForm, isReportOpen, setIsReportOpen,
         if (filled) {
             try {
                 const res = AddNewReport(reportForm);
-                console.log("Response:", res);
                 alert("Report was added successfully")
                 setIsReportOpen(false)
                 setReportForm({

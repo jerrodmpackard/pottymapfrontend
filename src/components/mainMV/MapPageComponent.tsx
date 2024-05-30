@@ -129,7 +129,6 @@ const MapPageComponent = () => {
             // Copy coordinates array. Use dot notation to access each property of each feature to be passed into popup for display
             const coordinates: any = e?.features?.[0]?.geometry?.coordinates?.slice();
             const markerData = e.features[0].properties;
-            console.log(e.features);
             
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears

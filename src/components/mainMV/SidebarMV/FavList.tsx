@@ -38,7 +38,6 @@ const FavList = ({ map, isOpen, setIsOpen }: { map: mapboxgl.Map | null, isOpen:
 
     setFavorites(await getFavoritesByUserID(userId));
   }
-  console.log(favorites);
 
 
   // Fly to function when clicking a bathroom name in favorites list

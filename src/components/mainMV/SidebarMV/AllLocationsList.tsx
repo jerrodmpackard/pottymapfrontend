@@ -96,7 +96,6 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
       if (isAlreadyFavorited) {
         await removeFavorites(userId, bathroom.id);
         setFavorites(prevFavorites => prevFavorites.filter(fav => fav.id !== bathroom.id));
-        console.log("Removing from favorites");
       } else {
         const favoriteData: IAddFavorite = {
           id: 0, 
@@ -106,7 +105,6 @@ const AllLocationsList = ({ map, setPlaceholder, setIsOpen }: { map: mapboxgl.Ma
 
         await addFavorites(favoriteData);
         setFavorites(prevFavorites => [...prevFavorites, bathroom]);
-        console.log("Adding to favorites");
       }
       
     } catch (error) {

@@ -8,7 +8,6 @@ export default async function ShowBathroomShare({selectedMarkerData} : {selected
     const title = `Location Preview for ${selectedMarkerData?.name}`;
     const description = "Checkout this awesome bathroom on Potty Map";
 
-    console.log(selectedMarkerData)
 
     return(
         <>
