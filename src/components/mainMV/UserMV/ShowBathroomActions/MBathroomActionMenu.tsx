@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { PiHeart, PiHeartDuotone, PiHeartFill } from "react-icons/pi";
 import { GrShare } from 'react-icons/gr'
 import RateTwo from './RateTwo';
+import ShareTwo from './ShareTwo';
 
 interface MBAProps {
   mBAMenu: HTMLElement | null;
@@ -35,8 +36,6 @@ const MBathroomActionMenu = ({ mBAMenu, setMBAMenu, inFav, handleAddFavorite }: 
         onClose={handleCloseBAMenu}
         // onClick={handleCloseBAMenu}
       >
-        
-        
         <MenuItem onClick={handleAddFavorite}>
           <ListItemIcon>
             {inFav ? (<PiHeartFill className='text-3xl text-red-600 ml-1' />) : (<PiHeart className='text-3xl text-red-600 ml-1' />)}
@@ -44,9 +43,7 @@ const MBathroomActionMenu = ({ mBAMenu, setMBAMenu, inFav, handleAddFavorite }: 
             {inFav ? "In favorites" : "Add to favorites"}  
         </MenuItem>
 
-        
         <RateTwo value={value} setValue={setValue} open={open} setOpen={setOpen} />
-        
 
         <MenuItem onClick={() => {setIsShareOpen(true)}}>
           <ListItemIcon>
@@ -55,9 +52,7 @@ const MBathroomActionMenu = ({ mBAMenu, setMBAMenu, inFav, handleAddFavorite }: 
           Share
         </MenuItem>
       </Menu>
-      <Box>
-
-      </Box>
+      <ShareTwo isShareOpen={isShareOpen} setIsShareOpen={setIsShareOpen} />
     </>
   )
 }
